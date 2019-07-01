@@ -1,0 +1,12 @@
+*{margin:0;padding:0;list-style:none}
+	.select-date{background: blue; color:#fff;}
+	.date-title{width: 100%;background-color: transparent;color: #fff;line-height: 20px;font-weight: 400;text-align: center;letter-spacing: 2px;;font-size:18px;z-index: 9;padding:10px 0}
+	ul{overflow: hidden;background:blue;}
+	li{position:relative;float: left;width:43px;height:56px;border:1px solid blue;background: blue;text-align:center;line-height: 58px;font-size:18px}
+	.pass,.future{color:#ccc;opacity:0.5}
+	.day{color:#fff}
+	i{display:block;position:absolute;;color:#fff;font-style:normal;font-size:12px}
+	.date{display:none;font-style:none}
+	.rest{right:10px;top:10px;width:15px;height:15px;background:#4AC29A;line-height:15px}
+	.price{bottom:0;left:0;;width:100%;font-size:12px;line-height:20px}
+	.discount{right:10px;top:10px;width:15px;height:15px;background:#ff6600;line-height:15px}

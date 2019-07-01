@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="galy-core" />
+        <module name="galy-service" />
+        <module name="galy-web" />
+        <module name="galy-worker" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="galy-all" target="1.7" />
+      <module name="galy-core" target="1.7" />
+      <module name="galy-service" target="1.7" />
+      <module name="galy-web" target="1.8" />
+      <module name="galy-worker" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

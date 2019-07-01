@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.FAirportOrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.FAirportOrders" >
+    <id column="f_order_id" property="fOrderId" jdbcType="INTEGER" />
+    <result column="f_city_no" property="fCityNo" jdbcType="VARCHAR" />
+    <result column="f_user_id" property="fUserId" jdbcType="INTEGER" />
+    <result column="f_order_group_id" property="fOrderGroupId" jdbcType="VARCHAR" />
+    <result column="f_order_no_pt" property="fOrderNoPt" jdbcType="VARCHAR" />
+    <result column="card_coupon_id" property="cardCouponId" jdbcType="VARCHAR" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="payPlatform" property="payplatform" jdbcType="VARCHAR" />
+    <result column="jipiao_type" property="jipiaoType" jdbcType="CHAR" />
+    <result column="trade_state" property="tradeState" jdbcType="CHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="notify_time" property="notifyTime" jdbcType="TIMESTAMP" />
+    <result column="total_price" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="coupon_price" property="couponPrice" jdbcType="VARCHAR" />
+    <result column="ldy_order_no" property="ldyOrderNo" jdbcType="VARCHAR" />
+    <result column="ldy_pnr" property="ldyPnr" jdbcType="VARCHAR" />
+    <result column="ldy_order_id" property="ldyOrderId" jdbcType="VARCHAR" />
+    <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="fenrun_out_trade_no" property="fenrunOutTradeNo" jdbcType="VARCHAR" />
+    <result column="fenrun_total_price" property="fenrunTotalPrice" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    f_order_id, f_city_no, f_user_id, f_order_group_id, f_order_no_pt, card_coupon_id,
+    out_trade_no, transaction_id, payPlatform, jipiao_type, trade_state, pay_time, notify_time,
+    total_price, coupon_price, ldy_order_no, ldy_pnr, ldy_order_id, status_name, status,
+    create_time, update_time, remark, fenrun_out_trade_no, fenrun_total_price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.FAirportOrdersCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from f_airport_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from f_airport_order
+    where f_order_id = #{fOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from f_airport_order
+    where f_order_id = #{fOrderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.FAirportOrdersCriteria" >
+    delete from f_airport_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.FAirportOrders" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fOrderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_order (f_city_no, f_user_id, f_order_group_id,
+      f_order_no_pt, card_coupon_id, out_trade_no,
+      transaction_id, payPlatform, jipiao_type,
+      trade_state, pay_time, notify_time,
+      total_price, coupon_price, ldy_order_no,
+      ldy_pnr, ldy_order_id, status_name,
+      status, create_time, update_time,
+      remark, fenrun_out_trade_no, fenrun_total_price
+      )
+    values (#{fCityNo,jdbcType=VARCHAR}, #{fUserId,jdbcType=INTEGER}, #{fOrderGroupId,jdbcType=VARCHAR},
+      #{fOrderNoPt,jdbcType=VARCHAR}, #{cardCouponId,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR},
+      #{transactionId,jdbcType=VARCHAR}, #{payplatform,jdbcType=VARCHAR}, #{jipiaoType,jdbcType=CHAR},
+      #{tradeState,jdbcType=CHAR}, #{payTime,jdbcType=TIMESTAMP}, #{notifyTime,jdbcType=TIMESTAMP},
+      #{totalPrice,jdbcType=VARCHAR}, #{couponPrice,jdbcType=VARCHAR}, #{ldyOrderNo,jdbcType=VARCHAR},
+      #{ldyPnr,jdbcType=VARCHAR}, #{ldyOrderId,jdbcType=VARCHAR}, #{statusName,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{remark,jdbcType=VARCHAR}, #{fenrunOutTradeNo,jdbcType=VARCHAR}, #{fenrunTotalPrice,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.FAirportOrders" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fOrderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fCityNo != null" >
+        f_city_no,
+      </if>
+      <if test="fUserId != null" >
+        f_user_id,
+      </if>
+      <if test="fOrderGroupId != null" >
+        f_order_group_id,
+      </if>
+      <if test="fOrderNoPt != null" >
+        f_order_no_pt,
+      </if>
+      <if test="cardCouponId != null" >
+        card_coupon_id,
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no,
+      </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="payplatform != null" >
+        payPlatform,
+      </if>
+      <if test="jipiaoType != null" >
+        jipiao_type,
+      </if>
+      <if test="tradeState != null" >
+        trade_state,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="notifyTime != null" >
+        notify_time,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="couponPrice != null" >
+        coupon_price,
+      </if>
+      <if test="ldyOrderNo != null" >
+        ldy_order_no,
+      </if>
+      <if test="ldyPnr != null" >
+        ldy_pnr,
+      </if>
+      <if test="ldyOrderId != null" >
+        ldy_order_id,
+      </if>
+      <if test="statusName != null" >
+        status_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="fenrunOutTradeNo != null" >
+        fenrun_out_trade_no,
+      </if>
+      <if test="fenrunTotalPrice != null" >
+        fenrun_total_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fCityNo != null" >
+        #{fCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fUserId != null" >
+        #{fUserId,jdbcType=INTEGER},
+      </if>
+      <if test="fOrderGroupId != null" >
+        #{fOrderGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="fOrderNoPt != null" >
+        #{fOrderNoPt,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCouponId != null" >
+        #{cardCouponId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null" >
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="payplatform != null" >
+        #{payplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="jipiaoType != null" >
+        #{jipiaoType,jdbcType=CHAR},
+      </if>
+      <if test="tradeState != null" >
+        #{tradeState,jdbcType=CHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notifyTime != null" >
+        #{notifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="couponPrice != null" >
+        #{couponPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="ldyOrderNo != null" >
+        #{ldyOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ldyPnr != null" >
+        #{ldyPnr,jdbcType=VARCHAR},
+      </if>
+      <if test="ldyOrderId != null" >
+        #{ldyOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusName != null" >
+        #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fenrunOutTradeNo != null" >
+        #{fenrunOutTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fenrunTotalPrice != null" >
+        #{fenrunTotalPrice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.FAirportOrdersCriteria" resultType="java.lang.Integer" >
+    select count(*) from f_airport_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update f_airport_order
+    <set >
+      <if test="record.fOrderId != null" >
+        f_order_id = #{record.fOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fCityNo != null" >
+        f_city_no = #{record.fCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fUserId != null" >
+        f_user_id = #{record.fUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fOrderGroupId != null" >
+        f_order_group_id = #{record.fOrderGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fOrderNoPt != null" >
+        f_order_no_pt = #{record.fOrderNoPt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardCouponId != null" >
+        card_coupon_id = #{record.cardCouponId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTradeNo != null" >
+        out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionId != null" >
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payplatform != null" >
+        payPlatform = #{record.payplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jipiaoType != null" >
+        jipiao_type = #{record.jipiaoType,jdbcType=CHAR},
+      </if>
+      <if test="record.tradeState != null" >
+        trade_state = #{record.tradeState,jdbcType=CHAR},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.notifyTime != null" >
+        notify_time = #{record.notifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.totalPrice != null" >
+        total_price = #{record.totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponPrice != null" >
+        coupon_price = #{record.couponPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ldyOrderNo != null" >
+        ldy_order_no = #{record.ldyOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ldyPnr != null" >
+        ldy_pnr = #{record.ldyPnr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ldyOrderId != null" >
+        ldy_order_id = #{record.ldyOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusName != null" >
+        status_name = #{record.statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fenrunOutTradeNo != null" >
+        fenrun_out_trade_no = #{record.fenrunOutTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fenrunTotalPrice != null" >
+        fenrun_total_price = #{record.fenrunTotalPrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update f_airport_order
+    set f_order_id = #{record.fOrderId,jdbcType=INTEGER},
+      f_city_no = #{record.fCityNo,jdbcType=VARCHAR},
+      f_user_id = #{record.fUserId,jdbcType=INTEGER},
+      f_order_group_id = #{record.fOrderGroupId,jdbcType=VARCHAR},
+      f_order_no_pt = #{record.fOrderNoPt,jdbcType=VARCHAR},
+      card_coupon_id = #{record.cardCouponId,jdbcType=VARCHAR},
+      out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      payPlatform = #{record.payplatform,jdbcType=VARCHAR},
+      jipiao_type = #{record.jipiaoType,jdbcType=CHAR},
+      trade_state = #{record.tradeState,jdbcType=CHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      notify_time = #{record.notifyTime,jdbcType=TIMESTAMP},
+      total_price = #{record.totalPrice,jdbcType=VARCHAR},
+      coupon_price = #{record.couponPrice,jdbcType=VARCHAR},
+      ldy_order_no = #{record.ldyOrderNo,jdbcType=VARCHAR},
+      ldy_pnr = #{record.ldyPnr,jdbcType=VARCHAR},
+      ldy_order_id = #{record.ldyOrderId,jdbcType=VARCHAR},
+      status_name = #{record.statusName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      fenrun_out_trade_no = #{record.fenrunOutTradeNo,jdbcType=VARCHAR},
+      fenrun_total_price = #{record.fenrunTotalPrice,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.FAirportOrders" >
+    update f_airport_order
+    <set >
+      <if test="fCityNo != null" >
+        f_city_no = #{fCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fUserId != null" >
+        f_user_id = #{fUserId,jdbcType=INTEGER},
+      </if>
+      <if test="fOrderGroupId != null" >
+        f_order_group_id = #{fOrderGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="fOrderNoPt != null" >
+        f_order_no_pt = #{fOrderNoPt,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCouponId != null" >
+        card_coupon_id = #{cardCouponId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="payplatform != null" >
+        payPlatform = #{payplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="jipiaoType != null" >
+        jipiao_type = #{jipiaoType,jdbcType=CHAR},
+      </if>
+      <if test="tradeState != null" >
+        trade_state = #{tradeState,jdbcType=CHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notifyTime != null" >
+        notify_time = #{notifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="couponPrice != null" >
+        coupon_price = #{couponPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="ldyOrderNo != null" >
+        ldy_order_no = #{ldyOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ldyPnr != null" >
+        ldy_pnr = #{ldyPnr,jdbcType=VARCHAR},
+      </if>
+      <if test="ldyOrderId != null" >
+        ldy_order_id = #{ldyOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusName != null" >
+        status_name = #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fenrunOutTradeNo != null" >
+        fenrun_out_trade_no = #{fenrunOutTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fenrunTotalPrice != null" >
+        fenrun_total_price = #{fenrunTotalPrice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where f_order_id = #{fOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.FAirportOrders" >
+    update f_airport_order
+    set f_city_no = #{fCityNo,jdbcType=VARCHAR},
+      f_user_id = #{fUserId,jdbcType=INTEGER},
+      f_order_group_id = #{fOrderGroupId,jdbcType=VARCHAR},
+      f_order_no_pt = #{fOrderNoPt,jdbcType=VARCHAR},
+      card_coupon_id = #{cardCouponId,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      payPlatform = #{payplatform,jdbcType=VARCHAR},
+      jipiao_type = #{jipiaoType,jdbcType=CHAR},
+      trade_state = #{tradeState,jdbcType=CHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      notify_time = #{notifyTime,jdbcType=TIMESTAMP},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      coupon_price = #{couponPrice,jdbcType=VARCHAR},
+      ldy_order_no = #{ldyOrderNo,jdbcType=VARCHAR},
+      ldy_pnr = #{ldyPnr,jdbcType=VARCHAR},
+      ldy_order_id = #{ldyOrderId,jdbcType=VARCHAR},
+      status_name = #{statusName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      fenrun_out_trade_no = #{fenrunOutTradeNo,jdbcType=VARCHAR},
+      fenrun_total_price = #{fenrunTotalPrice,jdbcType=VARCHAR}
+    where f_order_id = #{fOrderId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="AirportOrderListMap" type="com.ecms.cums.airportvo.AirportOrderListVo" >
+  	<result column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="client_site" property="clientSite" jdbcType="VARCHAR" />
+    <result column="order_group_ids" property="orderGroupIds" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="coupon_price" property="couponPrice" jdbcType="VARCHAR" />
+    <result column="total_price" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="airport_name" property="airportName" jdbcType="VARCHAR" />
+    <result column="aircraft_name" property="aircraftName" jdbcType="VARCHAR" />
+    <result column="from_to_city" property="fromToCity" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    <result column="ldy_order_no" property="ldyOrderNo" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <select id="getAriportOrderList" parameterType="java.lang.Integer" resultMap="AirportOrderListMap" >
+	SELECT
+		t.f_order_id AS id,
+		t.ldy_order_id AS order_id,
+		t.remark AS client_site,
+		t.f_order_no_pt AS order_no,
+		t.ldy_order_no AS ldy_order_no,
+		t.f_order_group_id AS order_group_ids,
+		t1.from_to_city,
+		t1.airport_name,
+		t1.aircraft_name,
+		t1.create_time,
+		t.total_price,
+		t.coupon_price,
+		t.`status`,
+		t.status_name
+	FROM
+		f_airport_order t
+	LEFT JOIN f_airport_order_info t1 ON t.f_order_id = t1.f_order_id
+	WHERE
+		t.f_user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+</mapper>

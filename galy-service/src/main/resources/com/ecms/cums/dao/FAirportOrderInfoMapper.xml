@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.FAirportOrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.FAirportOrderInfo" >
+    <id column="f_oi_id" property="fOiId" jdbcType="INTEGER" />
+    <result column="f_order_id" property="fOrderId" jdbcType="INTEGER" />
+    <result column="f_per_name" property="fPerName" jdbcType="VARCHAR" />
+    <result column="f_per_tel" property="fPerTel" jdbcType="VARCHAR" />
+    <result column="from_to_city" property="fromToCity" jdbcType="VARCHAR" />
+    <result column="airport_name" property="airportName" jdbcType="VARCHAR" />
+    <result column="aircraft_name" property="aircraftName" jdbcType="VARCHAR" />
+    <result column="from_to_time" property="fromToTime" jdbcType="VARCHAR" />
+    <result column="airport_time" property="airportTime" jdbcType="VARCHAR" />
+    <result column="f_store_id" property="fStoreId" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_type" property="storeType" jdbcType="VARCHAR" />
+    <result column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="adult_price" property="adultPrice" jdbcType="VARCHAR" />
+    <result column="adult_tax" property="adultTax" jdbcType="VARCHAR" />
+    <result column="child_price" property="childPrice" jdbcType="VARCHAR" />
+    <result column="child_tax" property="childTax" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    f_oi_id, f_order_id, f_per_name, f_per_tel, from_to_city, airport_name, aircraft_name, 
+    from_to_time, airport_time, f_store_id, store_name, store_type, coupon_id, product_code, 
+    adult_price, adult_tax, child_price, child_tax, create_time, update_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.FAirportOrderInfoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from f_airport_order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from f_airport_order_info
+    where f_oi_id = #{fOiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from f_airport_order_info
+    where f_oi_id = #{fOiId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.FAirportOrderInfoCriteria" >
+    delete from f_airport_order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.FAirportOrderInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fOiId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_order_info (f_order_id, f_per_name, f_per_tel, 
+      from_to_city, airport_name, aircraft_name, 
+      from_to_time, airport_time, f_store_id, 
+      store_name, store_type, coupon_id, 
+      product_code, adult_price, adult_tax, 
+      child_price, child_tax, create_time, 
+      update_time, remark)
+    values (#{fOrderId,jdbcType=INTEGER}, #{fPerName,jdbcType=VARCHAR}, #{fPerTel,jdbcType=VARCHAR}, 
+      #{fromToCity,jdbcType=VARCHAR}, #{airportName,jdbcType=VARCHAR}, #{aircraftName,jdbcType=VARCHAR}, 
+      #{fromToTime,jdbcType=VARCHAR}, #{airportTime,jdbcType=VARCHAR}, #{fStoreId,jdbcType=VARCHAR}, 
+      #{storeName,jdbcType=VARCHAR}, #{storeType,jdbcType=VARCHAR}, #{couponId,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{adultPrice,jdbcType=VARCHAR}, #{adultTax,jdbcType=VARCHAR}, 
+      #{childPrice,jdbcType=VARCHAR}, #{childTax,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.FAirportOrderInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fOiId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_order_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fOrderId != null" >
+        f_order_id,
+      </if>
+      <if test="fPerName != null" >
+        f_per_name,
+      </if>
+      <if test="fPerTel != null" >
+        f_per_tel,
+      </if>
+      <if test="fromToCity != null" >
+        from_to_city,
+      </if>
+      <if test="airportName != null" >
+        airport_name,
+      </if>
+      <if test="aircraftName != null" >
+        aircraft_name,
+      </if>
+      <if test="fromToTime != null" >
+        from_to_time,
+      </if>
+      <if test="airportTime != null" >
+        airport_time,
+      </if>
+      <if test="fStoreId != null" >
+        f_store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="storeType != null" >
+        store_type,
+      </if>
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="productCode != null" >
+        product_code,
+      </if>
+      <if test="adultPrice != null" >
+        adult_price,
+      </if>
+      <if test="adultTax != null" >
+        adult_tax,
+      </if>
+      <if test="childPrice != null" >
+        child_price,
+      </if>
+      <if test="childTax != null" >
+        child_tax,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fOrderId != null" >
+        #{fOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fPerName != null" >
+        #{fPerName,jdbcType=VARCHAR},
+      </if>
+      <if test="fPerTel != null" >
+        #{fPerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="fromToCity != null" >
+        #{fromToCity,jdbcType=VARCHAR},
+      </if>
+      <if test="airportName != null" >
+        #{airportName,jdbcType=VARCHAR},
+      </if>
+      <if test="aircraftName != null" >
+        #{aircraftName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromToTime != null" >
+        #{fromToTime,jdbcType=VARCHAR},
+      </if>
+      <if test="airportTime != null" >
+        #{airportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="fStoreId != null" >
+        #{fStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeType != null" >
+        #{storeType,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null" >
+        #{couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adultPrice != null" >
+        #{adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="adultTax != null" >
+        #{adultTax,jdbcType=VARCHAR},
+      </if>
+      <if test="childPrice != null" >
+        #{childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="childTax != null" >
+        #{childTax,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.FAirportOrderInfoCriteria" resultType="java.lang.Integer" >
+    select count(*) from f_airport_order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update f_airport_order_info
+    <set >
+      <if test="record.fOiId != null" >
+        f_oi_id = #{record.fOiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fOrderId != null" >
+        f_order_id = #{record.fOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fPerName != null" >
+        f_per_name = #{record.fPerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fPerTel != null" >
+        f_per_tel = #{record.fPerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromToCity != null" >
+        from_to_city = #{record.fromToCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airportName != null" >
+        airport_name = #{record.airportName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aircraftName != null" >
+        aircraft_name = #{record.aircraftName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromToTime != null" >
+        from_to_time = #{record.fromToTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airportTime != null" >
+        airport_time = #{record.airportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fStoreId != null" >
+        f_store_id = #{record.fStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeType != null" >
+        store_type = #{record.storeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponId != null" >
+        coupon_id = #{record.couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productCode != null" >
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adultPrice != null" >
+        adult_price = #{record.adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adultTax != null" >
+        adult_tax = #{record.adultTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.childPrice != null" >
+        child_price = #{record.childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.childTax != null" >
+        child_tax = #{record.childTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update f_airport_order_info
+    set f_oi_id = #{record.fOiId,jdbcType=INTEGER},
+      f_order_id = #{record.fOrderId,jdbcType=INTEGER},
+      f_per_name = #{record.fPerName,jdbcType=VARCHAR},
+      f_per_tel = #{record.fPerTel,jdbcType=VARCHAR},
+      from_to_city = #{record.fromToCity,jdbcType=VARCHAR},
+      airport_name = #{record.airportName,jdbcType=VARCHAR},
+      aircraft_name = #{record.aircraftName,jdbcType=VARCHAR},
+      from_to_time = #{record.fromToTime,jdbcType=VARCHAR},
+      airport_time = #{record.airportTime,jdbcType=VARCHAR},
+      f_store_id = #{record.fStoreId,jdbcType=VARCHAR},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      store_type = #{record.storeType,jdbcType=VARCHAR},
+      coupon_id = #{record.couponId,jdbcType=VARCHAR},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      adult_price = #{record.adultPrice,jdbcType=VARCHAR},
+      adult_tax = #{record.adultTax,jdbcType=VARCHAR},
+      child_price = #{record.childPrice,jdbcType=VARCHAR},
+      child_tax = #{record.childTax,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.FAirportOrderInfo" >
+    update f_airport_order_info
+    <set >
+      <if test="fOrderId != null" >
+        f_order_id = #{fOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fPerName != null" >
+        f_per_name = #{fPerName,jdbcType=VARCHAR},
+      </if>
+      <if test="fPerTel != null" >
+        f_per_tel = #{fPerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="fromToCity != null" >
+        from_to_city = #{fromToCity,jdbcType=VARCHAR},
+      </if>
+      <if test="airportName != null" >
+        airport_name = #{airportName,jdbcType=VARCHAR},
+      </if>
+      <if test="aircraftName != null" >
+        aircraft_name = #{aircraftName,jdbcType=VARCHAR},
+      </if>
+      <if test="fromToTime != null" >
+        from_to_time = #{fromToTime,jdbcType=VARCHAR},
+      </if>
+      <if test="airportTime != null" >
+        airport_time = #{airportTime,jdbcType=VARCHAR},
+      </if>
+      <if test="fStoreId != null" >
+        f_store_id = #{fStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeType != null" >
+        store_type = #{storeType,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null" >
+        coupon_id = #{couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null" >
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adultPrice != null" >
+        adult_price = #{adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="adultTax != null" >
+        adult_tax = #{adultTax,jdbcType=VARCHAR},
+      </if>
+      <if test="childPrice != null" >
+        child_price = #{childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="childTax != null" >
+        child_tax = #{childTax,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where f_oi_id = #{fOiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.FAirportOrderInfo" >
+    update f_airport_order_info
+    set f_order_id = #{fOrderId,jdbcType=INTEGER},
+      f_per_name = #{fPerName,jdbcType=VARCHAR},
+      f_per_tel = #{fPerTel,jdbcType=VARCHAR},
+      from_to_city = #{fromToCity,jdbcType=VARCHAR},
+      airport_name = #{airportName,jdbcType=VARCHAR},
+      aircraft_name = #{aircraftName,jdbcType=VARCHAR},
+      from_to_time = #{fromToTime,jdbcType=VARCHAR},
+      airport_time = #{airportTime,jdbcType=VARCHAR},
+      f_store_id = #{fStoreId,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      store_type = #{storeType,jdbcType=VARCHAR},
+      coupon_id = #{couponId,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      adult_price = #{adultPrice,jdbcType=VARCHAR},
+      adult_tax = #{adultTax,jdbcType=VARCHAR},
+      child_price = #{childPrice,jdbcType=VARCHAR},
+      child_tax = #{childTax,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where f_oi_id = #{fOiId,jdbcType=INTEGER}
+  </update>
+</mapper>

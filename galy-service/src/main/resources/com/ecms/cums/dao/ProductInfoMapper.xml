@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.ProductInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.ProductInfo" >
+    <id column="i_id" property="iId" jdbcType="INTEGER" />
+    <result column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="jny_days" property="jnyDays" jdbcType="VARCHAR" />
+    <result column="own_flg" property="ownFlg" jdbcType="CHAR" />
+    <result column="if_edute" property="ifEdute" jdbcType="CHAR" />
+    <result column="if_price_start" property="ifPriceStart" jdbcType="CHAR" />
+    <result column="price_remark" property="priceRemark" jdbcType="VARCHAR" />
+    <result column="adult_price" property="adultPrice" jdbcType="VARCHAR" />
+    <result column="child_price" property="childPrice" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_person" property="createPerson" jdbcType="VARCHAR" />
+    <result column="update_person" property="updatePerson" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ecms.cums.model.ProductInfoWithBLOBs" extends="BaseResultMap" >
+    <result column="own_add_memo" property="ownAddMemo" jdbcType="LONGVARCHAR" />
+    <result column="features_description" property="featuresDescription" jdbcType="LONGVARCHAR" />
+    <result column="pic_path" property="picPath" jdbcType="LONGVARCHAR" />
+    <result column="quote_content" property="quoteContent" jdbcType="LONGVARCHAR" />
+    <result column="quote_no_content" property="quoteNoContent" jdbcType="LONGVARCHAR" />
+    <result column="visa_req" property="visaReq" jdbcType="LONGVARCHAR" />
+    <result column="memo" property="memo" jdbcType="LONGVARCHAR" />
+    <result column="note" property="note" jdbcType="LONGVARCHAR" />
+    <result column="trvael_edute" property="trvaelEdute" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    i_id, p_id, jny_days, own_flg, if_edute, if_price_start, price_remark, adult_price, 
+    child_price, create_time, update_time, create_person, update_person, remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    own_add_memo, features_description, pic_path, quote_content, quote_no_content, visa_req, 
+    memo, note, trvael_edute
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ecms.cums.model.ProductInfoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.ProductInfoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product_info
+    where i_id = #{iId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_info
+    where i_id = #{iId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.ProductInfoCriteria" >
+    delete from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.ProductInfoWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="iId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_info (p_id, jny_days, own_flg, 
+      if_edute, if_price_start, price_remark, 
+      adult_price, child_price, create_time, 
+      update_time, create_person, update_person, 
+      remark, own_add_memo, features_description, 
+      pic_path, quote_content, quote_no_content, 
+      visa_req, memo, note, 
+      trvael_edute)
+    values (#{pId,jdbcType=INTEGER}, #{jnyDays,jdbcType=VARCHAR}, #{ownFlg,jdbcType=CHAR}, 
+      #{ifEdute,jdbcType=CHAR}, #{ifPriceStart,jdbcType=CHAR}, #{priceRemark,jdbcType=VARCHAR}, 
+      #{adultPrice,jdbcType=VARCHAR}, #{childPrice,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createPerson,jdbcType=VARCHAR}, #{updatePerson,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{ownAddMemo,jdbcType=LONGVARCHAR}, #{featuresDescription,jdbcType=LONGVARCHAR}, 
+      #{picPath,jdbcType=LONGVARCHAR}, #{quoteContent,jdbcType=LONGVARCHAR}, #{quoteNoContent,jdbcType=LONGVARCHAR}, 
+      #{visaReq,jdbcType=LONGVARCHAR}, #{memo,jdbcType=LONGVARCHAR}, #{note,jdbcType=LONGVARCHAR}, 
+      #{trvaelEdute,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.ProductInfoWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="iId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="jnyDays != null" >
+        jny_days,
+      </if>
+      <if test="ownFlg != null" >
+        own_flg,
+      </if>
+      <if test="ifEdute != null" >
+        if_edute,
+      </if>
+      <if test="ifPriceStart != null" >
+        if_price_start,
+      </if>
+      <if test="priceRemark != null" >
+        price_remark,
+      </if>
+      <if test="adultPrice != null" >
+        adult_price,
+      </if>
+      <if test="childPrice != null" >
+        child_price,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createPerson != null" >
+        create_person,
+      </if>
+      <if test="updatePerson != null" >
+        update_person,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="ownAddMemo != null" >
+        own_add_memo,
+      </if>
+      <if test="featuresDescription != null" >
+        features_description,
+      </if>
+      <if test="picPath != null" >
+        pic_path,
+      </if>
+      <if test="quoteContent != null" >
+        quote_content,
+      </if>
+      <if test="quoteNoContent != null" >
+        quote_no_content,
+      </if>
+      <if test="visaReq != null" >
+        visa_req,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="trvaelEdute != null" >
+        trvael_edute,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="jnyDays != null" >
+        #{jnyDays,jdbcType=VARCHAR},
+      </if>
+      <if test="ownFlg != null" >
+        #{ownFlg,jdbcType=CHAR},
+      </if>
+      <if test="ifEdute != null" >
+        #{ifEdute,jdbcType=CHAR},
+      </if>
+      <if test="ifPriceStart != null" >
+        #{ifPriceStart,jdbcType=CHAR},
+      </if>
+      <if test="priceRemark != null" >
+        #{priceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adultPrice != null" >
+        #{adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="childPrice != null" >
+        #{childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createPerson != null" >
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatePerson != null" >
+        #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ownAddMemo != null" >
+        #{ownAddMemo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="featuresDescription != null" >
+        #{featuresDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="picPath != null" >
+        #{picPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="quoteContent != null" >
+        #{quoteContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="quoteNoContent != null" >
+        #{quoteNoContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="visaReq != null" >
+        #{visaReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="trvaelEdute != null" >
+        #{trvaelEdute,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.ProductInfoCriteria" resultType="java.lang.Integer" >
+    select count(*) from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product_info
+    <set >
+      <if test="record.iId != null" >
+        i_id = #{record.iId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pId != null" >
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.jnyDays != null" >
+        jny_days = #{record.jnyDays,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownFlg != null" >
+        own_flg = #{record.ownFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.ifEdute != null" >
+        if_edute = #{record.ifEdute,jdbcType=CHAR},
+      </if>
+      <if test="record.ifPriceStart != null" >
+        if_price_start = #{record.ifPriceStart,jdbcType=CHAR},
+      </if>
+      <if test="record.priceRemark != null" >
+        price_remark = #{record.priceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adultPrice != null" >
+        adult_price = #{record.adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.childPrice != null" >
+        child_price = #{record.childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createPerson != null" >
+        create_person = #{record.createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatePerson != null" >
+        update_person = #{record.updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownAddMemo != null" >
+        own_add_memo = #{record.ownAddMemo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.featuresDescription != null" >
+        features_description = #{record.featuresDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.picPath != null" >
+        pic_path = #{record.picPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.quoteContent != null" >
+        quote_content = #{record.quoteContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.quoteNoContent != null" >
+        quote_no_content = #{record.quoteNoContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.visaReq != null" >
+        visa_req = #{record.visaReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.note != null" >
+        note = #{record.note,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.trvaelEdute != null" >
+        trvael_edute = #{record.trvaelEdute,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update product_info
+    set i_id = #{record.iId,jdbcType=INTEGER},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      jny_days = #{record.jnyDays,jdbcType=VARCHAR},
+      own_flg = #{record.ownFlg,jdbcType=CHAR},
+      if_edute = #{record.ifEdute,jdbcType=CHAR},
+      if_price_start = #{record.ifPriceStart,jdbcType=CHAR},
+      price_remark = #{record.priceRemark,jdbcType=VARCHAR},
+      adult_price = #{record.adultPrice,jdbcType=VARCHAR},
+      child_price = #{record.childPrice,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_person = #{record.createPerson,jdbcType=VARCHAR},
+      update_person = #{record.updatePerson,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      own_add_memo = #{record.ownAddMemo,jdbcType=LONGVARCHAR},
+      features_description = #{record.featuresDescription,jdbcType=LONGVARCHAR},
+      pic_path = #{record.picPath,jdbcType=LONGVARCHAR},
+      quote_content = #{record.quoteContent,jdbcType=LONGVARCHAR},
+      quote_no_content = #{record.quoteNoContent,jdbcType=LONGVARCHAR},
+      visa_req = #{record.visaReq,jdbcType=LONGVARCHAR},
+      memo = #{record.memo,jdbcType=LONGVARCHAR},
+      note = #{record.note,jdbcType=LONGVARCHAR},
+      trvael_edute = #{record.trvaelEdute,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product_info
+    set i_id = #{record.iId,jdbcType=INTEGER},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      jny_days = #{record.jnyDays,jdbcType=VARCHAR},
+      own_flg = #{record.ownFlg,jdbcType=CHAR},
+      if_edute = #{record.ifEdute,jdbcType=CHAR},
+      if_price_start = #{record.ifPriceStart,jdbcType=CHAR},
+      price_remark = #{record.priceRemark,jdbcType=VARCHAR},
+      adult_price = #{record.adultPrice,jdbcType=VARCHAR},
+      child_price = #{record.childPrice,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_person = #{record.createPerson,jdbcType=VARCHAR},
+      update_person = #{record.updatePerson,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.ProductInfoWithBLOBs" >
+    update product_info
+    <set >
+      <if test="pId != null" >
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="jnyDays != null" >
+        jny_days = #{jnyDays,jdbcType=VARCHAR},
+      </if>
+      <if test="ownFlg != null" >
+        own_flg = #{ownFlg,jdbcType=CHAR},
+      </if>
+      <if test="ifEdute != null" >
+        if_edute = #{ifEdute,jdbcType=CHAR},
+      </if>
+      <if test="ifPriceStart != null" >
+        if_price_start = #{ifPriceStart,jdbcType=CHAR},
+      </if>
+      <if test="priceRemark != null" >
+        price_remark = #{priceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adultPrice != null" >
+        adult_price = #{adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="childPrice != null" >
+        child_price = #{childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createPerson != null" >
+        create_person = #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatePerson != null" >
+        update_person = #{updatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ownAddMemo != null" >
+        own_add_memo = #{ownAddMemo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="featuresDescription != null" >
+        features_description = #{featuresDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="picPath != null" >
+        pic_path = #{picPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="quoteContent != null" >
+        quote_content = #{quoteContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="quoteNoContent != null" >
+        quote_no_content = #{quoteNoContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="visaReq != null" >
+        visa_req = #{visaReq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="trvaelEdute != null" >
+        trvael_edute = #{trvaelEdute,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ecms.cums.model.ProductInfoWithBLOBs" >
+    update product_info
+    set p_id = #{pId,jdbcType=INTEGER},
+      jny_days = #{jnyDays,jdbcType=VARCHAR},
+      own_flg = #{ownFlg,jdbcType=CHAR},
+      if_edute = #{ifEdute,jdbcType=CHAR},
+      if_price_start = #{ifPriceStart,jdbcType=CHAR},
+      price_remark = #{priceRemark,jdbcType=VARCHAR},
+      adult_price = #{adultPrice,jdbcType=VARCHAR},
+      child_price = #{childPrice,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_person = #{createPerson,jdbcType=VARCHAR},
+      update_person = #{updatePerson,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      own_add_memo = #{ownAddMemo,jdbcType=LONGVARCHAR},
+      features_description = #{featuresDescription,jdbcType=LONGVARCHAR},
+      pic_path = #{picPath,jdbcType=LONGVARCHAR},
+      quote_content = #{quoteContent,jdbcType=LONGVARCHAR},
+      quote_no_content = #{quoteNoContent,jdbcType=LONGVARCHAR},
+      visa_req = #{visaReq,jdbcType=LONGVARCHAR},
+      memo = #{memo,jdbcType=LONGVARCHAR},
+      note = #{note,jdbcType=LONGVARCHAR},
+      trvael_edute = #{trvaelEdute,jdbcType=LONGVARCHAR}
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.ProductInfo" >
+    update product_info
+    set p_id = #{pId,jdbcType=INTEGER},
+      jny_days = #{jnyDays,jdbcType=VARCHAR},
+      own_flg = #{ownFlg,jdbcType=CHAR},
+      if_edute = #{ifEdute,jdbcType=CHAR},
+      if_price_start = #{ifPriceStart,jdbcType=CHAR},
+      price_remark = #{priceRemark,jdbcType=VARCHAR},
+      adult_price = #{adultPrice,jdbcType=VARCHAR},
+      child_price = #{childPrice,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_person = #{createPerson,jdbcType=VARCHAR},
+      update_person = #{updatePerson,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+</mapper>

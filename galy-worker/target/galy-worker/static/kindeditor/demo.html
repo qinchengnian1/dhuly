@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="themes/simple/simple.css"/>
+	</head>
+
+	<body>
+		<p class="messageipt">
+			<textarea id="comment_data" name="content" class="textarea" rows="7"></textarea>
+		</p>
+	</body>
+	<script src="kindeditor-all-min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lang/zh-CN.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var editor;
+		KindEditor.ready(function(K) {
+			editor = K.create('textarea[name="content"]', {
+				width: '80%',
+				height: '360px',
+				themeType: 'simple',
+				resizeType: 1,
+				filterMode: false,
+				imageTabIndex: 1,
+				allowPreviewEmoticons: false,
+				allowImageUpload: true,
+				uploadJson : 'jsp/upload_json.jsp',
+                fileManagerJson : 'jsp/file_manager_json.jsp',
+				afterBlur: function() {	//上传回调
+					this.sync();
+					var content = editor.text();
+					if(content.length != 0){
+						
+					}else{
+						
+					}
+				},
+				items: [
+				    'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+				    'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+				    'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+				    'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+				    'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+				    'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+				    'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+				    'anchor', 'link', 'unlink', '|', 'about'
+				]
+			});
+		});
+	</script>
+
+</html>

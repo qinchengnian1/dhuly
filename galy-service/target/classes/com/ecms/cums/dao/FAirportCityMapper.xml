@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.FAirportCityMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.FAirportCity" >
+    <id column="f_c_id" property="fCId" jdbcType="INTEGER" />
+    <result column="f_nation" property="fNation" jdbcType="VARCHAR" />
+    <result column="f_nation_name" property="fNationName" jdbcType="VARCHAR" />
+    <result column="f_city_name" property="fCityName" jdbcType="VARCHAR" />
+    <result column="f_airport_name" property="fAirportName" jdbcType="VARCHAR" />
+    <result column="f_airport_name_py" property="fAirportNamePy" jdbcType="VARCHAR" />
+    <result column="f_sanzi_code" property="fSanziCode" jdbcType="VARCHAR" />
+    <result column="f_sanzi_city_code" property="fSanziCityCode" jdbcType="VARCHAR" />
+    <result column="f_if_hot" property="fIfHot" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    f_c_id, f_nation, f_nation_name, f_city_name, f_airport_name, f_airport_name_py,
+    f_sanzi_code, f_sanzi_city_code, f_if_hot, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.FAirportCityCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from f_airport_city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from f_airport_city
+    where f_c_id = #{fCId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from f_airport_city
+    where f_c_id = #{fCId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.FAirportCityCriteria" >
+    delete from f_airport_city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.FAirportCity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fCId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_city (f_nation, f_nation_name, f_city_name,
+      f_airport_name, f_airport_name_py, f_sanzi_code,
+      f_sanzi_city_code, f_if_hot, status
+      )
+    values (#{fNation,jdbcType=VARCHAR}, #{fNationName,jdbcType=VARCHAR}, #{fCityName,jdbcType=VARCHAR},
+      #{fAirportName,jdbcType=VARCHAR}, #{fAirportNamePy,jdbcType=VARCHAR}, #{fSanziCode,jdbcType=VARCHAR},
+      #{fSanziCityCode,jdbcType=VARCHAR}, #{fIfHot,jdbcType=CHAR}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.FAirportCity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fCId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fNation != null" >
+        f_nation,
+      </if>
+      <if test="fNationName != null" >
+        f_nation_name,
+      </if>
+      <if test="fCityName != null" >
+        f_city_name,
+      </if>
+      <if test="fAirportName != null" >
+        f_airport_name,
+      </if>
+      <if test="fAirportNamePy != null" >
+        f_airport_name_py,
+      </if>
+      <if test="fSanziCode != null" >
+        f_sanzi_code,
+      </if>
+      <if test="fSanziCityCode != null" >
+        f_sanzi_city_code,
+      </if>
+      <if test="fIfHot != null" >
+        f_if_hot,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fNation != null" >
+        #{fNation,jdbcType=VARCHAR},
+      </if>
+      <if test="fNationName != null" >
+        #{fNationName,jdbcType=VARCHAR},
+      </if>
+      <if test="fCityName != null" >
+        #{fCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="fAirportName != null" >
+        #{fAirportName,jdbcType=VARCHAR},
+      </if>
+      <if test="fAirportNamePy != null" >
+        #{fAirportNamePy,jdbcType=VARCHAR},
+      </if>
+      <if test="fSanziCode != null" >
+        #{fSanziCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fSanziCityCode != null" >
+        #{fSanziCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fIfHot != null" >
+        #{fIfHot,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.FAirportCityCriteria" resultType="java.lang.Integer" >
+    select count(*) from f_airport_city
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update f_airport_city
+    <set >
+      <if test="record.fCId != null" >
+        f_c_id = #{record.fCId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fNation != null" >
+        f_nation = #{record.fNation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fNationName != null" >
+        f_nation_name = #{record.fNationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fCityName != null" >
+        f_city_name = #{record.fCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fAirportName != null" >
+        f_airport_name = #{record.fAirportName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fAirportNamePy != null" >
+        f_airport_name_py = #{record.fAirportNamePy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fSanziCode != null" >
+        f_sanzi_code = #{record.fSanziCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fSanziCityCode != null" >
+        f_sanzi_city_code = #{record.fSanziCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fIfHot != null" >
+        f_if_hot = #{record.fIfHot,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update f_airport_city
+    set f_c_id = #{record.fCId,jdbcType=INTEGER},
+      f_nation = #{record.fNation,jdbcType=VARCHAR},
+      f_nation_name = #{record.fNationName,jdbcType=VARCHAR},
+      f_city_name = #{record.fCityName,jdbcType=VARCHAR},
+      f_airport_name = #{record.fAirportName,jdbcType=VARCHAR},
+      f_airport_name_py = #{record.fAirportNamePy,jdbcType=VARCHAR},
+      f_sanzi_code = #{record.fSanziCode,jdbcType=VARCHAR},
+      f_sanzi_city_code = #{record.fSanziCityCode,jdbcType=VARCHAR},
+      f_if_hot = #{record.fIfHot,jdbcType=CHAR},
+      status = #{record.status,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.FAirportCity" >
+    update f_airport_city
+    <set >
+      <if test="fNation != null" >
+        f_nation = #{fNation,jdbcType=VARCHAR},
+      </if>
+      <if test="fNationName != null" >
+        f_nation_name = #{fNationName,jdbcType=VARCHAR},
+      </if>
+      <if test="fCityName != null" >
+        f_city_name = #{fCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="fAirportName != null" >
+        f_airport_name = #{fAirportName,jdbcType=VARCHAR},
+      </if>
+      <if test="fAirportNamePy != null" >
+        f_airport_name_py = #{fAirportNamePy,jdbcType=VARCHAR},
+      </if>
+      <if test="fSanziCode != null" >
+        f_sanzi_code = #{fSanziCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fSanziCityCode != null" >
+        f_sanzi_city_code = #{fSanziCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fIfHot != null" >
+        f_if_hot = #{fIfHot,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where f_c_id = #{fCId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.FAirportCity" >
+    update f_airport_city
+    set f_nation = #{fNation,jdbcType=VARCHAR},
+      f_nation_name = #{fNationName,jdbcType=VARCHAR},
+      f_city_name = #{fCityName,jdbcType=VARCHAR},
+      f_airport_name = #{fAirportName,jdbcType=VARCHAR},
+      f_airport_name_py = #{fAirportNamePy,jdbcType=VARCHAR},
+      f_sanzi_code = #{fSanziCode,jdbcType=VARCHAR},
+      f_sanzi_city_code = #{fSanziCityCode,jdbcType=VARCHAR},
+      f_if_hot = #{fIfHot,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR}
+    where f_c_id = #{fCId,jdbcType=INTEGER}
+  </update>
+  <select id="queryCityListByStatus" resultMap="BaseResultMap" resultType="java.lang.Integer" >
+	SELECT * FROM f_airport_city t WHERE t.f_nation = #{fNation,jdbcType=VARCHAR} AND t.status = '1'  GROUP BY t.f_city_name ORDER BY t.f_airport_name_py ASC
+  </select>
+  <select id="queryHotCityListByStatus" resultMap="BaseResultMap" resultType="java.lang.Integer" >
+	SELECT * FROM f_airport_city t WHERE t.f_nation = #{fNation,jdbcType=VARCHAR} AND t.status = '1' AND t.f_if_hot = '1' GROUP BY t.f_city_name ORDER BY t.f_airport_name_py ASC
+  </select>
+</mapper>

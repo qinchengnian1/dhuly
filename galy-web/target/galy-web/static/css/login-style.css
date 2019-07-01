@@ -1,0 +1,280 @@
+@import url(base.css);
+@charset "utf-8";
+/* CSS Document */
+html,body{ height:100%;}
+.wrapper{ position:absolute; width:100%; top:0px; bottom:0; overflow:auto;}
+
+body{
+	/*
+	font-family:"微软雅黑";
+	background-image:  url(../images/darkside.png);
+	background-position:center center;*/
+
+}
+.top-bg{
+	width:100%;
+	height:350px;
+	position:relative;
+	background-image:url(../img/top-bg.png);
+		border-bottom:1px solid #c5c8ccc;
+		box-shadow:inset 0px -1px 5px rgba(0,0,0,0.5);
+}
+.login-logo{
+	width:100%;
+	height:67px;
+	padding-top:60px;
+	padding-bottom:100px;
+	background:url(../img/login-logo.png) center center no-repeat;
+}
+.login-win{
+}
+.icon-page{
+	position:absolute;
+	z-index:2;
+	position:absolute;
+	width:100%;
+	height:314px;
+	top:0px;
+	/**
+	opacity:0.4;
+	filter:alpha(opacity=40);**/  
+	background-image:url(../img/icon-page.png);
+	background-position:center center;
+	background-repeat:no-repeat;
+}
+.login-box{
+	width:528px;
+	height:270px;
+	text-align:center;
+	background-image: url(../img/login-bg.png);
+	background-position:center center;
+	background-repeat:no-repeat;
+}
+.login-box > h1{
+	font-size:36px;
+	color:#ffffff;
+	margin-bottom:30px;
+}
+.cappic{
+	margin-top:8px;
+}
+.login-box ul{
+	display:block;
+	width:342px;
+	margin-left:90px;
+	padding-top:45px;
+	text-align:center !important;
+}
+.login-box ul li{
+	width:100%;
+}
+.bar{
+	display:block;
+	width:280px;
+	height:30px;
+	border:1px solid #fff;
+	overflow:hidden;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	margin-top:20px;
+}
+.bar input{
+	width:268px;
+	height:28px;
+	text-align:34px;
+	background:none;
+	color:#5d5d5d;
+	padding:0px 5px;
+	border:0px;
+	font-size:14px;
+	background-color:#FFF;
+	border:1px solid #b0bbc9;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+}
+.wrapper{
+	width:100% !important;
+	height:100% !important;
+	}
+.remember{
+	width:350px;
+	padding-top:10px;
+	}
+.remember input{
+	}
+.remember span{
+	color:#FFF;
+	font-size:12px;
+	margin-left:10px;
+}
+.password-d{
+	background:#fff url(../img/lock-ico.png) no-repeat 98% center !important;
+}
+.password{
+	background:#fff url(../img/lock-ico.png) no-repeat 98% center !important;
+}
+.user{
+	background:#fff url(../img/user-ico.png) no-repeat 98% center !important;
+}
+.res{
+	margin-top:10px;
+}
+.res .bar{
+	width:110px;
+	float:left;
+	margin-top:10px;
+}
+.res .bar input{
+	width:108px;
+}
+.login-box ul{
+	float:left;
+	margin-top:0px;
+}
+.zec .bar{
+}
+.button-box{
+	display:block;
+	clear:both;
+	width:400px;
+	padding-top:20px;
+}
+.button-box a{
+	width:300px;
+}
+.plus-mas{
+	width:100%;
+	text-align:center;
+	font-size:12px;
+	color:#a5a5a5;
+	position:absolute;
+	bottom:12px;
+}
+.margin-top{
+	display:block;
+	margin-top:20px !important;
+}
+.zec{
+	position:relative;
+}
+/*==========以下部分是Validform必须的===========*/
+#Validform_msg{
+	display:none;
+}
+.Validform_checktip{
+	margin-left:8px;
+	line-height:20px;
+	height:20px;
+	overflow:hidden;
+	color:#999;
+	font-size:12px;
+	position:absolute;
+	right:-70px;
+	top:0px;
+}
+.zt .Validform_checktip{
+	right:-70px;
+}
+.Validform_right{
+	right:-70px;
+}
+.Validform_right{
+	display:inline-block;
+*display: inline;
+*zoom: 1;	height:25px;
+	line-height:25px;
+	position:absolute;
+	margin-left:20px;
+	padding:0 5px;
+	color:#fff !important;
+	padding-left:25px;
+	font-size:14px;
+	cursor:pointer;
+	border:1px solid #27ae60;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	background:#2ecc71 url(../img/V.png) no-repeat 2px center;
+	-webkit-box-shadow: #999 0px 1px  1px;
+	-moz-box-shadow: #999 0px 1px  1px;
+	box-shadow: #999 0px 1px  1px;
+}
+.Validform_wrong{
+	display:inline-block;
+*display: inline;
+*zoom: 1;	height:25px;
+	line-height:25px;
+	position:absolute;
+	margin-left:20px;
+	padding:0 5px;
+	color:#fff !important;
+	padding-left:20px;
+	font-size:14px;
+	cursor:pointer;
+	z-index:99;
+	border:1px solid #c0392b;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	background:#ea6153 url(../img/X.png) no-repeat 2px center;
+	-webkit-box-shadow: #999 0px 1px  1px;
+	-moz-box-shadow: #999 0px 1px  1px;
+	box-shadow: #999 0px 1px  1px;
+}
+.Validform_loading{
+	padding-left:20px;
+	background:url(img/onLoad.gif) no-repeat left center;
+}
+.Validform_error{
+  border-color: #dc1a18 !important;
+  color: #dc1a18 !important;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
+
+}
+/**提示窗口**/
+.Validform_info{
+  margin-left: 8px;
+  border: 1px solid #ccc;
+  padding: 8px 20px 8px 10px;
+  color: #666;
+  float: left;
+  position: relative;
+  display:block;
+  line-height: 20px;
+}
+ #tableMenu{
+	 display:none !important;
+}
+.mail_checktip{
+    line-height: 20px;
+    height: 20px;
+    overflow: hidden;
+    color: #999;
+    font-size: 12px;
+}
+.mail_wrong{
+	display:none;
+	width:120px;
+height: 25px;
+line-height: 25px;
+position: absolute;
+margin-left: 20px;
+padding: 0 5px;
+color: #fff !important;
+padding-left: 20px;
+font-size: 14px;
+cursor: pointer;
+z-index: 99;
+border: 1px solid #c0392b;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background: #ea6153 url(../img/X.png) no-repeat 2px center;
+-webkit-box-shadow: #999 0px 1px 1px;
+-moz-box-shadow: #999 0px 1px 1px;
+box-shadow: #999 0px 1px 1px;
+}

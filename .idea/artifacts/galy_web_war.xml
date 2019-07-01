@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="galy-web:war">
+    <output-path>$PROJECT_DIR$/galy-web/target</output-path>
+    <root id="archive" name="galy-web.war">
+      <element id="artifact" artifact-name="galy-web:war exploded" />
+    </root>
+  </artifact>
+</component>

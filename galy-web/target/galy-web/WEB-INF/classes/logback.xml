@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reference Manual http://logback.qos.ch/manual/index.html -->
+<configuration>
+	<!-- 修改部分 如果有job需要监控，单独修改 -->
+	<property name="file_path" value="c:/app/tomcat/guoanly/" />
+	<!-- <property name="file_path" value="/opt/tomcat_tour/webapps/logs" /> -->
+	<property name="app" value="galy" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="UTF-8">
+			<pattern>豆会玩旅游管理系统:%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}-%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="RollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file_path}/rolling/${app}_%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>全部日志:%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}-%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FunOrderLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${file_path}/order/${app}_%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>订单操作日志:[%date] [%thread] [%level] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.ecms.cums.logutils.FunOrderLog" level="INFO">
+		<appender-ref ref="FunOrderLog" />
+	</logger>
+
+	<appender name="FAirportLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${file_path}/airport/${app}_%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>机票操作日志:[%date] [%thread] [%level] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.ecms.cums.logutils.FAirportLog" level="INFO">
+		<appender-ref ref="FAirportLog" />
+	</logger>
+
+
+<!-- ###################### SERVICE日志监控  ###################### -->
+	<appender name="ServiceStatistics"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file_path}/dao/${app}_dao_%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>ServiceImpl实现层日志：%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}-%msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<logger name="com.ecms.cums.services.impl" level="DEBUG">
+		<appender-ref ref="ServiceStatistics" />
+	</logger>
+
+<!-- ###################### SQL日志监控  ###################### -->
+
+
+
+
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="RollingFile" />
+	</root>
+
+</configuration>

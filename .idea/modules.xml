@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/galy-all.iml" filepath="$PROJECT_DIR$/galy-all.iml" />
+      <module fileurl="file://$PROJECT_DIR$/galy-core/galy-core.iml" filepath="$PROJECT_DIR$/galy-core/galy-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/galy-service/galy-service.iml" filepath="$PROJECT_DIR$/galy-service/galy-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/galy-web/galy-web.iml" filepath="$PROJECT_DIR$/galy-web/galy-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/galy-worker/galy-worker.iml" filepath="$PROJECT_DIR$/galy-worker/galy-worker.iml" />
+    </modules>
+  </component>
+</project>

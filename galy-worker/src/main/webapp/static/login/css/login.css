@@ -1,0 +1,112 @@
+@charset "utf-8";
+/* 
+ * reset * 
+*/
+html,body{
+	height:100%;
+	font:12px/1.5 "Microsoft Yahei";
+	overflow-y:hidden;
+}
+body,ul,dl,dd,h1,h2,h3,h4,p,form{
+	margin:0;
+} 
+ul,ol,li{
+	list-style-type: none;
+	padding: 0;
+} 
+a{
+	text-decoration:none;
+}
+img{
+	border:0;
+	vertical-align:middle;
+    -ms-interpolation-mode: bicubic;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+em{ 
+	font-style:normal;
+}
+input,textarea{
+	outline: none;
+}
+.clearfix:after{
+	display:block;	
+	content:"";  
+	clear:both;
+}
+.clearfix{
+	zoom:1;
+}
+.content-box{
+	width: 100%;
+	height: 100%;
+	background: url(../images/beijing.jpg) no-repeat;
+	background-size: 100% 100%;	
+	position: relative;
+}
+.login-box{
+	border: 6px solid #3fb5f7;
+	border-radius: 12px;
+	position: absolute;
+    top: 25%;
+    left: 55%;
+    right: 50%;
+    width: 408px;
+    height: 281px;
+    background: url(../images/rectangle_2.png) no-repeat;
+    background-size: 98% 98%;
+    background-position: center;
+}
+.login-box h2{
+	width: 100%;
+	font-size: 24px;
+	color: #333333;
+	text-align: center;
+	margin: 15px 0px;
+}
+.login-box ul{
+	width: 100%;
+	padding: 10px 0px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.login-box ul li{
+	width: 80%;
+	background: #F5F5F5;
+	border: 1px solid #EEEEEE;
+	border-radius: 8px;
+	padding: 5px 0px;
+	margin: 5px 0px;
+}
+.login-box ul li img{
+	width: 25px;
+	height: 25px;
+	margin: 0px 10px;
+}
+.login-box ul li input[type='text'],.login-box ul li input[type='password']{
+	width: 80%;
+	height: 11%;
+	outline: none;
+	border: 0;
+	background: #F5F5F5;
+}
+.loginBtn-box{
+	width: 80%;
+	margin: 0 auto;
+}
+.loginBtn-box .loginBtn{
+	width: 100%;
+	border:0;
+	padding: 6px 0px;
+	outline: none;
+	background: #0487C9;
+	border-radius: 8px;
+	font-size: 16px;
+	color: #FFFFFF;
+	letter-spacing: -0.75px;
+}

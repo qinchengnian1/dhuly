@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.FAirportTouristOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.FAirportTouristOrder" >
+    <id column="f_o_t_id" property="fOTId" jdbcType="INTEGER" />
+    <result column="f_order_id" property="fOrderId" jdbcType="INTEGER" />
+    <result column="f_tourist_id" property="fTouristId" jdbcType="INTEGER" />
+    <result column="f_tourist_name" property="fTouristName" jdbcType="VARCHAR" />
+    <result column="card_num" property="cardNum" jdbcType="VARCHAR" />
+    <result column="return_refund_fee_ldy" property="returnRefundFeeLdy" jdbcType="VARCHAR" />
+    <result column="refund_fee_ldy" property="refundFeeLdy" jdbcType="VARCHAR" />
+    <result column="passenger_id_ldy" property="passengerIdLdy" jdbcType="VARCHAR" />
+    <result column="refund_cause" property="refundCause" jdbcType="VARCHAR" />
+    <result column="one_price_all" property="onePriceAll" jdbcType="VARCHAR" />
+    <result column="fact_return_fee" property="factReturnFee" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    f_o_t_id, f_order_id, f_tourist_id, f_tourist_name, card_num, return_refund_fee_ldy, 
+    refund_fee_ldy, passenger_id_ldy, refund_cause, one_price_all, fact_return_fee, create_time, 
+    update_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.FAirportTouristOrderCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from f_airport_tourist_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from f_airport_tourist_order
+    where f_o_t_id = #{fOTId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from f_airport_tourist_order
+    where f_o_t_id = #{fOTId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.FAirportTouristOrderCriteria" >
+    delete from f_airport_tourist_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.FAirportTouristOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fOTId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_tourist_order (f_order_id, f_tourist_id, f_tourist_name, 
+      card_num, return_refund_fee_ldy, refund_fee_ldy, 
+      passenger_id_ldy, refund_cause, one_price_all, 
+      fact_return_fee, create_time, update_time, 
+      remark)
+    values (#{fOrderId,jdbcType=INTEGER}, #{fTouristId,jdbcType=INTEGER}, #{fTouristName,jdbcType=VARCHAR}, 
+      #{cardNum,jdbcType=VARCHAR}, #{returnRefundFeeLdy,jdbcType=VARCHAR}, #{refundFeeLdy,jdbcType=VARCHAR}, 
+      #{passengerIdLdy,jdbcType=VARCHAR}, #{refundCause,jdbcType=VARCHAR}, #{onePriceAll,jdbcType=VARCHAR}, 
+      #{factReturnFee,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.FAirportTouristOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fOTId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_airport_tourist_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fOrderId != null" >
+        f_order_id,
+      </if>
+      <if test="fTouristId != null" >
+        f_tourist_id,
+      </if>
+      <if test="fTouristName != null" >
+        f_tourist_name,
+      </if>
+      <if test="cardNum != null" >
+        card_num,
+      </if>
+      <if test="returnRefundFeeLdy != null" >
+        return_refund_fee_ldy,
+      </if>
+      <if test="refundFeeLdy != null" >
+        refund_fee_ldy,
+      </if>
+      <if test="passengerIdLdy != null" >
+        passenger_id_ldy,
+      </if>
+      <if test="refundCause != null" >
+        refund_cause,
+      </if>
+      <if test="onePriceAll != null" >
+        one_price_all,
+      </if>
+      <if test="factReturnFee != null" >
+        fact_return_fee,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fOrderId != null" >
+        #{fOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fTouristId != null" >
+        #{fTouristId,jdbcType=INTEGER},
+      </if>
+      <if test="fTouristName != null" >
+        #{fTouristName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNum != null" >
+        #{cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="returnRefundFeeLdy != null" >
+        #{returnRefundFeeLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="refundFeeLdy != null" >
+        #{refundFeeLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="passengerIdLdy != null" >
+        #{passengerIdLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="refundCause != null" >
+        #{refundCause,jdbcType=VARCHAR},
+      </if>
+      <if test="onePriceAll != null" >
+        #{onePriceAll,jdbcType=VARCHAR},
+      </if>
+      <if test="factReturnFee != null" >
+        #{factReturnFee,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.FAirportTouristOrderCriteria" resultType="java.lang.Integer" >
+    select count(*) from f_airport_tourist_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update f_airport_tourist_order
+    <set >
+      <if test="record.fOTId != null" >
+        f_o_t_id = #{record.fOTId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fOrderId != null" >
+        f_order_id = #{record.fOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fTouristId != null" >
+        f_tourist_id = #{record.fTouristId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fTouristName != null" >
+        f_tourist_name = #{record.fTouristName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNum != null" >
+        card_num = #{record.cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnRefundFeeLdy != null" >
+        return_refund_fee_ldy = #{record.returnRefundFeeLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundFeeLdy != null" >
+        refund_fee_ldy = #{record.refundFeeLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passengerIdLdy != null" >
+        passenger_id_ldy = #{record.passengerIdLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundCause != null" >
+        refund_cause = #{record.refundCause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onePriceAll != null" >
+        one_price_all = #{record.onePriceAll,jdbcType=VARCHAR},
+      </if>
+      <if test="record.factReturnFee != null" >
+        fact_return_fee = #{record.factReturnFee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update f_airport_tourist_order
+    set f_o_t_id = #{record.fOTId,jdbcType=INTEGER},
+      f_order_id = #{record.fOrderId,jdbcType=INTEGER},
+      f_tourist_id = #{record.fTouristId,jdbcType=INTEGER},
+      f_tourist_name = #{record.fTouristName,jdbcType=VARCHAR},
+      card_num = #{record.cardNum,jdbcType=VARCHAR},
+      return_refund_fee_ldy = #{record.returnRefundFeeLdy,jdbcType=VARCHAR},
+      refund_fee_ldy = #{record.refundFeeLdy,jdbcType=VARCHAR},
+      passenger_id_ldy = #{record.passengerIdLdy,jdbcType=VARCHAR},
+      refund_cause = #{record.refundCause,jdbcType=VARCHAR},
+      one_price_all = #{record.onePriceAll,jdbcType=VARCHAR},
+      fact_return_fee = #{record.factReturnFee,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.FAirportTouristOrder" >
+    update f_airport_tourist_order
+    <set >
+      <if test="fOrderId != null" >
+        f_order_id = #{fOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fTouristId != null" >
+        f_tourist_id = #{fTouristId,jdbcType=INTEGER},
+      </if>
+      <if test="fTouristName != null" >
+        f_tourist_name = #{fTouristName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNum != null" >
+        card_num = #{cardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="returnRefundFeeLdy != null" >
+        return_refund_fee_ldy = #{returnRefundFeeLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="refundFeeLdy != null" >
+        refund_fee_ldy = #{refundFeeLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="passengerIdLdy != null" >
+        passenger_id_ldy = #{passengerIdLdy,jdbcType=VARCHAR},
+      </if>
+      <if test="refundCause != null" >
+        refund_cause = #{refundCause,jdbcType=VARCHAR},
+      </if>
+      <if test="onePriceAll != null" >
+        one_price_all = #{onePriceAll,jdbcType=VARCHAR},
+      </if>
+      <if test="factReturnFee != null" >
+        fact_return_fee = #{factReturnFee,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where f_o_t_id = #{fOTId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.FAirportTouristOrder" >
+    update f_airport_tourist_order
+    set f_order_id = #{fOrderId,jdbcType=INTEGER},
+      f_tourist_id = #{fTouristId,jdbcType=INTEGER},
+      f_tourist_name = #{fTouristName,jdbcType=VARCHAR},
+      card_num = #{cardNum,jdbcType=VARCHAR},
+      return_refund_fee_ldy = #{returnRefundFeeLdy,jdbcType=VARCHAR},
+      refund_fee_ldy = #{refundFeeLdy,jdbcType=VARCHAR},
+      passenger_id_ldy = #{passengerIdLdy,jdbcType=VARCHAR},
+      refund_cause = #{refundCause,jdbcType=VARCHAR},
+      one_price_all = #{onePriceAll,jdbcType=VARCHAR},
+      fact_return_fee = #{factReturnFee,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where f_o_t_id = #{fOTId,jdbcType=INTEGER}
+  </update>
+</mapper>

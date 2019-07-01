@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- <context:annotation-config /> -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="#{dbProps['db.driverClassName']}" />
+		<property name="url" value="#{dbProps['db.url']}" />
+		<property name="username" value="#{dbProps['db.user']}" />
+		<property name="password" value="#{dbProps['db.password']}" />
+		<property name="maxActive" value="#{dbProps['db.maxActive']}" />
+		<property name="maxIdle" value="#{dbProps['db.maxIdle']}" />
+		<property name="maxWait" value="#{dbProps['db.maxWait']}" />
+		<property name="validationQuery">
+			<value>SELECT 1 from dual</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>true</value>
+		</property>
+	</bean>
+
+
+	<!-- 使用SqlSessionFactoryBean工厂产生SqlSessionFactory对象， 方便后期注入Dao -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml">
+		</property>
+	</bean>
+
+	<!-- 会自动将basePackage中配置的包路径下的所有带有@Mapper标注的Dao层的接口生成代理，替代原来我们的Dao实现。 -->
+	<bean id="MapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="basePackage" value="com.ecms.cums.dao" />
+		<!-- <property name="basePackage" value="com.ecms.translate.dao" /> -->
+	</bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>

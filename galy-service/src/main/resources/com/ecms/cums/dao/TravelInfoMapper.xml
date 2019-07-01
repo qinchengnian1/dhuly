@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.TravelInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.TravelInfo" >
+    <id column="t_id" property="tId" jdbcType="INTEGER" />
+    <result column="p_i_id" property="pIId" jdbcType="INTEGER" />
+    <result column="room_type" property="roomType" jdbcType="VARCHAR" />
+    <result column="room_type_name" property="roomTypeName" jdbcType="VARCHAR" />
+    <result column="room_memo" property="roomMemo" jdbcType="VARCHAR" />
+    <result column="breakfast_flg" property="breakfastFlg" jdbcType="VARCHAR" />
+    <result column="breakfast_type_name" property="breakfastTypeName" jdbcType="VARCHAR" />
+    <result column="breakfast_type" property="breakfastType" jdbcType="VARCHAR" />
+    <result column="breakfast_memo" property="breakfastMemo" jdbcType="VARCHAR" />
+    <result column="lunch_flg" property="lunchFlg" jdbcType="VARCHAR" />
+    <result column="lunch_type_name" property="lunchTypeName" jdbcType="VARCHAR" />
+    <result column="lunch_type" property="lunchType" jdbcType="VARCHAR" />
+    <result column="lunch_memo" property="lunchMemo" jdbcType="VARCHAR" />
+    <result column="supper_flg" property="supperFlg" jdbcType="VARCHAR" />
+    <result column="supper_type_name" property="supperTypeName" jdbcType="VARCHAR" />
+    <result column="supper_type" property="supperType" jdbcType="VARCHAR" />
+    <result column="supper_memo" property="supperMemo" jdbcType="VARCHAR" />
+    <result column="poc_path" property="pocPath" jdbcType="VARCHAR" />
+    <result column="traffic_no" property="trafficNo" jdbcType="VARCHAR" />
+    <result column="from_city_id" property="fromCityId" jdbcType="INTEGER" />
+    <result column="from_city_name" property="fromCityName" jdbcType="VARCHAR" />
+    <result column="arrive_city_id" property="arriveCityId" jdbcType="VARCHAR" />
+    <result column="arrive_city_name" property="arriveCityName" jdbcType="VARCHAR" />
+    <result column="traffic_type" property="trafficType" jdbcType="VARCHAR" />
+    <result column="city_type" property="cityType" jdbcType="VARCHAR" />
+    <result column="air_comp" property="airComp" jdbcType="VARCHAR" />
+    <result column="air_name" property="airName" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="arrival_time" property="arrivalTime" jdbcType="VARCHAR" />
+    <result column="time_length" property="timeLength" jdbcType="VARCHAR" />
+    <result column="distance" property="distance" jdbcType="VARCHAR" />
+    <result column="flight_num" property="flightNum" jdbcType="VARCHAR" />
+    <result column="city_names" property="cityNames" jdbcType="VARCHAR" />
+    <result column="viewpoint_id" property="viewpointId" jdbcType="VARCHAR" />
+    <result column="viewpoint_name" property="viewpointName" jdbcType="VARCHAR" />
+    <result column="daodao_id" property="daodaoId" jdbcType="VARCHAR" />
+    <result column="sord" property="sord" jdbcType="VARCHAR" />
+    <result column="from_daodao_id" property="fromDaodaoId" jdbcType="VARCHAR" />
+    <result column="arrive_daodao_id" property="arriveDaodaoId" jdbcType="VARCHAR" />
+    <result column="from_daodao_name" property="fromDaodaoName" jdbcType="VARCHAR" />
+    <result column="arrive_daodao_name" property="arriveDaodaoName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ecms.cums.model.TravelInfo" extends="BaseResultMap" >
+    <result column="travel_content" property="travelContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    t_id, p_i_id, room_type, room_type_name, room_memo, breakfast_flg, breakfast_type_name, 
+    breakfast_type, breakfast_memo, lunch_flg, lunch_type_name, lunch_type, lunch_memo, 
+    supper_flg, supper_type_name, supper_type, supper_memo, poc_path, traffic_no, from_city_id, 
+    from_city_name, arrive_city_id, arrive_city_name, traffic_type, city_type, air_comp, 
+    air_name, memo, start_time, arrival_time, time_length, distance, flight_num, city_names, 
+    viewpoint_id, viewpoint_name, daodao_id, sord, from_daodao_id, arrive_daodao_id, 
+    from_daodao_name, arrive_daodao_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    travel_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ecms.cums.model.TravelInfoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from travel_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.TravelInfoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from travel_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from travel_info
+    where t_id = #{tId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from travel_info
+    where t_id = #{tId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.TravelInfoCriteria" >
+    delete from travel_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.TravelInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="tId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_info (p_i_id, room_type, room_type_name, 
+      room_memo, breakfast_flg, breakfast_type_name, 
+      breakfast_type, breakfast_memo, lunch_flg, 
+      lunch_type_name, lunch_type, lunch_memo, 
+      supper_flg, supper_type_name, supper_type, 
+      supper_memo, poc_path, traffic_no, 
+      from_city_id, from_city_name, arrive_city_id, 
+      arrive_city_name, traffic_type, city_type, 
+      air_comp, air_name, memo, 
+      start_time, arrival_time, time_length, 
+      distance, flight_num, city_names, 
+      viewpoint_id, viewpoint_name, daodao_id, 
+      sord, from_daodao_id, arrive_daodao_id, 
+      from_daodao_name, arrive_daodao_name, travel_content
+      )
+    values (#{pIId,jdbcType=INTEGER}, #{roomType,jdbcType=VARCHAR}, #{roomTypeName,jdbcType=VARCHAR}, 
+      #{roomMemo,jdbcType=VARCHAR}, #{breakfastFlg,jdbcType=VARCHAR}, #{breakfastTypeName,jdbcType=VARCHAR}, 
+      #{breakfastType,jdbcType=VARCHAR}, #{breakfastMemo,jdbcType=VARCHAR}, #{lunchFlg,jdbcType=VARCHAR}, 
+      #{lunchTypeName,jdbcType=VARCHAR}, #{lunchType,jdbcType=VARCHAR}, #{lunchMemo,jdbcType=VARCHAR}, 
+      #{supperFlg,jdbcType=VARCHAR}, #{supperTypeName,jdbcType=VARCHAR}, #{supperType,jdbcType=VARCHAR}, 
+      #{supperMemo,jdbcType=VARCHAR}, #{pocPath,jdbcType=VARCHAR}, #{trafficNo,jdbcType=VARCHAR}, 
+      #{fromCityId,jdbcType=INTEGER}, #{fromCityName,jdbcType=VARCHAR}, #{arriveCityId,jdbcType=VARCHAR}, 
+      #{arriveCityName,jdbcType=VARCHAR}, #{trafficType,jdbcType=VARCHAR}, #{cityType,jdbcType=VARCHAR}, 
+      #{airComp,jdbcType=VARCHAR}, #{airName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=VARCHAR}, #{arrivalTime,jdbcType=VARCHAR}, #{timeLength,jdbcType=VARCHAR}, 
+      #{distance,jdbcType=VARCHAR}, #{flightNum,jdbcType=VARCHAR}, #{cityNames,jdbcType=VARCHAR}, 
+      #{viewpointId,jdbcType=VARCHAR}, #{viewpointName,jdbcType=VARCHAR}, #{daodaoId,jdbcType=VARCHAR}, 
+      #{sord,jdbcType=VARCHAR}, #{fromDaodaoId,jdbcType=VARCHAR}, #{arriveDaodaoId,jdbcType=VARCHAR}, 
+      #{fromDaodaoName,jdbcType=VARCHAR}, #{arriveDaodaoName,jdbcType=VARCHAR}, #{travelContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.TravelInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="tId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into travel_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pIId != null" >
+        p_i_id,
+      </if>
+      <if test="roomType != null" >
+        room_type,
+      </if>
+      <if test="roomTypeName != null" >
+        room_type_name,
+      </if>
+      <if test="roomMemo != null" >
+        room_memo,
+      </if>
+      <if test="breakfastFlg != null" >
+        breakfast_flg,
+      </if>
+      <if test="breakfastTypeName != null" >
+        breakfast_type_name,
+      </if>
+      <if test="breakfastType != null" >
+        breakfast_type,
+      </if>
+      <if test="breakfastMemo != null" >
+        breakfast_memo,
+      </if>
+      <if test="lunchFlg != null" >
+        lunch_flg,
+      </if>
+      <if test="lunchTypeName != null" >
+        lunch_type_name,
+      </if>
+      <if test="lunchType != null" >
+        lunch_type,
+      </if>
+      <if test="lunchMemo != null" >
+        lunch_memo,
+      </if>
+      <if test="supperFlg != null" >
+        supper_flg,
+      </if>
+      <if test="supperTypeName != null" >
+        supper_type_name,
+      </if>
+      <if test="supperType != null" >
+        supper_type,
+      </if>
+      <if test="supperMemo != null" >
+        supper_memo,
+      </if>
+      <if test="pocPath != null" >
+        poc_path,
+      </if>
+      <if test="trafficNo != null" >
+        traffic_no,
+      </if>
+      <if test="fromCityId != null" >
+        from_city_id,
+      </if>
+      <if test="fromCityName != null" >
+        from_city_name,
+      </if>
+      <if test="arriveCityId != null" >
+        arrive_city_id,
+      </if>
+      <if test="arriveCityName != null" >
+        arrive_city_name,
+      </if>
+      <if test="trafficType != null" >
+        traffic_type,
+      </if>
+      <if test="cityType != null" >
+        city_type,
+      </if>
+      <if test="airComp != null" >
+        air_comp,
+      </if>
+      <if test="airName != null" >
+        air_name,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time,
+      </if>
+      <if test="timeLength != null" >
+        time_length,
+      </if>
+      <if test="distance != null" >
+        distance,
+      </if>
+      <if test="flightNum != null" >
+        flight_num,
+      </if>
+      <if test="cityNames != null" >
+        city_names,
+      </if>
+      <if test="viewpointId != null" >
+        viewpoint_id,
+      </if>
+      <if test="viewpointName != null" >
+        viewpoint_name,
+      </if>
+      <if test="daodaoId != null" >
+        daodao_id,
+      </if>
+      <if test="sord != null" >
+        sord,
+      </if>
+      <if test="fromDaodaoId != null" >
+        from_daodao_id,
+      </if>
+      <if test="arriveDaodaoId != null" >
+        arrive_daodao_id,
+      </if>
+      <if test="fromDaodaoName != null" >
+        from_daodao_name,
+      </if>
+      <if test="arriveDaodaoName != null" >
+        arrive_daodao_name,
+      </if>
+      <if test="travelContent != null" >
+        travel_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pIId != null" >
+        #{pIId,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null" >
+        #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomTypeName != null" >
+        #{roomTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomMemo != null" >
+        #{roomMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastFlg != null" >
+        #{breakfastFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastTypeName != null" >
+        #{breakfastTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastType != null" >
+        #{breakfastType,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastMemo != null" >
+        #{breakfastMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchFlg != null" >
+        #{lunchFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchTypeName != null" >
+        #{lunchTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchType != null" >
+        #{lunchType,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchMemo != null" >
+        #{lunchMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="supperFlg != null" >
+        #{supperFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="supperTypeName != null" >
+        #{supperTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="supperType != null" >
+        #{supperType,jdbcType=VARCHAR},
+      </if>
+      <if test="supperMemo != null" >
+        #{supperMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="pocPath != null" >
+        #{pocPath,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficNo != null" >
+        #{trafficNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fromCityId != null" >
+        #{fromCityId,jdbcType=INTEGER},
+      </if>
+      <if test="fromCityName != null" >
+        #{fromCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveCityId != null" >
+        #{arriveCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveCityName != null" >
+        #{arriveCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficType != null" >
+        #{trafficType,jdbcType=VARCHAR},
+      </if>
+      <if test="cityType != null" >
+        #{cityType,jdbcType=VARCHAR},
+      </if>
+      <if test="airComp != null" >
+        #{airComp,jdbcType=VARCHAR},
+      </if>
+      <if test="airName != null" >
+        #{airName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLength != null" >
+        #{timeLength,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        #{distance,jdbcType=VARCHAR},
+      </if>
+      <if test="flightNum != null" >
+        #{flightNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNames != null" >
+        #{cityNames,jdbcType=VARCHAR},
+      </if>
+      <if test="viewpointId != null" >
+        #{viewpointId,jdbcType=VARCHAR},
+      </if>
+      <if test="viewpointName != null" >
+        #{viewpointName,jdbcType=VARCHAR},
+      </if>
+      <if test="daodaoId != null" >
+        #{daodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null" >
+        #{sord,jdbcType=VARCHAR},
+      </if>
+      <if test="fromDaodaoId != null" >
+        #{fromDaodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveDaodaoId != null" >
+        #{arriveDaodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromDaodaoName != null" >
+        #{fromDaodaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveDaodaoName != null" >
+        #{arriveDaodaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="travelContent != null" >
+        #{travelContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.TravelInfoCriteria" resultType="java.lang.Integer" >
+    select count(*) from travel_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update travel_info
+    <set >
+      <if test="record.tId != null" >
+        t_id = #{record.tId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIId != null" >
+        p_i_id = #{record.pIId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomType != null" >
+        room_type = #{record.roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomTypeName != null" >
+        room_type_name = #{record.roomTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomMemo != null" >
+        room_memo = #{record.roomMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breakfastFlg != null" >
+        breakfast_flg = #{record.breakfastFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breakfastTypeName != null" >
+        breakfast_type_name = #{record.breakfastTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breakfastType != null" >
+        breakfast_type = #{record.breakfastType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breakfastMemo != null" >
+        breakfast_memo = #{record.breakfastMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunchFlg != null" >
+        lunch_flg = #{record.lunchFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunchTypeName != null" >
+        lunch_type_name = #{record.lunchTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunchType != null" >
+        lunch_type = #{record.lunchType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunchMemo != null" >
+        lunch_memo = #{record.lunchMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supperFlg != null" >
+        supper_flg = #{record.supperFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supperTypeName != null" >
+        supper_type_name = #{record.supperTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supperType != null" >
+        supper_type = #{record.supperType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supperMemo != null" >
+        supper_memo = #{record.supperMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pocPath != null" >
+        poc_path = #{record.pocPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trafficNo != null" >
+        traffic_no = #{record.trafficNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromCityId != null" >
+        from_city_id = #{record.fromCityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromCityName != null" >
+        from_city_name = #{record.fromCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arriveCityId != null" >
+        arrive_city_id = #{record.arriveCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arriveCityName != null" >
+        arrive_city_name = #{record.arriveCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trafficType != null" >
+        traffic_type = #{record.trafficType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityType != null" >
+        city_type = #{record.cityType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airComp != null" >
+        air_comp = #{record.airComp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airName != null" >
+        air_name = #{record.airName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrivalTime != null" >
+        arrival_time = #{record.arrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeLength != null" >
+        time_length = #{record.timeLength,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distance != null" >
+        distance = #{record.distance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flightNum != null" >
+        flight_num = #{record.flightNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityNames != null" >
+        city_names = #{record.cityNames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewpointId != null" >
+        viewpoint_id = #{record.viewpointId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewpointName != null" >
+        viewpoint_name = #{record.viewpointName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daodaoId != null" >
+        daodao_id = #{record.daodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sord != null" >
+        sord = #{record.sord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromDaodaoId != null" >
+        from_daodao_id = #{record.fromDaodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arriveDaodaoId != null" >
+        arrive_daodao_id = #{record.arriveDaodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromDaodaoName != null" >
+        from_daodao_name = #{record.fromDaodaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arriveDaodaoName != null" >
+        arrive_daodao_name = #{record.arriveDaodaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.travelContent != null" >
+        travel_content = #{record.travelContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update travel_info
+    set t_id = #{record.tId,jdbcType=INTEGER},
+      p_i_id = #{record.pIId,jdbcType=INTEGER},
+      room_type = #{record.roomType,jdbcType=VARCHAR},
+      room_type_name = #{record.roomTypeName,jdbcType=VARCHAR},
+      room_memo = #{record.roomMemo,jdbcType=VARCHAR},
+      breakfast_flg = #{record.breakfastFlg,jdbcType=VARCHAR},
+      breakfast_type_name = #{record.breakfastTypeName,jdbcType=VARCHAR},
+      breakfast_type = #{record.breakfastType,jdbcType=VARCHAR},
+      breakfast_memo = #{record.breakfastMemo,jdbcType=VARCHAR},
+      lunch_flg = #{record.lunchFlg,jdbcType=VARCHAR},
+      lunch_type_name = #{record.lunchTypeName,jdbcType=VARCHAR},
+      lunch_type = #{record.lunchType,jdbcType=VARCHAR},
+      lunch_memo = #{record.lunchMemo,jdbcType=VARCHAR},
+      supper_flg = #{record.supperFlg,jdbcType=VARCHAR},
+      supper_type_name = #{record.supperTypeName,jdbcType=VARCHAR},
+      supper_type = #{record.supperType,jdbcType=VARCHAR},
+      supper_memo = #{record.supperMemo,jdbcType=VARCHAR},
+      poc_path = #{record.pocPath,jdbcType=VARCHAR},
+      traffic_no = #{record.trafficNo,jdbcType=VARCHAR},
+      from_city_id = #{record.fromCityId,jdbcType=INTEGER},
+      from_city_name = #{record.fromCityName,jdbcType=VARCHAR},
+      arrive_city_id = #{record.arriveCityId,jdbcType=VARCHAR},
+      arrive_city_name = #{record.arriveCityName,jdbcType=VARCHAR},
+      traffic_type = #{record.trafficType,jdbcType=VARCHAR},
+      city_type = #{record.cityType,jdbcType=VARCHAR},
+      air_comp = #{record.airComp,jdbcType=VARCHAR},
+      air_name = #{record.airName,jdbcType=VARCHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      arrival_time = #{record.arrivalTime,jdbcType=VARCHAR},
+      time_length = #{record.timeLength,jdbcType=VARCHAR},
+      distance = #{record.distance,jdbcType=VARCHAR},
+      flight_num = #{record.flightNum,jdbcType=VARCHAR},
+      city_names = #{record.cityNames,jdbcType=VARCHAR},
+      viewpoint_id = #{record.viewpointId,jdbcType=VARCHAR},
+      viewpoint_name = #{record.viewpointName,jdbcType=VARCHAR},
+      daodao_id = #{record.daodaoId,jdbcType=VARCHAR},
+      sord = #{record.sord,jdbcType=VARCHAR},
+      from_daodao_id = #{record.fromDaodaoId,jdbcType=VARCHAR},
+      arrive_daodao_id = #{record.arriveDaodaoId,jdbcType=VARCHAR},
+      from_daodao_name = #{record.fromDaodaoName,jdbcType=VARCHAR},
+      arrive_daodao_name = #{record.arriveDaodaoName,jdbcType=VARCHAR},
+      travel_content = #{record.travelContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update travel_info
+    set t_id = #{record.tId,jdbcType=INTEGER},
+      p_i_id = #{record.pIId,jdbcType=INTEGER},
+      room_type = #{record.roomType,jdbcType=VARCHAR},
+      room_type_name = #{record.roomTypeName,jdbcType=VARCHAR},
+      room_memo = #{record.roomMemo,jdbcType=VARCHAR},
+      breakfast_flg = #{record.breakfastFlg,jdbcType=VARCHAR},
+      breakfast_type_name = #{record.breakfastTypeName,jdbcType=VARCHAR},
+      breakfast_type = #{record.breakfastType,jdbcType=VARCHAR},
+      breakfast_memo = #{record.breakfastMemo,jdbcType=VARCHAR},
+      lunch_flg = #{record.lunchFlg,jdbcType=VARCHAR},
+      lunch_type_name = #{record.lunchTypeName,jdbcType=VARCHAR},
+      lunch_type = #{record.lunchType,jdbcType=VARCHAR},
+      lunch_memo = #{record.lunchMemo,jdbcType=VARCHAR},
+      supper_flg = #{record.supperFlg,jdbcType=VARCHAR},
+      supper_type_name = #{record.supperTypeName,jdbcType=VARCHAR},
+      supper_type = #{record.supperType,jdbcType=VARCHAR},
+      supper_memo = #{record.supperMemo,jdbcType=VARCHAR},
+      poc_path = #{record.pocPath,jdbcType=VARCHAR},
+      traffic_no = #{record.trafficNo,jdbcType=VARCHAR},
+      from_city_id = #{record.fromCityId,jdbcType=INTEGER},
+      from_city_name = #{record.fromCityName,jdbcType=VARCHAR},
+      arrive_city_id = #{record.arriveCityId,jdbcType=VARCHAR},
+      arrive_city_name = #{record.arriveCityName,jdbcType=VARCHAR},
+      traffic_type = #{record.trafficType,jdbcType=VARCHAR},
+      city_type = #{record.cityType,jdbcType=VARCHAR},
+      air_comp = #{record.airComp,jdbcType=VARCHAR},
+      air_name = #{record.airName,jdbcType=VARCHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      arrival_time = #{record.arrivalTime,jdbcType=VARCHAR},
+      time_length = #{record.timeLength,jdbcType=VARCHAR},
+      distance = #{record.distance,jdbcType=VARCHAR},
+      flight_num = #{record.flightNum,jdbcType=VARCHAR},
+      city_names = #{record.cityNames,jdbcType=VARCHAR},
+      viewpoint_id = #{record.viewpointId,jdbcType=VARCHAR},
+      viewpoint_name = #{record.viewpointName,jdbcType=VARCHAR},
+      daodao_id = #{record.daodaoId,jdbcType=VARCHAR},
+      sord = #{record.sord,jdbcType=VARCHAR},
+      from_daodao_id = #{record.fromDaodaoId,jdbcType=VARCHAR},
+      arrive_daodao_id = #{record.arriveDaodaoId,jdbcType=VARCHAR},
+      from_daodao_name = #{record.fromDaodaoName,jdbcType=VARCHAR},
+      arrive_daodao_name = #{record.arriveDaodaoName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.TravelInfo" >
+    update travel_info
+    <set >
+      <if test="pIId != null" >
+        p_i_id = #{pIId,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null" >
+        room_type = #{roomType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomTypeName != null" >
+        room_type_name = #{roomTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomMemo != null" >
+        room_memo = #{roomMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastFlg != null" >
+        breakfast_flg = #{breakfastFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastTypeName != null" >
+        breakfast_type_name = #{breakfastTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastType != null" >
+        breakfast_type = #{breakfastType,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfastMemo != null" >
+        breakfast_memo = #{breakfastMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchFlg != null" >
+        lunch_flg = #{lunchFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchTypeName != null" >
+        lunch_type_name = #{lunchTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchType != null" >
+        lunch_type = #{lunchType,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchMemo != null" >
+        lunch_memo = #{lunchMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="supperFlg != null" >
+        supper_flg = #{supperFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="supperTypeName != null" >
+        supper_type_name = #{supperTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="supperType != null" >
+        supper_type = #{supperType,jdbcType=VARCHAR},
+      </if>
+      <if test="supperMemo != null" >
+        supper_memo = #{supperMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="pocPath != null" >
+        poc_path = #{pocPath,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficNo != null" >
+        traffic_no = #{trafficNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fromCityId != null" >
+        from_city_id = #{fromCityId,jdbcType=INTEGER},
+      </if>
+      <if test="fromCityName != null" >
+        from_city_name = #{fromCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveCityId != null" >
+        arrive_city_id = #{arriveCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveCityName != null" >
+        arrive_city_name = #{arriveCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficType != null" >
+        traffic_type = #{trafficType,jdbcType=VARCHAR},
+      </if>
+      <if test="cityType != null" >
+        city_type = #{cityType,jdbcType=VARCHAR},
+      </if>
+      <if test="airComp != null" >
+        air_comp = #{airComp,jdbcType=VARCHAR},
+      </if>
+      <if test="airName != null" >
+        air_name = #{airName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLength != null" >
+        time_length = #{timeLength,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        distance = #{distance,jdbcType=VARCHAR},
+      </if>
+      <if test="flightNum != null" >
+        flight_num = #{flightNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNames != null" >
+        city_names = #{cityNames,jdbcType=VARCHAR},
+      </if>
+      <if test="viewpointId != null" >
+        viewpoint_id = #{viewpointId,jdbcType=VARCHAR},
+      </if>
+      <if test="viewpointName != null" >
+        viewpoint_name = #{viewpointName,jdbcType=VARCHAR},
+      </if>
+      <if test="daodaoId != null" >
+        daodao_id = #{daodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="sord != null" >
+        sord = #{sord,jdbcType=VARCHAR},
+      </if>
+      <if test="fromDaodaoId != null" >
+        from_daodao_id = #{fromDaodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveDaodaoId != null" >
+        arrive_daodao_id = #{arriveDaodaoId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromDaodaoName != null" >
+        from_daodao_name = #{fromDaodaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveDaodaoName != null" >
+        arrive_daodao_name = #{arriveDaodaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="travelContent != null" >
+        travel_content = #{travelContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ecms.cums.model.TravelInfo" >
+    update travel_info
+    set p_i_id = #{pIId,jdbcType=INTEGER},
+      room_type = #{roomType,jdbcType=VARCHAR},
+      room_type_name = #{roomTypeName,jdbcType=VARCHAR},
+      room_memo = #{roomMemo,jdbcType=VARCHAR},
+      breakfast_flg = #{breakfastFlg,jdbcType=VARCHAR},
+      breakfast_type_name = #{breakfastTypeName,jdbcType=VARCHAR},
+      breakfast_type = #{breakfastType,jdbcType=VARCHAR},
+      breakfast_memo = #{breakfastMemo,jdbcType=VARCHAR},
+      lunch_flg = #{lunchFlg,jdbcType=VARCHAR},
+      lunch_type_name = #{lunchTypeName,jdbcType=VARCHAR},
+      lunch_type = #{lunchType,jdbcType=VARCHAR},
+      lunch_memo = #{lunchMemo,jdbcType=VARCHAR},
+      supper_flg = #{supperFlg,jdbcType=VARCHAR},
+      supper_type_name = #{supperTypeName,jdbcType=VARCHAR},
+      supper_type = #{supperType,jdbcType=VARCHAR},
+      supper_memo = #{supperMemo,jdbcType=VARCHAR},
+      poc_path = #{pocPath,jdbcType=VARCHAR},
+      traffic_no = #{trafficNo,jdbcType=VARCHAR},
+      from_city_id = #{fromCityId,jdbcType=INTEGER},
+      from_city_name = #{fromCityName,jdbcType=VARCHAR},
+      arrive_city_id = #{arriveCityId,jdbcType=VARCHAR},
+      arrive_city_name = #{arriveCityName,jdbcType=VARCHAR},
+      traffic_type = #{trafficType,jdbcType=VARCHAR},
+      city_type = #{cityType,jdbcType=VARCHAR},
+      air_comp = #{airComp,jdbcType=VARCHAR},
+      air_name = #{airName,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      time_length = #{timeLength,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=VARCHAR},
+      flight_num = #{flightNum,jdbcType=VARCHAR},
+      city_names = #{cityNames,jdbcType=VARCHAR},
+      viewpoint_id = #{viewpointId,jdbcType=VARCHAR},
+      viewpoint_name = #{viewpointName,jdbcType=VARCHAR},
+      daodao_id = #{daodaoId,jdbcType=VARCHAR},
+      sord = #{sord,jdbcType=VARCHAR},
+      from_daodao_id = #{fromDaodaoId,jdbcType=VARCHAR},
+      arrive_daodao_id = #{arriveDaodaoId,jdbcType=VARCHAR},
+      from_daodao_name = #{fromDaodaoName,jdbcType=VARCHAR},
+      arrive_daodao_name = #{arriveDaodaoName,jdbcType=VARCHAR},
+      travel_content = #{travelContent,jdbcType=LONGVARCHAR}
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.TravelInfo" >
+    update travel_info
+    set p_i_id = #{pIId,jdbcType=INTEGER},
+      room_type = #{roomType,jdbcType=VARCHAR},
+      room_type_name = #{roomTypeName,jdbcType=VARCHAR},
+      room_memo = #{roomMemo,jdbcType=VARCHAR},
+      breakfast_flg = #{breakfastFlg,jdbcType=VARCHAR},
+      breakfast_type_name = #{breakfastTypeName,jdbcType=VARCHAR},
+      breakfast_type = #{breakfastType,jdbcType=VARCHAR},
+      breakfast_memo = #{breakfastMemo,jdbcType=VARCHAR},
+      lunch_flg = #{lunchFlg,jdbcType=VARCHAR},
+      lunch_type_name = #{lunchTypeName,jdbcType=VARCHAR},
+      lunch_type = #{lunchType,jdbcType=VARCHAR},
+      lunch_memo = #{lunchMemo,jdbcType=VARCHAR},
+      supper_flg = #{supperFlg,jdbcType=VARCHAR},
+      supper_type_name = #{supperTypeName,jdbcType=VARCHAR},
+      supper_type = #{supperType,jdbcType=VARCHAR},
+      supper_memo = #{supperMemo,jdbcType=VARCHAR},
+      poc_path = #{pocPath,jdbcType=VARCHAR},
+      traffic_no = #{trafficNo,jdbcType=VARCHAR},
+      from_city_id = #{fromCityId,jdbcType=INTEGER},
+      from_city_name = #{fromCityName,jdbcType=VARCHAR},
+      arrive_city_id = #{arriveCityId,jdbcType=VARCHAR},
+      arrive_city_name = #{arriveCityName,jdbcType=VARCHAR},
+      traffic_type = #{trafficType,jdbcType=VARCHAR},
+      city_type = #{cityType,jdbcType=VARCHAR},
+      air_comp = #{airComp,jdbcType=VARCHAR},
+      air_name = #{airName,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      time_length = #{timeLength,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=VARCHAR},
+      flight_num = #{flightNum,jdbcType=VARCHAR},
+      city_names = #{cityNames,jdbcType=VARCHAR},
+      viewpoint_id = #{viewpointId,jdbcType=VARCHAR},
+      viewpoint_name = #{viewpointName,jdbcType=VARCHAR},
+      daodao_id = #{daodaoId,jdbcType=VARCHAR},
+      sord = #{sord,jdbcType=VARCHAR},
+      from_daodao_id = #{fromDaodaoId,jdbcType=VARCHAR},
+      arrive_daodao_id = #{arriveDaodaoId,jdbcType=VARCHAR},
+      from_daodao_name = #{fromDaodaoName,jdbcType=VARCHAR},
+      arrive_daodao_name = #{arriveDaodaoName,jdbcType=VARCHAR}
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+</mapper>

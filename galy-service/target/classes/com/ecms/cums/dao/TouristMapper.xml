@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.TouristMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.Tourist" >
+    <id column="tourist_id" property="touristId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="tourist_name" property="touristName" jdbcType="VARCHAR" />
+    <result column="tourist_name_py" property="touristNamePy" jdbcType="VARCHAR" />
+    <result column="rourist_birthday" property="rouristBirthday" jdbcType="VARCHAR" />
+    <result column="rourist_reg_place" property="rouristRegPlace" jdbcType="VARCHAR" />
+    <result column="tourist_email" property="touristEmail" jdbcType="VARCHAR" />
+    <result column="tourist_nation_id" property="touristNationId" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="card_type" property="cardType" jdbcType="VARCHAR" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="pasg_type" property="pasgType" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="updat_time" property="updatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tourist_id, user_id, order_id, tourist_name, tourist_name_py, rourist_birthday, rourist_reg_place,
+    tourist_email, tourist_nation_id, sex, card_type, card_no, telephone, pasg_type,
+    state, create_time, remark, updat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.TouristCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tourist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tourist
+    where tourist_id = #{touristId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tourist
+    where tourist_id = #{touristId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.TouristCriteria" >
+    delete from tourist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.Tourist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="touristId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tourist (user_id, order_id, tourist_name,
+      tourist_name_py, rourist_birthday, rourist_reg_place,
+      tourist_email, tourist_nation_id, sex,
+      card_type, card_no, telephone,
+      pasg_type, state, create_time,
+      remark, updat_time)
+    values (#{userId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{touristName,jdbcType=VARCHAR},
+      #{touristNamePy,jdbcType=VARCHAR}, #{rouristBirthday,jdbcType=VARCHAR}, #{rouristRegPlace,jdbcType=VARCHAR},
+      #{touristEmail,jdbcType=VARCHAR}, #{touristNationId,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
+      #{cardType,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
+      #{pasgType,jdbcType=CHAR}, #{state,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{remark,jdbcType=VARCHAR}, #{updatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.Tourist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="touristId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tourist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="touristName != null" >
+        tourist_name,
+      </if>
+      <if test="touristNamePy != null" >
+        tourist_name_py,
+      </if>
+      <if test="rouristBirthday != null" >
+        rourist_birthday,
+      </if>
+      <if test="rouristRegPlace != null" >
+        rourist_reg_place,
+      </if>
+      <if test="touristEmail != null" >
+        tourist_email,
+      </if>
+      <if test="touristNationId != null" >
+        tourist_nation_id,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="cardType != null" >
+        card_type,
+      </if>
+      <if test="cardNo != null" >
+        card_no,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="pasgType != null" >
+        pasg_type,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="updatTime != null" >
+        updat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="touristName != null" >
+        #{touristName,jdbcType=VARCHAR},
+      </if>
+      <if test="touristNamePy != null" >
+        #{touristNamePy,jdbcType=VARCHAR},
+      </if>
+      <if test="rouristBirthday != null" >
+        #{rouristBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="rouristRegPlace != null" >
+        #{rouristRegPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="touristEmail != null" >
+        #{touristEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="touristNationId != null" >
+        #{touristNationId,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="pasgType != null" >
+        #{pasgType,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updatTime != null" >
+        #{updatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.TouristCriteria" resultType="java.lang.Integer" >
+    select count(*) from tourist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tourist
+    <set >
+      <if test="record.touristId != null" >
+        tourist_id = #{record.touristId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.touristName != null" >
+        tourist_name = #{record.touristName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.touristNamePy != null" >
+        tourist_name_py = #{record.touristNamePy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rouristBirthday != null" >
+        rourist_birthday = #{record.rouristBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rouristRegPlace != null" >
+        rourist_reg_place = #{record.rouristRegPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.touristEmail != null" >
+        tourist_email = #{record.touristEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.touristNationId != null" >
+        tourist_nation_id = #{record.touristNationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.cardType != null" >
+        card_type = #{record.cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNo != null" >
+        card_no = #{record.cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pasgType != null" >
+        pasg_type = #{record.pasgType,jdbcType=CHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatTime != null" >
+        updat_time = #{record.updatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tourist
+    set tourist_id = #{record.touristId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      tourist_name = #{record.touristName,jdbcType=VARCHAR},
+      tourist_name_py = #{record.touristNamePy,jdbcType=VARCHAR},
+      rourist_birthday = #{record.rouristBirthday,jdbcType=VARCHAR},
+      rourist_reg_place = #{record.rouristRegPlace,jdbcType=VARCHAR},
+      tourist_email = #{record.touristEmail,jdbcType=VARCHAR},
+      tourist_nation_id = #{record.touristNationId,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      card_type = #{record.cardType,jdbcType=VARCHAR},
+      card_no = #{record.cardNo,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      pasg_type = #{record.pasgType,jdbcType=CHAR},
+      state = #{record.state,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      updat_time = #{record.updatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.Tourist" >
+    update tourist
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="touristName != null" >
+        tourist_name = #{touristName,jdbcType=VARCHAR},
+      </if>
+      <if test="touristNamePy != null" >
+        tourist_name_py = #{touristNamePy,jdbcType=VARCHAR},
+      </if>
+      <if test="rouristBirthday != null" >
+        rourist_birthday = #{rouristBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="rouristRegPlace != null" >
+        rourist_reg_place = #{rouristRegPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="touristEmail != null" >
+        tourist_email = #{touristEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="touristNationId != null" >
+        tourist_nation_id = #{touristNationId,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="pasgType != null" >
+        pasg_type = #{pasgType,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updatTime != null" >
+        updat_time = #{updatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tourist_id = #{touristId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.Tourist" >
+    update tourist
+    set user_id = #{userId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      tourist_name = #{touristName,jdbcType=VARCHAR},
+      tourist_name_py = #{touristNamePy,jdbcType=VARCHAR},
+      rourist_birthday = #{rouristBirthday,jdbcType=VARCHAR},
+      rourist_reg_place = #{rouristRegPlace,jdbcType=VARCHAR},
+      tourist_email = #{touristEmail,jdbcType=VARCHAR},
+      tourist_nation_id = #{touristNationId,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      card_type = #{cardType,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      pasg_type = #{pasgType,jdbcType=CHAR},
+      state = #{state,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      updat_time = #{updatTime,jdbcType=TIMESTAMP}
+    where tourist_id = #{touristId,jdbcType=INTEGER}
+  </update>
+  <select id="getTouristInfoByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	SELECT
+		t1.*
+	FROM
+		order_tourist t
+	LEFT JOIN tourist t1 ON t.tourist_id = t1.tourist_id
+	WHERE
+		t.order_id = #{orderId,jdbcType=INTEGER}
+	GROUP BY t.tourist_id
+  </select>
+</mapper>

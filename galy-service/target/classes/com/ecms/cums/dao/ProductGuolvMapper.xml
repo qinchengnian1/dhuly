@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.ProductGuolvMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.ProductGuolv" >
+    <id column="p_g_id" property="pGId" jdbcType="INTEGER" />
+    <result column="p_route_main" property="pRouteMain" jdbcType="VARCHAR" />
+    <result column="p_image_url" property="pImageUrl" jdbcType="VARCHAR" />
+    <result column="p_start_dest" property="pStartDest" jdbcType="VARCHAR" />
+    <result column="p_price" property="pPrice" jdbcType="VARCHAR" />
+    <result column="p_system_flag" property="pSystemFlag" jdbcType="CHAR" />
+    <result column="p_route_type" property="pRouteType" jdbcType="VARCHAR" />
+    <result column="p_route_id" property="pRouteId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    p_g_id, p_route_main, p_image_url, p_start_dest, p_price, p_system_flag, p_route_type,
+    p_route_id, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.ProductGuolvCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_guolv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+       GROUP BY p_route_id
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from product_guolv
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_guolv
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.ProductGuolvCriteria" >
+    delete from product_guolv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.ProductGuolv" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pGId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_guolv (p_route_main, p_image_url, p_start_dest,
+      p_price, p_system_flag, p_route_type,
+      p_route_id, remark)
+    values (#{pRouteMain,jdbcType=VARCHAR}, #{pImageUrl,jdbcType=VARCHAR}, #{pStartDest,jdbcType=VARCHAR},
+      #{pPrice,jdbcType=VARCHAR}, #{pSystemFlag,jdbcType=CHAR}, #{pRouteType,jdbcType=VARCHAR},
+      #{pRouteId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.ProductGuolv" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pGId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_guolv
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pRouteMain != null" >
+        p_route_main,
+      </if>
+      <if test="pImageUrl != null" >
+        p_image_url,
+      </if>
+      <if test="pStartDest != null" >
+        p_start_dest,
+      </if>
+      <if test="pPrice != null" >
+        p_price,
+      </if>
+      <if test="pSystemFlag != null" >
+        p_system_flag,
+      </if>
+      <if test="pRouteType != null" >
+        p_route_type,
+      </if>
+      <if test="pRouteId != null" >
+        p_route_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pRouteMain != null" >
+        #{pRouteMain,jdbcType=VARCHAR},
+      </if>
+      <if test="pImageUrl != null" >
+        #{pImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pStartDest != null" >
+        #{pStartDest,jdbcType=VARCHAR},
+      </if>
+      <if test="pPrice != null" >
+        #{pPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="pSystemFlag != null" >
+        #{pSystemFlag,jdbcType=CHAR},
+      </if>
+      <if test="pRouteType != null" >
+        #{pRouteType,jdbcType=VARCHAR},
+      </if>
+      <if test="pRouteId != null" >
+        #{pRouteId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.ProductGuolvCriteria" resultType="java.lang.Integer" >
+    select count(*) from product_guolv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product_guolv
+    <set >
+      <if test="record.pGId != null" >
+        p_g_id = #{record.pGId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pRouteMain != null" >
+        p_route_main = #{record.pRouteMain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pImageUrl != null" >
+        p_image_url = #{record.pImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pStartDest != null" >
+        p_start_dest = #{record.pStartDest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPrice != null" >
+        p_price = #{record.pPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pSystemFlag != null" >
+        p_system_flag = #{record.pSystemFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.pRouteType != null" >
+        p_route_type = #{record.pRouteType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pRouteId != null" >
+        p_route_id = #{record.pRouteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product_guolv
+    set p_g_id = #{record.pGId,jdbcType=INTEGER},
+      p_route_main = #{record.pRouteMain,jdbcType=VARCHAR},
+      p_image_url = #{record.pImageUrl,jdbcType=VARCHAR},
+      p_start_dest = #{record.pStartDest,jdbcType=VARCHAR},
+      p_price = #{record.pPrice,jdbcType=VARCHAR},
+      p_system_flag = #{record.pSystemFlag,jdbcType=CHAR},
+      p_route_type = #{record.pRouteType,jdbcType=VARCHAR},
+      p_route_id = #{record.pRouteId,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.ProductGuolv" >
+    update product_guolv
+    <set >
+      <if test="pRouteMain != null" >
+        p_route_main = #{pRouteMain,jdbcType=VARCHAR},
+      </if>
+      <if test="pImageUrl != null" >
+        p_image_url = #{pImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pStartDest != null" >
+        p_start_dest = #{pStartDest,jdbcType=VARCHAR},
+      </if>
+      <if test="pPrice != null" >
+        p_price = #{pPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="pSystemFlag != null" >
+        p_system_flag = #{pSystemFlag,jdbcType=CHAR},
+      </if>
+      <if test="pRouteType != null" >
+        p_route_type = #{pRouteType,jdbcType=VARCHAR},
+      </if>
+      <if test="pRouteId != null" >
+        p_route_id = #{pRouteId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.ProductGuolv" >
+    update product_guolv
+    set p_route_main = #{pRouteMain,jdbcType=VARCHAR},
+      p_image_url = #{pImageUrl,jdbcType=VARCHAR},
+      p_start_dest = #{pStartDest,jdbcType=VARCHAR},
+      p_price = #{pPrice,jdbcType=VARCHAR},
+      p_system_flag = #{pSystemFlag,jdbcType=CHAR},
+      p_route_type = #{pRouteType,jdbcType=VARCHAR},
+      p_route_id = #{pRouteId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where p_g_id = #{pGId,jdbcType=INTEGER}
+  </update>
+</mapper>

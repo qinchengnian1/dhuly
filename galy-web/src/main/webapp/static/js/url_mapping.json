@@ -1,0 +1,10 @@
+{
+	"$604$": "./bagging",
+    "$608$": "./boxing",
+    "$602$": "./boxWeight",
+    "$610$": "./transport",
+    "$609$": "./outbound",
+    "$612$": "./exceptionbagging",
+
+    "$none$": ""
+}

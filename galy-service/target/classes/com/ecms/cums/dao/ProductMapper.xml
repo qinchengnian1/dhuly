@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.Product" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" /> 
+    <result column="t_id" property="tId" jdbcType="INTEGER" />
+    <result column="route_main" property="routeMain" jdbcType="VARCHAR" />
+    <result column="route_sub" property="routeSub" jdbcType="VARCHAR" />
+    <result column="pt_no" property="ptNo" jdbcType="VARCHAR" />
+    <result column="start_date_str" property="startDateStr" jdbcType="TIMESTAMP" />
+    <result column="start_place_id" property="startPlaceId" jdbcType="VARCHAR" />
+    <result column="dest_place_id" property="destPlaceId" jdbcType="VARCHAR" />
+    <result column="agent_type" property="agentType" jdbcType="CHAR" />
+    <result column="pic_path" property="picPath" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="click_count" property="clickCount" jdbcType="INTEGER" />
+    <result column="asked_count" property="askedCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="city_ids" property="cityIds" jdbcType="VARCHAR" />
+    <result column="comp_id" property="compId" jdbcType="INTEGER" />
+    <result column="system_flag" property="systemFlag" jdbcType="CHAR" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    p_id, t_id, route_main, route_sub, pt_no, start_date_str, start_place_id, dest_place_id,
+    agent_type, pic_path, price, click_count, asked_count, status, city_ids, comp_id,
+    system_flag, create_name, update_name, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.ProductCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause == null" >
+      order by p_id desc 
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.ProductCriteria" >
+    delete from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.Product" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product (t_id, route_main, route_sub,
+      pt_no, start_date_str, start_place_id,
+      dest_place_id, agent_type, pic_path,
+      price, click_count, asked_count,
+      status, city_ids, comp_id,
+      system_flag, create_name, update_name,
+      create_time, update_time)
+    values (#{tId,jdbcType=INTEGER}, #{routeMain,jdbcType=VARCHAR}, #{routeSub,jdbcType=VARCHAR},
+      #{ptNo,jdbcType=VARCHAR}, #{startDateStr,jdbcType=TIMESTAMP}, #{startPlaceId,jdbcType=VARCHAR},
+      #{destPlaceId,jdbcType=VARCHAR}, #{agentType,jdbcType=CHAR}, #{picPath,jdbcType=VARCHAR},
+      #{price,jdbcType=VARCHAR}, #{clickCount,jdbcType=INTEGER}, #{askedCount,jdbcType=INTEGER},
+      #{status,jdbcType=CHAR}, #{cityIds,jdbcType=VARCHAR}, #{compId,jdbcType=INTEGER},
+      #{systemFlag,jdbcType=CHAR}, #{createName,jdbcType=VARCHAR}, #{updateName,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.Product" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        t_id,
+      </if>
+      <if test="routeMain != null" >
+        route_main,
+      </if>
+      <if test="routeSub != null" >
+        route_sub,
+      </if>
+      <if test="ptNo != null" >
+        pt_no,
+      </if>
+      <if test="startDateStr != null" >
+        start_date_str,
+      </if>
+      <if test="startPlaceId != null" >
+        start_place_id,
+      </if>
+      <if test="destPlaceId != null" >
+        dest_place_id,
+      </if>
+      <if test="agentType != null" >
+        agent_type,
+      </if>
+      <if test="picPath != null" >
+        pic_path,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="clickCount != null" >
+        click_count,
+      </if>
+      <if test="askedCount != null" >
+        asked_count,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="cityIds != null" >
+        city_ids,
+      </if>
+      <if test="compId != null" >
+        comp_id,
+      </if>
+      <if test="systemFlag != null" >
+        system_flag,
+      </if>
+      <if test="createName != null" >
+        create_name,
+      </if>
+      <if test="updateName != null" >
+        update_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="routeMain != null" >
+        #{routeMain,jdbcType=VARCHAR},
+      </if>
+      <if test="routeSub != null" >
+        #{routeSub,jdbcType=VARCHAR},
+      </if>
+      <if test="ptNo != null" >
+        #{ptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startDateStr != null" >
+        #{startDateStr,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startPlaceId != null" >
+        #{startPlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="destPlaceId != null" >
+        #{destPlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentType != null" >
+        #{agentType,jdbcType=CHAR},
+      </if>
+      <if test="picPath != null" >
+        #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="askedCount != null" >
+        #{askedCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="cityIds != null" >
+        #{cityIds,jdbcType=VARCHAR},
+      </if>
+      <if test="compId != null" >
+        #{compId,jdbcType=INTEGER},
+      </if>
+      <if test="systemFlag != null" >
+        #{systemFlag,jdbcType=CHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.ProductCriteria" resultType="java.lang.Integer" >
+    select count(*) from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product
+    <set >
+      <if test="record.pId != null" >
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tId != null" >
+        t_id = #{record.tId,jdbcType=INTEGER},
+      </if>
+      <if test="record.routeMain != null" >
+        route_main = #{record.routeMain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeSub != null" >
+        route_sub = #{record.routeSub,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptNo != null" >
+        pt_no = #{record.ptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDateStr != null" >
+        start_date_str = #{record.startDateStr,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startPlaceId != null" >
+        start_place_id = #{record.startPlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destPlaceId != null" >
+        dest_place_id = #{record.destPlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentType != null" >
+        agent_type = #{record.agentType,jdbcType=CHAR},
+      </if>
+      <if test="record.picPath != null" >
+        pic_path = #{record.picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clickCount != null" >
+        click_count = #{record.clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.askedCount != null" >
+        asked_count = #{record.askedCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.cityIds != null" >
+        city_ids = #{record.cityIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compId != null" >
+        comp_id = #{record.compId,jdbcType=INTEGER},
+      </if>
+      <if test="record.systemFlag != null" >
+        system_flag = #{record.systemFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.createName != null" >
+        create_name = #{record.createName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateName != null" >
+        update_name = #{record.updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product
+    set p_id = #{record.pId,jdbcType=INTEGER},
+      t_id = #{record.tId,jdbcType=INTEGER},
+      route_main = #{record.routeMain,jdbcType=VARCHAR},
+      route_sub = #{record.routeSub,jdbcType=VARCHAR},
+      pt_no = #{record.ptNo,jdbcType=VARCHAR},
+      start_date_str = #{record.startDateStr,jdbcType=TIMESTAMP},
+      start_place_id = #{record.startPlaceId,jdbcType=VARCHAR},
+      dest_place_id = #{record.destPlaceId,jdbcType=VARCHAR},
+      agent_type = #{record.agentType,jdbcType=CHAR},
+      pic_path = #{record.picPath,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      click_count = #{record.clickCount,jdbcType=INTEGER},
+      asked_count = #{record.askedCount,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=CHAR},
+      city_ids = #{record.cityIds,jdbcType=VARCHAR},
+      comp_id = #{record.compId,jdbcType=INTEGER},
+      system_flag = #{record.systemFlag,jdbcType=CHAR},
+      create_name = #{record.createName,jdbcType=VARCHAR},
+      update_name = #{record.updateName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.Product" >
+    update product
+    <set >
+      <if test="tId != null" >
+        t_id = #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="routeMain != null" >
+        route_main = #{routeMain,jdbcType=VARCHAR},
+      </if>
+      <if test="routeSub != null" >
+        route_sub = #{routeSub,jdbcType=VARCHAR},
+      </if>
+      <if test="ptNo != null" >
+        pt_no = #{ptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startDateStr != null" >
+        start_date_str = #{startDateStr,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startPlaceId != null" >
+        start_place_id = #{startPlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="destPlaceId != null" >
+        dest_place_id = #{destPlaceId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentType != null" >
+        agent_type = #{agentType,jdbcType=CHAR},
+      </if>
+      <if test="picPath != null" >
+        pic_path = #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null" >
+        click_count = #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="askedCount != null" >
+        asked_count = #{askedCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="cityIds != null" >
+        city_ids = #{cityIds,jdbcType=VARCHAR},
+      </if>
+      <if test="compId != null" >
+        comp_id = #{compId,jdbcType=INTEGER},
+      </if>
+      <if test="systemFlag != null" >
+        system_flag = #{systemFlag,jdbcType=CHAR},
+      </if>
+      <if test="createName != null" >
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.Product" >
+    update product
+    set t_id = #{tId,jdbcType=INTEGER},
+      route_main = #{routeMain,jdbcType=VARCHAR},
+      route_sub = #{routeSub,jdbcType=VARCHAR},
+      pt_no = #{ptNo,jdbcType=VARCHAR},
+      start_date_str = #{startDateStr,jdbcType=TIMESTAMP},
+      start_place_id = #{startPlaceId,jdbcType=VARCHAR},
+      dest_place_id = #{destPlaceId,jdbcType=VARCHAR},
+      agent_type = #{agentType,jdbcType=CHAR},
+      pic_path = #{picPath,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      click_count = #{clickCount,jdbcType=INTEGER},
+      asked_count = #{askedCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      city_ids = #{cityIds,jdbcType=VARCHAR},
+      comp_id = #{compId,jdbcType=INTEGER},
+      system_flag = #{systemFlag,jdbcType=CHAR},
+      create_name = #{createName,jdbcType=VARCHAR},
+      update_name = #{updateName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select t.* from product t where t.comp_id=#{eShopId,jdbcType=VARCHAR}
+    <if test="routeMain != null and routeMain != '' ">
+		and t.route_main like '%' #{routeMain,jdbcType=VARCHAR} '%'
+	</if>
+    <if test="agentType != null and agentType != '' ">
+		and t.agent_type = #{agentType,jdbcType=VARCHAR}
+	</if>
+	<if test="systemFlag != null and agentType != '' ">
+		and t.system_flag = #{systemFlag,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null and status != '' ">
+		and t.status = #{status,jdbcType=VARCHAR}
+	</if>
+		order by t.p_id desc
+  </select>
+  <select id="findAllLocalproductList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+			t.*
+		FROM
+			product t
+		LEFT JOIN e_shop t1 ON t.comp_id = t1.comp_id
+		WHERE
+			t1.`status` = '1' AND t.`status` = '1'
+		AND t.city_ids LIKE '%' #{cityIds,jdbcType=VARCHAR} '%'
+		AND t.system_flag = #{systemFlag,jdbcType=CHAR} ;
+  </select>
+</mapper>

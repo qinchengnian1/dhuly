@@ -1,0 +1,141 @@
+@charset "utf-8";
+/* 
+ * reset * 
+*/
+html,body{
+	height:100%;
+	font:12px/1.5 "Microsoft Yahei";
+	overflow-y:hidden ;
+}
+body{
+	background: #e0e0e0 !important;
+}
+body,ul,dl,dd,h1,h2,h3,h4,p,form{
+	margin:0;
+	padding: 0;
+} 
+ul,ol,li{
+	list-style-type: none;
+	padding: 0;
+} 
+a{
+	text-decoration:none;
+	color: #000000 !important;
+}
+a:focus,a:hover{
+	text-decoration: none !important;
+	border: 0 !important;  
+   	outline: none;
+  	box-shadow: none !important;
+}
+img{
+	border:0;
+	vertical-align:middle;
+    -ms-interpolation-mode: bicubic;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+em{ 
+	font-style:normal;
+}
+input,textarea{
+	outline: none;
+}
+.clearfix:after{
+	display:block;	
+	content:"";  
+	clear:both;
+}
+.clearfix{
+	zoom:1;
+}
+#routeManagement{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+}
+/*左边路线类型 	start*/
+.routeType{
+	width: 15%;
+    height: 100%;
+    border: 1px solid #d1d1d1;
+    background: white;
+}
+.routeType h5{
+	text-indent: 30px;
+	margin: 0;
+	height: 25px;
+	line-height: 30px;
+	background: url(../images/routeType.png) no-repeat;
+	background-position-y: center;
+	background-position-x: 10px;
+}
+.search{
+	width: 100%;
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid #EEEEEE;
+}
+.search input{
+	width: 114px;
+	height: 24px;
+	font-size: 12px;
+}
+.search button{
+	width: 48px;
+	height: 24px;
+	padding: 0;
+}
+.routeTypeContent{
+	width: 100%;
+    background: white;
+    overflow-x: scroll;
+}
+.routeTypeContent ul{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.routeTypeContent>ul>li{
+	cursor: pointer;
+	background: url(../images/wenjian.png) no-repeat !important;
+	background-position-y: center !important;
+	background-position-x: 5px !important;
+	width: 100%;
+	list-style: inherit;
+	text-indent: 25px;
+    padding: 3px 0px 3px 0px;
+}
+.routeTypeContent>ul>li>a{
+	outline: none !important;
+	box-shadow: none !important;
+}
+.navBarContent>ul>li>a{
+    background: url(../images/wenjian.png) no-repeat !important;
+    background-position-y: center !important;
+    background-position-x: 15px !important;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    display: block;
+    color: #666666 !important;
+    white-space: nowrap;
+    padding: 3px 0px 3px 0px;
+    text-indent: 35px !important;
+}
+/*左边路线类型 	end*/
+
+/*右边表格功能 	start*/
+.content{
+	width: 85%;
+	height: 100%;
+	border: 1px solid #d1d1d1;
+}
+/*右边表格功能 	end*/

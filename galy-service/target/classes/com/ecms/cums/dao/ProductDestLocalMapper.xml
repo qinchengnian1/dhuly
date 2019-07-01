@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.ProductDestLocalMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.ProductDestLocal" >
+    <id column="p_d_id" property="pDId" jdbcType="INTEGER" />
+    <result column="dest_id" property="destId" jdbcType="VARCHAR" />
+    <result column="dest_name" property="destName" jdbcType="VARCHAR" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="dest_p_id" property="destPId" jdbcType="VARCHAR" />
+    <result column="e_name" property="eName" jdbcType="VARCHAR" />
+    <result column="system_flag" property="systemFlag" jdbcType="VARCHAR" />
+    <result column="hot_dest" property="hotDest" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    p_d_id, dest_id, dest_name, pinyin, dest_p_id, e_name, system_flag, hot_dest, status, 
+    create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.ProductDestLocalCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_dest_local
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_dest_local
+    where p_d_id = #{pDId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_dest_local
+    where p_d_id = #{pDId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.ProductDestLocalCriteria" >
+    delete from product_dest_local
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.ProductDestLocal" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pDId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_dest_local (dest_id, dest_name, pinyin, 
+      dest_p_id, e_name, system_flag, 
+      hot_dest, status, create_time, 
+      update_time)
+    values (#{destId,jdbcType=VARCHAR}, #{destName,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR}, 
+      #{destPId,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR}, #{systemFlag,jdbcType=VARCHAR}, 
+      #{hotDest,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.ProductDestLocal" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pDId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_dest_local
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="destId != null" >
+        dest_id,
+      </if>
+      <if test="destName != null" >
+        dest_name,
+      </if>
+      <if test="pinyin != null" >
+        pinyin,
+      </if>
+      <if test="destPId != null" >
+        dest_p_id,
+      </if>
+      <if test="eName != null" >
+        e_name,
+      </if>
+      <if test="systemFlag != null" >
+        system_flag,
+      </if>
+      <if test="hotDest != null" >
+        hot_dest,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="destId != null" >
+        #{destId,jdbcType=VARCHAR},
+      </if>
+      <if test="destName != null" >
+        #{destName,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="destPId != null" >
+        #{destPId,jdbcType=VARCHAR},
+      </if>
+      <if test="eName != null" >
+        #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemFlag != null" >
+        #{systemFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="hotDest != null" >
+        #{hotDest,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.ProductDestLocalCriteria" resultType="java.lang.Integer" >
+    select count(*) from product_dest_local
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product_dest_local
+    <set >
+      <if test="record.pDId != null" >
+        p_d_id = #{record.pDId,jdbcType=INTEGER},
+      </if>
+      <if test="record.destId != null" >
+        dest_id = #{record.destId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destName != null" >
+        dest_name = #{record.destName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyin != null" >
+        pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destPId != null" >
+        dest_p_id = #{record.destPId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eName != null" >
+        e_name = #{record.eName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemFlag != null" >
+        system_flag = #{record.systemFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotDest != null" >
+        hot_dest = #{record.hotDest,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product_dest_local
+    set p_d_id = #{record.pDId,jdbcType=INTEGER},
+      dest_id = #{record.destId,jdbcType=VARCHAR},
+      dest_name = #{record.destName,jdbcType=VARCHAR},
+      pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      dest_p_id = #{record.destPId,jdbcType=VARCHAR},
+      e_name = #{record.eName,jdbcType=VARCHAR},
+      system_flag = #{record.systemFlag,jdbcType=VARCHAR},
+      hot_dest = #{record.hotDest,jdbcType=CHAR},
+      status = #{record.status,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.ProductDestLocal" >
+    update product_dest_local
+    <set >
+      <if test="destId != null" >
+        dest_id = #{destId,jdbcType=VARCHAR},
+      </if>
+      <if test="destName != null" >
+        dest_name = #{destName,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="destPId != null" >
+        dest_p_id = #{destPId,jdbcType=VARCHAR},
+      </if>
+      <if test="eName != null" >
+        e_name = #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemFlag != null" >
+        system_flag = #{systemFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="hotDest != null" >
+        hot_dest = #{hotDest,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where p_d_id = #{pDId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.ProductDestLocal" >
+    update product_dest_local
+    set dest_id = #{destId,jdbcType=VARCHAR},
+      dest_name = #{destName,jdbcType=VARCHAR},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      dest_p_id = #{destPId,jdbcType=VARCHAR},
+      e_name = #{eName,jdbcType=VARCHAR},
+      system_flag = #{systemFlag,jdbcType=VARCHAR},
+      hot_dest = #{hotDest,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where p_d_id = #{pDId,jdbcType=INTEGER}
+  </update>
+</mapper>

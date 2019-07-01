@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="db.properties" />
+	<classPathEntry location="E:\mybaties\mysql-connector-java-5.1.21.jar" />
+    <context id="MBG" targetRuntime="MyBatis3">
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
+
+	    <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+
+        <!-- 生成注释配置 -->
+        <commentGenerator >
+    <property name="suppressDate" value="true"/>
+    <property name="suppressAllComments" value="true" /></commentGenerator>
+
+        <!-- 数据库连接配置 -->
+        <jdbcConnection driverClass="${db.driverClassName}" connectionURL="${db.url}" userId="${db.user}"
+			password="${db.password}" />
+
+        <!-- 类型解析器 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 实体类 -->
+		<javaModelGenerator targetPackage="${db.dao.modelPackage}" targetProject="galy-service">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 实体类SQL映射文件 -->
+		<sqlMapGenerator targetPackage="${db.dao.sqlMapperPackage}" targetProject="galy-service/src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 接口 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="${db.dao.daoMapperPackage}" targetProject="galy-service">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+        <table tableName="f_airport_tourist_order"  domainObjectName="FAirportTouristOrder">
+            <generatedKey column="f_o_t_id" sqlStatement="MySql"  identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

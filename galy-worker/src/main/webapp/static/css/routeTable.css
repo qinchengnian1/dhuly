@@ -1,0 +1,433 @@
+@charset "utf-8";
+/*
+ * reset *
+*/
+html,body{
+	height:100%;
+	font:12px/1.5 "Microsoft Yahei";
+	overflow-y:hidden ;
+}
+body{
+	background: #e0e0e0 !important;
+}
+body,ul,dl,dd,h1,h2,h3,h4,p,form{
+	margin:0;
+	padding: 0;
+}
+ul,ol,li{
+	list-style-type: none;
+	padding: 0;
+}
+a{
+	text-decoration:none;
+	color: #000000 !important;
+}
+a:focus,a:hover{
+	text-decoration: none !important;
+	border: 0 !important;
+  	box-shadow: none !important;
+}
+img{
+	border:0;
+	vertical-align:middle;
+    -ms-interpolation-mode: bicubic;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+em{
+	font-style:normal;
+}
+input,textarea{
+	outline: none;
+}
+.clearfix:after{
+	display:block;
+	content:"";
+	clear:both;
+}
+.clearfix{
+	zoom:1;
+}
+/*右边表格功能 	start*/
+#routeTable{
+	width: 100%;
+	height: 100%;
+}
+.nrheader{
+	width: 100%;
+	height: 30px;
+	display: flex;
+	background: #e9eaeb;
+	align-items: center;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+}
+.nrheader .nrheaderSearch{
+	height: 100%;
+	display: flex;
+	margin-right: 10px;
+	background: #EBEBEB;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+.nrheader .sx{
+	height: 100%;
+	background: #EBEBEB;
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+}
+.nrheader .nrheaderSearch select,.nrheader .nrheaderSearch input{
+	height: 80%;
+	padding: 0px 5px 0px 5px;
+	font-size: 12px;
+	margin-right: 5px;
+}
+.nrheader .nrheaderSearch input{
+	width: 210px;
+}
+.nrheaderSearch button{
+	height: 24px;
+	padding-top: 0;
+}
+.operation{
+	width: 100%;
+	height: 30px;
+	display: flex;
+	background: #EBECED;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+.operation a{
+	display: block;
+	background: #EBECED;
+	height: 100%;
+	outline: none !important;
+	box-shadow: none !important;
+	padding: 0px 0px 0px 10px;
+    font-size: 12px;
+    margin-right: 5px;
+	display: flex;
+	align-items: center;
+}
+.operation a select{
+	border: 0;
+	outline: none;
+	background: #EBECED;
+}
+.table-responsive{
+	background: #e9eaeb;
+}
+.table-condensed{
+	overflow-x: scroll;
+}
+.table-condensed table thead tr th,.table-condensed table tbody tr td{
+	white-space: nowrap;
+	height: 30px;
+	font-size: 12px;
+	line-height: 30px;
+	padding: 0px 10px 0px 10px !important;
+}
+.table-condensed table tr th:first-child,.table-condensed table tr td:first-child,.table-condensed table tr th:nth-child(2),.table-condensed table tr td:nth-child(2){
+	background: #e9eaeb;
+}
+.table-condensed table tbody  tr th:nth-child(3),.table-condensed table tbody tr td:nth-child(3),.table-condensed table tbody  tr th:nth-child(4),.table-condensed table tbody  tr td:nth-child(4),.table-condensed table tbody  tr th:nth-child(9),.table-condensed table tbody  tr td:nth-child(9){
+	color: #008100;
+}
+/*右边表格功能 	end*/
+
+/*模态框	start*/
+.modalheader{
+	width: 100%;
+	height: 60px;
+	display: flex;
+}
+.modalLeft{
+	width: 40%;
+	display: flex;
+	align-items: center;
+}
+.modalLeft .actives{
+	color: #7aBd54;
+}
+.modalLeft>dl{
+	width: 33.3%;
+    height: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+.modalLeft dl dt,.modalLeft dl dd{
+	width: 100%;
+	text-align: center;
+	white-space: nowrap;
+}
+.modalRight{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+.modalRight a{
+	width: 100px;
+	border: 0;
+	display: block;
+	margin-right: 10px;
+	outline: none;
+	height: 38px;
+	color: white !important;
+	text-align: center;
+    line-height: 38px;
+}
+.modalRight a:first-child{
+	background: #0287CB;
+}
+.modalRight a:nth-child(2){
+	background: #d54025;
+}
+.modalRight a:nth-child(3){
+	background: #ABABAB;
+}
+.modalcontent{
+	width: 100%;
+}
+.modalcontent ul{
+	width: 100%;
+	padding: 10px 10px 10px 0px;
+}
+.modalcontent ul li{
+	width: 100%;
+	display: flex;
+	align-items: baseline;
+	padding: 5px 0px 5px 0px;
+}
+.modalcontent ul li .mdContentLeft{
+	width: 10%;
+	display: block;
+	white-space: nowrap;
+}
+.modalcontent ul li .mdContentRight{
+	width: 85%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.modalcontent ul li .mdContentRight select{
+	width: 50%;
+	height: 30px;
+	text-indent: 5px;
+}
+.contentRight select,.mdContentRight input{
+	height: 30px !important;
+	text-indent: 5px;
+}
+.mdContentRight .jy{
+	width: 48%;
+	margin-bottom: 10px;
+	border: 1px solid #eeeeee;
+	display: flex;
+}
+.mdContentRight p{
+	width: 50%;
+}
+.mleft{
+	margin-left: 9px;
+}
+.mdContentRight textarea{
+	width: 100%;
+	text-indent: 5px;
+}
+.mdContentRight .jy span{
+	width: 40%;
+	height: 100%;
+    display: block;
+    line-height: 30px;
+    text-align: center;
+    height: 30px;
+    background: #ededed;
+}
+.mdContentRight .jy input{
+	width: 60%;
+	height: 100%;
+	border: 0;
+	font-size: 12px;
+	text-indent: 5px;
+}
+.mdContentRight .shm{
+	color: #999999;
+}
+.mdContentRight .shm span:first-child{
+	color: #000;
+}
+.mdContentRight .shm span:nth-child(2),.contentRight .shm span:nth-child(3){
+	color: #ff000d;
+}
+/*模态框	end*/
+
+/*分页  start*/
+#page {
+	height: 50px;
+	display: table;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+}
+.page {
+	text-align: center;
+}
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+.pagingUl {
+	float: right;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	height: 30px;
+}
+.pagingUl li {
+	float: left;
+	background: #fff;
+	text-align: center;
+	margin-right: 5px;
+	border-radius: 5px
+}
+.pagingUl li a {
+	display: inline-block;
+	padding: 1px 14px;
+	text-align: center;
+	line-height: 28px;
+	color: #666;
+	font-size: 12px;
+	border-radius: 5px
+}
+.prv,
+.next {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	background: #fff;
+	padding: 0 5px;
+	border-radius: 5px;
+}
+.prv,.next{
+	margin-right: 10px;
+}
+.first,
+.last {
+	width: 40px;
+	height: 30px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 30px;
+	/*border: 1px solid #ddd;*/
+	cursor: pointer;
+	background: #fff;
+	padding: 0 5px;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+.zong{
+	height: 30px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 30px;
+	/*border: 1px solid #ddd;*/
+	cursor: pointer;
+	background: #fff;
+	padding: 0 5px;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+.prv:hover,
+.next:hover,
+.zong:hover,
+.first:hover,
+.last:hover,
+.pagingUl li a:hover,
+.activP {
+	background-color: #000!important;
+	color: #fff!important;
+}
+/*分页  end*/
+.postImagesWrap{
+	width: 50%;
+	margin-bottom: 5px;
+	display: flex;
+    align-items: center;
+}
+.postImages{
+	margin-left: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.postImages>span{
+	border: 0!important;
+	background: #fc847d!important;
+	padding: 2px 15px!important;
+}
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-indent: 0px;
+}
+.btn-success{
+    background-color: #ff554a;
+    border-color: #ff554a;
+}
+.btn{
+    padding: 6px 15px;
+}
+.btn-success:hover{
+    background-color: #ff554a;
+    border-color: #ff554a;
+}
+.fileinput-button input{
+    position:absolute;
+    right: 0px;
+    top: 0px;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px;
+}
+.uploadPictures{
+	display: none;
+    position: relative;
+    width: 110px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uploadPictures img{
+	width: 90px !important;
+	height: 55px !important;
+}
+.deletePictures{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ff554a;
+    text-indent: 0;
+    border-radius: 50%;
+    color: #ff554a;
+    line-height: 20px;
+}

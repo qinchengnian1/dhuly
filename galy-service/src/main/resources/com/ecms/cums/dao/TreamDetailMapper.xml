@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecms.cums.dao.TreamDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.ecms.cums.model.TreamDetail" >
+    <id column="t_id" property="tId" jdbcType="INTEGER" />
+    <result column="i_id" property="iId" jdbcType="INTEGER" />
+    <result column="is_hot" property="isHot" jdbcType="CHAR" />
+    <result column="min_num" property="minNum" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="return_date" property="returnDate" jdbcType="VARCHAR" />
+    <result column="deadline_date" property="deadlineDate" jdbcType="VARCHAR" />
+    <result column="adult_price" property="adultPrice" jdbcType="VARCHAR" />
+    <result column="child_price" property="childPrice" jdbcType="VARCHAR" />
+    <result column="left_num" property="leftNum" jdbcType="VARCHAR" />
+    <result column="week_date" property="weekDate" jdbcType="VARCHAR" />
+    <result column="re_week_date" property="reWeekDate" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_man" property="createMan" jdbcType="INTEGER" />
+    <result column="update_man" property="updateMan" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    t_id, i_id, is_hot, min_num, start_date, return_date, deadline_date, adult_price, 
+    child_price, left_num, week_date, re_week_date, remark, create_man, update_man, create_time, 
+    update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.TreamDetailCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tream_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tream_detail
+    where t_id = #{tId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tream_detail
+    where t_id = #{tId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecms.cums.model.TreamDetailCriteria" >
+    delete from tream_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecms.cums.model.TreamDetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="tId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tream_detail (i_id, is_hot, min_num, 
+      start_date, return_date, deadline_date, 
+      adult_price, child_price, left_num, 
+      week_date, re_week_date, remark, 
+      create_man, update_man, create_time, 
+      update_time)
+    values (#{iId,jdbcType=INTEGER}, #{isHot,jdbcType=CHAR}, #{minNum,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=VARCHAR}, #{returnDate,jdbcType=VARCHAR}, #{deadlineDate,jdbcType=VARCHAR}, 
+      #{adultPrice,jdbcType=VARCHAR}, #{childPrice,jdbcType=VARCHAR}, #{leftNum,jdbcType=VARCHAR}, 
+      #{weekDate,jdbcType=VARCHAR}, #{reWeekDate,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createMan,jdbcType=INTEGER}, #{updateMan,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecms.cums.model.TreamDetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="tId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tream_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        i_id,
+      </if>
+      <if test="isHot != null" >
+        is_hot,
+      </if>
+      <if test="minNum != null" >
+        min_num,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="returnDate != null" >
+        return_date,
+      </if>
+      <if test="deadlineDate != null" >
+        deadline_date,
+      </if>
+      <if test="adultPrice != null" >
+        adult_price,
+      </if>
+      <if test="childPrice != null" >
+        child_price,
+      </if>
+      <if test="leftNum != null" >
+        left_num,
+      </if>
+      <if test="weekDate != null" >
+        week_date,
+      </if>
+      <if test="reWeekDate != null" >
+        re_week_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createMan != null" >
+        create_man,
+      </if>
+      <if test="updateMan != null" >
+        update_man,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        #{iId,jdbcType=INTEGER},
+      </if>
+      <if test="isHot != null" >
+        #{isHot,jdbcType=CHAR},
+      </if>
+      <if test="minNum != null" >
+        #{minNum,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deadlineDate != null" >
+        #{deadlineDate,jdbcType=VARCHAR},
+      </if>
+      <if test="adultPrice != null" >
+        #{adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="childPrice != null" >
+        #{childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="leftNum != null" >
+        #{leftNum,jdbcType=VARCHAR},
+      </if>
+      <if test="weekDate != null" >
+        #{weekDate,jdbcType=VARCHAR},
+      </if>
+      <if test="reWeekDate != null" >
+        #{reWeekDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createMan != null" >
+        #{createMan,jdbcType=INTEGER},
+      </if>
+      <if test="updateMan != null" >
+        #{updateMan,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecms.cums.model.TreamDetailCriteria" resultType="java.lang.Integer" >
+    select count(*) from tream_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tream_detail
+    <set >
+      <if test="record.tId != null" >
+        t_id = #{record.tId,jdbcType=INTEGER},
+      </if>
+      <if test="record.iId != null" >
+        i_id = #{record.iId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isHot != null" >
+        is_hot = #{record.isHot,jdbcType=CHAR},
+      </if>
+      <if test="record.minNum != null" >
+        min_num = #{record.minNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null" >
+        start_date = #{record.startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnDate != null" >
+        return_date = #{record.returnDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadlineDate != null" >
+        deadline_date = #{record.deadlineDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adultPrice != null" >
+        adult_price = #{record.adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.childPrice != null" >
+        child_price = #{record.childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leftNum != null" >
+        left_num = #{record.leftNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weekDate != null" >
+        week_date = #{record.weekDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reWeekDate != null" >
+        re_week_date = #{record.reWeekDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createMan != null" >
+        create_man = #{record.createMan,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateMan != null" >
+        update_man = #{record.updateMan,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tream_detail
+    set t_id = #{record.tId,jdbcType=INTEGER},
+      i_id = #{record.iId,jdbcType=INTEGER},
+      is_hot = #{record.isHot,jdbcType=CHAR},
+      min_num = #{record.minNum,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=VARCHAR},
+      return_date = #{record.returnDate,jdbcType=VARCHAR},
+      deadline_date = #{record.deadlineDate,jdbcType=VARCHAR},
+      adult_price = #{record.adultPrice,jdbcType=VARCHAR},
+      child_price = #{record.childPrice,jdbcType=VARCHAR},
+      left_num = #{record.leftNum,jdbcType=VARCHAR},
+      week_date = #{record.weekDate,jdbcType=VARCHAR},
+      re_week_date = #{record.reWeekDate,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_man = #{record.createMan,jdbcType=INTEGER},
+      update_man = #{record.updateMan,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecms.cums.model.TreamDetail" >
+    update tream_detail
+    <set >
+      <if test="iId != null" >
+        i_id = #{iId,jdbcType=INTEGER},
+      </if>
+      <if test="isHot != null" >
+        is_hot = #{isHot,jdbcType=CHAR},
+      </if>
+      <if test="minNum != null" >
+        min_num = #{minNum,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDate != null" >
+        return_date = #{returnDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deadlineDate != null" >
+        deadline_date = #{deadlineDate,jdbcType=VARCHAR},
+      </if>
+      <if test="adultPrice != null" >
+        adult_price = #{adultPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="childPrice != null" >
+        child_price = #{childPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="leftNum != null" >
+        left_num = #{leftNum,jdbcType=VARCHAR},
+      </if>
+      <if test="weekDate != null" >
+        week_date = #{weekDate,jdbcType=VARCHAR},
+      </if>
+      <if test="reWeekDate != null" >
+        re_week_date = #{reWeekDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createMan != null" >
+        create_man = #{createMan,jdbcType=INTEGER},
+      </if>
+      <if test="updateMan != null" >
+        update_man = #{updateMan,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecms.cums.model.TreamDetail" >
+    update tream_detail
+    set i_id = #{iId,jdbcType=INTEGER},
+      is_hot = #{isHot,jdbcType=CHAR},
+      min_num = #{minNum,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=VARCHAR},
+      return_date = #{returnDate,jdbcType=VARCHAR},
+      deadline_date = #{deadlineDate,jdbcType=VARCHAR},
+      adult_price = #{adultPrice,jdbcType=VARCHAR},
+      child_price = #{childPrice,jdbcType=VARCHAR},
+      left_num = #{leftNum,jdbcType=VARCHAR},
+      week_date = #{weekDate,jdbcType=VARCHAR},
+      re_week_date = #{reWeekDate,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_man = #{createMan,jdbcType=INTEGER},
+      update_man = #{updateMan,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+  
+   <delete id="deleteTreamdetailByStartDate" parameterType="com.ecms.cums.model.TreamDetail" >
+	DELETE FROM tream_detail WHERE STR_TO_DATE(start_date,'%Y-%m-%d') &lt; DATE_SUB(NOW(),INTERVAL 1 DAY)  
+	</delete>
+	
+	 <delete id="deleteTreamdetailByiID" parameterType="java.lang.Integer" >
+    delete from tream_detail
+    where i_id = #{iId,jdbcType=INTEGER}
+  </delete>
+  
+  
+   <delete id="deleteTimeslot" parameterType="com.ecms.cums.model.TreamDetail" >
+	DELETE  FROM tream_detail 
+	WHERE STR_TO_DATE(start_date,'%Y-%m-%d') &gt;= #{delstartDay,jdbcType=VARCHAR}  
+	AND STR_TO_DATE(start_date,'%Y-%m-%d')&lt;= #{delendDay,jdbcType=VARCHAR} 
+	AND i_id = #{iId,jdbcType=INTEGER}
+  </delete>
+  
+  
+   <select id="getByProerties" resultMap="BaseResultMap" >
+    select t.* from role_authority t where 1=1
+     <if test="propName != null and propName != '' ">
+		and t.menu_code  = #{propName,jdbcType=VARCHAR}
+	</if>
+	 <if test="propValue != null and propValue != '' ">
+		and t.role_key  = #{propValue,jdbcType=VARCHAR}
+	</if>
+	 order by t.id desc
+  </select>
+  
+  
+
+</mapper>
