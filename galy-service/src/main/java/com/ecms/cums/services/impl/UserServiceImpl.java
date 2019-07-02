@@ -99,6 +99,7 @@ public class UserServiceImpl implements UserService{
 		map2.put("idCard", user.getIdcard());
 		map2.put("email", user.getEmail());
 		map2.put("address", user.getAddress());
+		map2.put("openId", user.getOpenId());
 		return map2;
 	}
 
