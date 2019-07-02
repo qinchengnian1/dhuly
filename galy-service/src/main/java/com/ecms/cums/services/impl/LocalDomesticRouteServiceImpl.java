@@ -189,7 +189,9 @@ public class LocalDomesticRouteServiceImpl  implements LocalDomesticRouteService
 		c.andAgentTypeEqualTo(jsonbody.getString("agentType"));
 		c.andCityIdsLike("%"+jsonbody.getString("cityId")+"%");
 		c.andStatusEqualTo("1");
-		c.andSystemFlagEqualTo("1");	
+		if (StringUtils.isNotBlank(jsonbody.getString("systemFlag "))){
+			c.andSystemFlagEqualTo(jsonbody.getString("systemFlag "));
+		}
 		List<Product> ce=productMapper.selectByExample(criteria);
 		return ce;
 	}
