@@ -32,6 +32,7 @@
 						</div>
 					</c:forEach>
 				</ul>
+				<p>&nbsp;</p>
 			</div>
 		</div>
 		<div class="content">

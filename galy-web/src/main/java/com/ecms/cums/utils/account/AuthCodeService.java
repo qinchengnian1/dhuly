@@ -1,5 +1,6 @@
 package com.ecms.cums.utils.account;
 
+import com.ecms.cums.utils.MLSendSMS;
 import com.ecms.cums.utils.aliyun.AliyunDysmsUtils;
 import com.ecms.cums.utils.redis.RedisUtils;
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public class AuthCodeService {
         } else {
             code = AliyunDysmsUtils.generalCode();
 //            String errorCode = AliyunDysmsUtils.send(String.valueOf(phone), AliyunDysmsUtils.generalCode());
-            if (!AliyunDysmsUtils.send(String.valueOf(phone), code)) {
+            if (!MLSendSMS.sendSMS(String.valueOf(phone), code)) {
                 logger.error("发送手机验证码出现错误，错误码：" + code + "手机号：" + phone);
                 return false;
             } else {
