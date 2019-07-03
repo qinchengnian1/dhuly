@@ -88,9 +88,9 @@
 			<version>1.7.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>joda-time</groupId>
-		    <artifactId>joda-time</artifactId>
-		    <version>2.5</version>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -99,30 +99,30 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.ezmorph</groupId>
-            <artifactId>ezmorph</artifactId>
-            <version>1.0.6</version>
-        </dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ezmorph</groupId>
+			<artifactId>ezmorph</artifactId>
+			<version>1.0.6</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -130,51 +130,51 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context</artifactId>
-		    <version>${org.springframework.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
-	         <groupId>org.springside</groupId>
-	         <artifactId>springside-core</artifactId>
-	         <version>4.2.0</version>
-	         <scope>system</scope>
-	         <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/springside-core-4.2.0.jar</systemPath>
-	     </dependency>
-	     <dependency>
-	         <groupId>com.alipay.api</groupId>
-	         <artifactId>alipay</artifactId>
-	         <version>3.3.4</version>
-	         <scope>system</scope>
-	         <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/alipay-sdk-java-3.3.4.ALL.jar</systemPath>
-	     </dependency>
-	     <dependency>
-		    <groupId>org.mybatis.generator</groupId>
-		    <artifactId>mybatis-generator-maven-plugin</artifactId>
-		    <version>1.3.5</version>
+			<groupId>org.springside</groupId>
+			<artifactId>springside-core</artifactId>
+			<version>4.2.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/springside-core-4.2.0.jar</systemPath>
 		</dependency>
-	     <dependency>
-	         <groupId>org.mybatis.generator</groupId>
-	         <artifactId>mybatis-generator-core</artifactId>
-	         <version>1.3.6</version>
-	         <scope>system</scope>
-	         <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mybatis.jar</systemPath>
-	     </dependency>
+		<dependency>
+			<groupId>com.alipay.api</groupId>
+			<artifactId>alipay</artifactId>
+			<version>3.3.4</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/alipay-sdk-java-3.3.4.ALL.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-maven-plugin</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-core</artifactId>
+			<version>1.3.6</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mybatis.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-			</dependency>
-			<dependency>
+		</dependency>
+		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>4.0.6</version>
-        </dependency>
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-core</artifactId>
+			<version>4.0.6</version>
+		</dependency>
 		<dependency>
 			<groupId>com.aliyun</groupId>
 			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
@@ -200,24 +200,24 @@
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>9.0.13</version>
 		</dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.4</version>
+		</dependency>
+	</dependencies>
 	<build>
-        <finalName>galy-web</finalName>
-        <plugins>
-          <plugin>
-              <groupId>org.mybatis.generator</groupId>
-              <artifactId>mybatis-generator-maven-plugin</artifactId>
-              <version>1.3.2</version>
-              <configuration>
-                  <verbose>true</verbose>
-                  <overwrite>true</overwrite>
-              </configuration>
-          </plugin>
+		<finalName>galy-web</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -227,5 +227,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-</build>
+	</build>
 </project>

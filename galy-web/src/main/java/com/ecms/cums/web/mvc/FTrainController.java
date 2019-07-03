@@ -6,12 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.ecms.cums.core.util.HttpCommandProvider;
 import com.ecms.cums.cores.Constants;
 import com.ecms.cums.horsevo.TrainListVo;
@@ -21,7 +19,6 @@ import com.ecms.cums.utils.StringReaderUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-
 @Controller
 @RequestMapping("/sTrainController")
 public class FTrainController extends IndexController{

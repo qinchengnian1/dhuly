@@ -35,8 +35,14 @@ public class PayCallBackController {
     private PortService portService;
 
     @RequestMapping("/alipay")
-    public String aliPayCallBack(HttpServletRequest request) throws UnsupportedEncodingException {
-        Map requestMap = AliPayService.reqIOToMap(request);
+    public String aliPayCallBack(HttpServletRequest request){
+        Map requestMap = null;
+        try {
+            requestMap = AliPayService.reqIOToMap(request);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "FALL";
+        }
         try {
             String orderId = (String) requestMap.get("passback_params");
             boolean flag = AlipaySignature.rsaCheckV1(requestMap, AppKeyProperties.get("ali.alikey"), "UTF-8", "RSA2");
