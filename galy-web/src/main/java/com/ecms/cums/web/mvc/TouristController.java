@@ -60,7 +60,7 @@ public class TouristController extends BaseController{
 		JSONObject jsonbody = param.getJSONObject("body");
 		List<Tourist> tourist;
 		try {
-			tourist = this.touristService.checkTouristList(Integer.parseInt((String)jsonbody.get("userId")));
+			tourist = this.touristService.checkTouristList(jsonbody.getInt("userId"));
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("tourist", tourist);
 			this.getSuccessResponseJson(response, map);
@@ -83,36 +83,36 @@ public class TouristController extends BaseController{
 			ms.getHeader().put("resCode", "0");
 			Tourist tourist = new Tourist();
 			//用户id
-			if(StringUtils.isBlank((String) jsonbody.get("userId"))){
+			if(StringUtils.isBlank(jsonbody.getString("userId"))){
 				ms.getHeader().put("resMsg", "用户id为空");
 			}
-			tourist.setUserId(Integer.parseInt((String) jsonbody.get("userId")));
+			tourist.setUserId( jsonbody.getInt("userId"));
 			//旅客名称
-			if(StringUtils.isBlank((String) jsonbody.get("touristName"))){
+			if(StringUtils.isBlank(jsonbody.getString("touristName"))){
 				ms.getHeader().put("resMsg", "旅客名称为空");
 			}
-			tourist.setTouristName((String)jsonbody.get("touristName"));
+			tourist.setTouristName(jsonbody.getString("touristName"));
 			//英文名称
-			tourist.setTouristNamePy((String)jsonbody.get("touristNamePY")==""?null:(String)jsonbody.get("touristNamePY"));
+			tourist.setTouristNamePy(jsonbody.getString("touristNamePY"));
 			//手机号
-			if(StringUtils.isBlank((String) jsonbody.get("roommateMobile"))){
+			if(StringUtils.isBlank(jsonbody.getString("roommateMobile"))){
 				ms.getHeader().put("resMsg", "手机号为空");
 			}
-			tourist.setTelephone((String)jsonbody.get("roommateMobile"));
+			tourist.setTelephone(jsonbody.getString("roommateMobile"));
 			//生日
-			tourist.setRouristBirthday((String)jsonbody.get("touristBirthDate")==""?null:(String)jsonbody.get("touristBirthDate"));
+			tourist.setRouristBirthday(jsonbody.getString("touristBirthDate"));
 			//国籍
 			tourist.setTouristNationId("2");
 			//出生地址
-			tourist.setRouristRegPlace((String)jsonbody.get("touristRegPlace")==""?null:(String)jsonbody.get("touristRegPlace"));
+			tourist.setRouristRegPlace(jsonbody.getString("touristRegPlace"));
 			//性别
-			tourist.setSex((String)jsonbody.get("touristSex")==""?null:(String)jsonbody.get("touristSex"));
+			tourist.setSex(jsonbody.getString("touristSex"));
 			//成人/儿童
-			tourist.setPasgType((String)jsonbody.get("pasgType")==""?null:(String)jsonbody.get("pasgType"));
+			tourist.setPasgType(jsonbody.getString("pasgType"));
 			//证件类型
-			tourist.setCardType((String)jsonbody.get("touristCredType")==""?null:(String)jsonbody.get("touristCredType"));
+			tourist.setCardType(jsonbody.getString("touristCredType"));
 			//身份证号码
-			if(StringUtils.isBlank((String) jsonbody.get("touristCredId"))){
+			if(StringUtils.isBlank(jsonbody.getString("touristCredId"))){
 				ms.getHeader().put("resMsg", "证件号码为空");
 			}
 			tourist.setCardNo((String)jsonbody.get("touristCredId"));
@@ -125,9 +125,9 @@ public class TouristController extends BaseController{
 				touristService.touristSubmit(tourist);
 				this.getSuccessResponse(response, "增加成功");
 			}else{
-				tourist.setTouristId(Integer.parseInt((String) jsonbody.get("touristId")));
+				tourist.setTouristId(jsonbody.getInt("touristId"));
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-M-dd HH:mm:ss");
-				tourist.setCreateTime(format.parse(jsonbody.get("createTime").toString()));
+				tourist.setCreateTime(format.parse(jsonbody.getString("createTime")));
 				tourist.setUpdatTime(new Date());
 				touristService.updateTourist(tourist);
 				this.getSuccessResponse(response, "修改成功");
