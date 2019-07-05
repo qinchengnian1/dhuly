@@ -43,22 +43,43 @@ public class WeixinAccessService extends BaseController {
     public WeixinAccessService() {
     }
 
-    @RequestMapping("weixin/getcode")
-    public Result<Object> gameServiceGuidleAuthUrl(String url) {
-        try {
-            url = URLEncoder.encode(url, "UTF-8");
-            Map<String, Object> codeMap = new HashMap();
-            codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
-            codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
-            codeMap.put("redirect_uri", url);
-            codeMap.put("state", WeixinAccessService.WeixinConfig.state);
-            String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
-            codeUrl = codeUrl + "#wechat_redirect";
+//    @RequestMapping("weixin/getcode")
+//    public Result<Object> gameServiceGuidleAuthUrl(String url) {
+//        try {
+//            url = URLEncoder.encode(url, "UTF-8");
+//            Map<String, Object> codeMap = new HashMap();
+//            codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
+//            codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
+//            codeMap.put("redirect_uri", url);
+//            codeMap.put("state", WeixinAccessService.WeixinConfig.state);
+//            String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
+//            codeUrl = codeUrl + "#wechat_redirect";
+//            return new ResultUtil<>().setSuccessMsg(codeUrl);
+//        } catch (UnsupportedEncodingException var4) {
+//            return new ResultUtil<>().setErrorMsg("回调地址错误");
+//        }
+//    }
 
-            return new ResultUtil<>().setSuccessMsg(codeUrl);
-        } catch (UnsupportedEncodingException var4) {
-            return new ResultUtil<>().setErrorMsg("回调地址错误");
+
+    // 发送回调地址绑定微信
+    @RequestMapping("/weixin/guidleauthforbinding")
+    public RedirectView appGuidleAuthUrlForBinding(String url, String phone) {
+        RedirectView view = new RedirectView();
+        try {
+            url = URLEncoder.encode(WeixinAccessService.WeixinConfig.redictUrl + "?phone=" + phone, "utf-8");
+        } catch (UnsupportedEncodingException var5) {
+            logger.error("url encode错误", var5);
         }
+        Map<String, Object> codeMap = new HashMap();
+        codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
+        codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
+        codeMap.put("redirect_uri", url);
+        codeMap.put("state", WeixinAccessService.WeixinConfig.state);
+        codeMap.put("response_type", "code");
+        String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
+        codeUrl = codeUrl + "#wechat_redirect";
+        view.setUrl(codeUrl);
+        return view;
     }
 
     // 发送回调地址
@@ -88,15 +109,17 @@ public class WeixinAccessService extends BaseController {
         return echostr;
     }
 
+
+
     // 回调接口
     @RequestMapping("/weixin/authinfo")
-    public Result<Object> authLogin(String code) {
+    public Result<Object> authLogin(String code, String phone) {
         String result = this.getAccessToken(code);
         if (this.result(result).equals("NO")) {
             return new ResultUtil<>().setErrorMsg("获取code失败");
         } else {
             JSONObject jsonObj = JSONObject.parseObject(result);
-            return this.weixinReg(jsonObj.getString("access_token"), jsonObj.getString("openid"));
+            return this.weixinReg(jsonObj.getString("access_token"), jsonObj.getString("openid"), phone);
         }
     }
 
@@ -112,14 +135,14 @@ public class WeixinAccessService extends BaseController {
     }
 
     // 微信登录 获取信息
-    private Result<Object> weixinReg(String token, String openid) {
+    private Result<Object> weixinReg(String token, String openid, String phone) {
         String result = this.getAuthInfo(token, openid);
         if ("NO".equals(this.result(result))) {
             return new ResultUtil<>().setErrorMsg("登录失败");
         } else {
             User entity;
             try {
-                entity = this.buildAuthCreatMap(result);
+                entity = this.buildAuthCreatMap(result, phone);
             } catch (Exception var6) {
                 var6.printStackTrace();
                 return new ResultUtil<>().setErrorMsg("昵称解码错误");
@@ -145,8 +168,8 @@ public class WeixinAccessService extends BaseController {
     }
 
     // 构造用户信息
-    private User buildAuthCreatMap(String result) throws Exception {
-        Map<String, Object> map = new HashMap();
+    private User buildAuthCreatMap(String result, String phone) throws Exception {
+//        Map<String, Object> map = new HashMap();
         JSONObject jsonObj = JSONObject.parseObject(result);
         String weixin = jsonObj.getString("unionid");
         if (StringUtils.isEmpty(weixin)) {
@@ -172,6 +195,9 @@ public class WeixinAccessService extends BaseController {
             entity.setNickName(nickname);
             entity.setHeadUrl(headImgUrl);
             entity.setSex(sex + "");
+            if (org.apache.commons.lang3.StringUtils.isNotBlank(phone)){
+                entity.setTelphone(phone);
+            }
             this.userService.insertUser(entity);
         } else {
             if (entity.getNickName() != null && !entity.getNickName().equals(nickname)) {
@@ -182,6 +208,9 @@ public class WeixinAccessService extends BaseController {
             }
             if (entity.getSex() != null && !entity.getHeadUrl().equals(sex)) {
                 entity.setSex(sex + "");
+            }
+            if (org.apache.commons.lang3.StringUtils.isNotBlank(phone)){
+                entity.setTelphone(phone);
             }
             userService.updateUserInfo(entity);
         }

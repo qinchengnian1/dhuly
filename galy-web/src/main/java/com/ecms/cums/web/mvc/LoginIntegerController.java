@@ -59,6 +59,59 @@ public class LoginIntegerController extends BaseController {
     }
 
     /**
+     * 请求绑定手机验证码
+     * @param telephone
+     * @return
+     */
+    @CrossOrigin
+    @ResponseBody
+    @RequestMapping("/getBindingPhoneAuthCode")
+    public Result<Object> reqAuthCodeForBindingPhone(Long telephone) {
+        if (!AccountUtils.regxPhone(telephone + "")) {
+            return new ResultUtil<>().setErrorMsg("手机号不合法，请输入正确得手机号");
+        }
+        Integer flag = userService.checkUserLogin(telephone.toString());
+        if (flag != 0) {
+            return new ResultUtil<>().setErrorMsg("手机号已经存在");
+        }
+        return !this.authCodeService.sendCode(telephone.longValue(), "accountcenter:authcode:binding:phone") ? new ResultUtil<>().setErrorMsg("验证码发送频繁，请稍后再试") : new ResultUtil<>().setSuccessMsg("发送成功");
+    }
+
+    /**
+     * 请求绑定手机验证码
+     * @param telephone
+     * @return
+     */
+    @CrossOrigin
+    @ResponseBody
+    @RequestMapping("/bindingPhoneToWeiXin")
+    public Result<Object> bindingPhoneToWeiXin(Long telephone, String openId, String authCode) {
+        if (!AccountUtils.regxPhone(telephone + "")) {
+            return new ResultUtil<>().setErrorMsg("手机号不合法，请输入正确得手机号");
+        }
+        Integer key = userService.checkUserLogin(telephone.toString());
+        if (key != 0) {
+            return new ResultUtil<>().setErrorMsg("手机号已经存在");
+        }
+        key = this.userService.checkUserLoginByOpenId(openId);
+        if (key == 0) {
+            return new ResultUtil<>().setErrorMsg("openId不存在");
+        }
+        String result = this.authCodeService.compareCode(telephone, "accountcenter:authcode:binding:phone", authCode);
+        if (!"YES".equals(result)) {
+            return new ResultUtil<>().setErrorMsg("验证码错误");
+        }
+        User user = this.userService.getUserInfoByPrimaryKey(key);
+        if (user != null){
+            user.setTelphone(String.valueOf(telephone));
+        }
+        this.userService.updateUserInfo(user);
+        return new ResultUtil<>().setData(this.userService.builderInfoMap(user));
+    }
+
+
+
+    /**
      * @throws Exception
      * @Title: checkLogin
      * @Description: 验证用户是否登录  通过用户名 邮箱 登录则不操作，未登录更新本地数据库 保持与平台用户信息同步
