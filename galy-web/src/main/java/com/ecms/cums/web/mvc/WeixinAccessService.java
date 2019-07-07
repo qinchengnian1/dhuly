@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -35,7 +36,7 @@ public class WeixinAccessService extends BaseController {
 //    private static final String WEIXIN_TOKEN_CACAHE_PERFIX = "accountcenter:weixin:token";
     @Resource
     private RedisUtils redisUtils;
-    private static final Logger logger = LoggerFactory.getLogger(LoginIntegerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeixinAccessService.class);
 
     @Autowired
     private UserService userService;
@@ -43,24 +44,26 @@ public class WeixinAccessService extends BaseController {
     public WeixinAccessService() {
     }
 
-//    @RequestMapping("weixin/getcode")
-//    public Result<Object> gameServiceGuidleAuthUrl(String url) {
-//        try {
-//            url = URLEncoder.encode(url, "UTF-8");
-//            Map<String, Object> codeMap = new HashMap();
-//            codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
-//            codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
-//            codeMap.put("redirect_uri", url);
-//            codeMap.put("state", WeixinAccessService.WeixinConfig.state);
-//            String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
-//            codeUrl = codeUrl + "#wechat_redirect";
-//            return new ResultUtil<>().setSuccessMsg(codeUrl);
-//        } catch (UnsupportedEncodingException var4) {
-//            return new ResultUtil<>().setErrorMsg("回调地址错误");
-//        }
-//    }
+
+    @RequestMapping("/weixin/getcode")
+    public Result<Object> gameServiceGuidleAuthUrl(String url, String phone) {
+        try {
+            url = URLEncoder.encode(WeixinAccessService.WeixinConfig.redictUrl + "?phone=" + phone, "utf-8");
+            Map<String, Object> codeMap = new HashMap();
+            codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
+            codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
+            codeMap.put("redirect_uri", url);
+            codeMap.put("state", WeixinAccessService.WeixinConfig.state);
+            String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
+            codeUrl = codeUrl + "#wechat_redirect";
+            return new ResultUtil<>().setData(codeUrl);
+        } catch (UnsupportedEncodingException var4) {
+            return new ResultUtil<>().setErrorMsg("回调地址错误");
+        }
+    }
 
 
+   @CrossOrigin
     // 发送回调地址绑定微信
     @RequestMapping("/weixin/guidleauthforbinding")
     public RedirectView appGuidleAuthUrlForBinding(String url, String phone) {
@@ -82,6 +85,7 @@ public class WeixinAccessService extends BaseController {
         return view;
     }
 
+    @CrossOrigin
     // 发送回调地址
     @RequestMapping("/weixin/guidleauth")
     public RedirectView appGuidleAuthUrl(String url) {
@@ -143,6 +147,12 @@ public class WeixinAccessService extends BaseController {
             User entity;
             try {
                 entity = this.buildAuthCreatMap(result, phone);
+                // 判断是否绑定手机号
+                 if (org.apache.commons.lang3.StringUtils.isBlank(entity.getTelphone()) || entity.getTelphone().equals("null")){
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("openId", entity.getOpenId());
+                    return new ResultUtil<>().setData(jsonObject);
+                }
             } catch (Exception var6) {
                 var6.printStackTrace();
                 return new ResultUtil<>().setErrorMsg("昵称解码错误");
@@ -198,8 +208,10 @@ public class WeixinAccessService extends BaseController {
             if (org.apache.commons.lang3.StringUtils.isNotBlank(phone)){
                 entity.setTelphone(phone);
             }
-            this.userService.insertUser(entity);
+            Integer userId = this.userService.insertUser(entity);
+            entity.setUserId(userId);
         } else {
+
             if (entity.getNickName() != null && !entity.getNickName().equals(nickname)) {
                 entity.setNickName(nickname);
             }
@@ -212,6 +224,7 @@ public class WeixinAccessService extends BaseController {
             if (org.apache.commons.lang3.StringUtils.isNotBlank(phone)){
                 entity.setTelphone(phone);
             }
+            entity.setOpenId(weixin);
             userService.updateUserInfo(entity);
         }
         return entity;

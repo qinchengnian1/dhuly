@@ -20,6 +20,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="create_name" property="createName" jdbcType="VARCHAR" />
     <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -82,7 +83,7 @@
   <sql id="Base_Column_List" >
     user_id, user_code, password, user_name, nick_name, sex, email, card_type, idcard, 
     telphone, address, head_url, nation, state, create_time, update_time, create_name, 
-    update_name
+    update_name, open_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecms.cums.model.UserCriteria" >
     select

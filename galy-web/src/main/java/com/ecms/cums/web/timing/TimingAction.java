@@ -178,7 +178,7 @@ public class TimingAction extends BaseController {
 			e.printStackTrace();
 		}
 	}
-	@Scheduled(cron="0 0 0/1 * * ?")
+//	@Scheduled(cron="0 0 0/1 * * ?")
 	@RequestMapping(value="getOutboundGroupRoutesPush")
 	public void getOutboundGroupRoutesPush(){
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>2");

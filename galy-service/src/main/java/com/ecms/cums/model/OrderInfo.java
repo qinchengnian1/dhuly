@@ -69,6 +69,16 @@ public class OrderInfo implements Serializable {
 
 	private String goodsName;
 
+	private String orderNoGl;
+
+	public String getOrderNoGl() {
+		return orderNoGl;
+	}
+
+	public void setOrderNoGl(String orderNoGl) {
+		this.orderNoGl = orderNoGl;
+	}
+
 	public String getGoodsName() {
 		return goodsName;
 	}

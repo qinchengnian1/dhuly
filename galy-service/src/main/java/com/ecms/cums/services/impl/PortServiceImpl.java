@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.ecms.cums.core.util.IdGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,7 +122,7 @@ public class PortServiceImpl implements PortService{
 		}
 		order.setUserId(Integer.parseInt(cOrder.getUserId()));
 		order.setStoreId(cOrder.getStoreId());
-		order.setOrderNoLocal("");//本地订单编号
+		order.setOrderNoLocal(IdGenerator.INSTANCE.nextId());
 		order.setPerName(cOrder.getContactName());
 		order.setPerEmail(cOrder.getContactEmail());
 		order.setPerTel(cOrder.getContactTel());

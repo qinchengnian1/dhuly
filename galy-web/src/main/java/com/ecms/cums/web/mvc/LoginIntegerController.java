@@ -66,7 +66,7 @@ public class LoginIntegerController extends BaseController {
     @CrossOrigin
     @ResponseBody
     @RequestMapping("/getBindingPhoneAuthCode")
-    public Result<Object> reqAuthCodeForBindingPhone(Long telephone) {
+        public Result<Object> reqAuthCodeForBindingPhone(Long telephone) {
         if (!AccountUtils.regxPhone(telephone + "")) {
             return new ResultUtil<>().setErrorMsg("手机号不合法，请输入正确得手机号");
         }
