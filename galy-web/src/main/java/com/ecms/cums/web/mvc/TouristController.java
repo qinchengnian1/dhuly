@@ -63,7 +63,7 @@ public class TouristController extends BaseController{
 			if (jsonbody.get("userId") == null){
 				this.getErrorResponse(response, "无效的用户");
 			}
-			tourist = this.touristService.checkTouristList(jsonbody.getInt("userId"));
+			tourist = this.touristService.checkTouristList(Integer.parseInt(jsonbody.get("userId").toString()));
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("tourist", tourist);
 			this.getSuccessResponseJson(response, map);
