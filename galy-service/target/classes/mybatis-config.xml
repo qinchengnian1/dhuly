@@ -9,7 +9,7 @@
         <setting name="lazyLoadingEnabled" value="false" />
     </settings>
 
-    <!-- Ê¹ÓÃSpring + junit²âÊÔÊ±ºò¼ÓÔØ²»ÁËmapperÎÄ¼þ£¬¿ÉÄÜÓÉÓÚmapper.xmlºÍmapper.java²»ÔÙÍ¬Ò»Ä¿Â¼ÏÂ  -->
+    <!-- Ê¹ï¿½ï¿½Spring + junitï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½mapperï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mapper.xmlï¿½ï¿½mapper.javaï¿½ï¿½ï¿½ï¿½Í¬Ò»Ä¿Â¼ï¿½ï¿½  -->
     <!-- <mappers>
         <package name="com.ecms.cums.dao" />
         <package name="com.ecms.translate.dao" />

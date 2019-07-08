@@ -18,6 +18,7 @@ import com.ecms.cums.web.vo.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -57,36 +58,29 @@ public class AliPayService {
         return request;
     }
 
-    public static Result<Object> alipay(BaseOrderInfo order) throws AlipayApiException {
-
+    public static void alipay(BaseOrderInfo order, HttpServletResponse response) throws AlipayApiException, IOException {
         //获得初始化的AlipayClie1nt
-        AlipayClient alipayClient = new DefaultAlipayClient(
-                AlipayConfig.gatewayUrl,
-                AlipayConfig.app_id,
-                AlipayConfig.merchant_private_key,
-                "json",
-                AlipayConfig.charset,
-                AlipayConfig.alipay_public_key,
-                AlipayConfig.sign_type);
-
+        AlipayClient alipayClient = getAliClient(order);
         //设置请求参数
         AlipayTradeWapPayRequest alipayRequest = new AlipayTradeWapPayRequest();
         // 设置异步通知地址
-        alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
-        // 设置同步地址
-        //alipayRequest.setReturnUrl(AlipayConfig.return_url);
+        alipayRequest.setNotifyUrl(order.getCallBackUrl());
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + order.getOrderNoLocal() + "\","
                 + "\"total_amount\":\"" + (Float.parseFloat(order.getOnlinePrice()) / 100.0F) + "\","
                 + "\"subject\":\"" + order.getGoodsName() + "\","
                 + "\"passback_params\":\"" + order.getCallBackParam() + "\","
                 + "\"product_code\":\"QUICK_WAP_PAY\"}");
-        return new ResultUtil<>().setData(alipayClient.pageExecute(alipayRequest).getBody());
+        String result = alipayClient.pageExecute(alipayRequest).getBody();
+        response.setContentType("text/html;charset=" + AlipayConfig.charset);
+        response.getWriter().write(result);//直接将完整的表单html输出到页面
+        response.getWriter().flush();
+        response.getWriter().close();
     }
 
     private static DefaultAlipayClient getAliClient(BaseOrderInfo order) {
         if (!aliClientContainer.containsKey(order.getPayAppId())) {
-            DefaultAlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipaydev.com/gateway.do",order.getPayAppId(),
-                    order.getPayAppKey(), "json", "UTF-8", order.getPayAppAliKey(), "RSA2");
+            DefaultAlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl,order.getPayAppId(),
+                    order.getPayAppKey(), "json", AlipayConfig.charset, order.getPayAppAliKey(), "RSA2");
              aliClientContainer.putIfAbsent(order.getPayAppId(), alipayClient);
              return alipayClient;
         } else {

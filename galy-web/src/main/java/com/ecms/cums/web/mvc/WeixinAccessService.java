@@ -7,6 +7,7 @@ import com.ecms.cums.utils.*;
 import com.ecms.cums.utils.account.AccountUtils;
 import com.ecms.cums.utils.account.AppKeyProperties;
 import com.ecms.cums.utils.redis.RedisUtils;
+import com.ecms.cums.utils.weixin.WeixinConfig;
 import com.ecms.cums.web.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,15 +46,17 @@ public class WeixinAccessService extends BaseController {
     }
 
 
+    @CrossOrigin
     @RequestMapping("/weixin/getcode")
     public Result<Object> gameServiceGuidleAuthUrl(String url, String phone) {
         try {
-            url = URLEncoder.encode(WeixinAccessService.WeixinConfig.redictUrl + "?phone=" + phone, "utf-8");
+            url = URLEncoder.encode(WeixinConfig.login_redirect_uri + "?phone=" + phone, "utf-8");
             Map<String, Object> codeMap = new HashMap();
-            codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
-            codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
+            codeMap.put("appid", WeixinConfig.login_app_id);
+            codeMap.put("scope", WeixinConfig.login_scope);
             codeMap.put("redirect_uri", url);
-            codeMap.put("state", WeixinAccessService.WeixinConfig.state);
+            codeMap.put("state", WeixinConfig.login_state);
+            codeMap.put("response_type", WeixinConfig.login_repose_code);
             String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
             codeUrl = codeUrl + "#wechat_redirect";
             return new ResultUtil<>().setData(codeUrl);
@@ -63,22 +66,22 @@ public class WeixinAccessService extends BaseController {
     }
 
 
-   @CrossOrigin
-    // 发送回调地址绑定微信
+
+    @CrossOrigin
     @RequestMapping("/weixin/guidleauthforbinding")
     public RedirectView appGuidleAuthUrlForBinding(String url, String phone) {
         RedirectView view = new RedirectView();
         try {
-            url = URLEncoder.encode(WeixinAccessService.WeixinConfig.redictUrl + "?phone=" + phone, "utf-8");
+            url = URLEncoder.encode(WeixinConfig.login_redirect_uri + "?phone=" + phone, "utf-8");
         } catch (UnsupportedEncodingException var5) {
             logger.error("url encode错误", var5);
         }
         Map<String, Object> codeMap = new HashMap();
-        codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
-        codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
+        codeMap.put("appid", WeixinConfig.login_app_id);
+        codeMap.put("scope", WeixinConfig.login_scope);
         codeMap.put("redirect_uri", url);
-        codeMap.put("state", WeixinAccessService.WeixinConfig.state);
-        codeMap.put("response_type", "code");
+        codeMap.put("state", WeixinConfig.login_state);
+        codeMap.put("response_type", WeixinConfig.login_repose_code);
         String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
         codeUrl = codeUrl + "#wechat_redirect";
         view.setUrl(codeUrl);
@@ -86,21 +89,20 @@ public class WeixinAccessService extends BaseController {
     }
 
     @CrossOrigin
-    // 发送回调地址
     @RequestMapping("/weixin/guidleauth")
     public RedirectView appGuidleAuthUrl(String url) {
         RedirectView view = new RedirectView();
         try {
-            url = URLEncoder.encode(WeixinAccessService.WeixinConfig.redictUrl, "utf-8");
+            url = URLEncoder.encode(WeixinConfig.login_redirect_uri , "utf-8");
         } catch (UnsupportedEncodingException var5) {
             logger.error("url encode错误", var5);
         }
         Map<String, Object> codeMap = new HashMap();
-        codeMap.put("appid", WeixinAccessService.WeixinConfig.appid);
-        codeMap.put("scope", WeixinAccessService.WeixinConfig.scope);
+        codeMap.put("appid", WeixinConfig.login_app_id);
+        codeMap.put("scope", WeixinConfig.login_scope);
         codeMap.put("redirect_uri", url);
-        codeMap.put("state", WeixinAccessService.WeixinConfig.state);
-        codeMap.put("response_type", "code");
+        codeMap.put("state", WeixinConfig.login_state);
+        codeMap.put("response_type", WeixinConfig.login_repose_code);
         String codeUrl = AccountUtils.getUrlStr(codeMap, "https://open.weixin.qq.com/connect/oauth2/authorize?");
         codeUrl = codeUrl + "#wechat_redirect";
         view.setUrl(codeUrl);
@@ -130,8 +132,8 @@ public class WeixinAccessService extends BaseController {
     // 通过code获取授权touken
     private String getAccessToken(String code) {
         Map<String, Object> tokenMap = new HashMap();
-        tokenMap.put("appid", WeixinAccessService.WeixinConfig.appid);
-        tokenMap.put("secret", WeixinAccessService.WeixinConfig.appsercte);
+        tokenMap.put("appid", WeixinConfig.login_app_id);
+        tokenMap.put("secret", WeixinConfig.login_app_secret);
         tokenMap.put("code", code);
         tokenMap.put("grant_type", "authorization_code");
         String tokenUrl = AccountUtils.getUrlStr(tokenMap, "https://api.weixin.qq.com/sns/oauth2/access_token?");
@@ -246,29 +248,28 @@ public class WeixinAccessService extends BaseController {
         return jsonObj.getString("unionid");
     }
 
-    // 获取普通access_toke
-    private String getToken() {
-        String token = this.redisUtils.getStrOps().get("accountcenter:weixin:token");
-        return StringUtils.isEmpty(token) ? this.getTokenValue() : token;
-    }
-
-    // 获取普通access_toke
-    private String getTokenValue() {
-        Map<String, Object> regMap = new HashMap();
-        regMap.put("grant_type", "client_credential");
-        regMap.put("appid", WeixinConfig.appid);
-        regMap.put("secret", WeixinConfig.appsercte);
-        String url = AccountUtils.getUrlStr(regMap, "https://api.weixin.qq.com/cgi-bin/token?");
-        String result = HttpUtils.sendHttpGet(url);
-        JSONObject jsonObj = JSONObject.parseObject(result);
-        result = jsonObj.getString("access_token");
-        if (StringUtils.isEmpty(result)) {
-            return null;
-        } else {
-            this.redisUtils.getStrOps().setWithExpire("accountcenter:weixin:token", result, 7200L);
-            return result;
-        }
-    }
+//    // 获取普通access_toke
+//    private String getToken() {
+//        String token = this.redisUtils.getStrOps().get("accountcenter:weixin:token");
+//        return StringUtils.isEmpty(token) ? this.getTokenValue() : token;
+//    }
+//    // 获取普通access_toke
+//    private String getTokenValue() {
+//        Map<String, Object> regMap = new HashMap();
+//        regMap.put("grant_type", "client_credential");
+//        regMap.put("appid", WeixinConfig.appid);
+//        regMap.put("secret", WeixinConfig.appsercte);
+//        String url = AccountUtils.getUrlStr(regMap, "https://api.weixin.qq.com/cgi-bin/token?");
+//        String result = HttpUtils.sendHttpGet(url);
+//        JSONObject jsonObj = JSONObject.parseObject(result);
+//        result = jsonObj.getString("access_token");
+//        if (StringUtils.isEmpty(result)) {
+//            return null;
+//        } else {
+//            this.redisUtils.getStrOps().setWithExpire("accountcenter:weixin:token", result, 7200L);
+//            return result;
+//        }
+//    }
 
     private String result(String result) {
         if (StringUtils.isEmpty(result)) {
@@ -279,16 +280,16 @@ public class WeixinAccessService extends BaseController {
         }
     }
 
-    @Component
-    private static class WeixinConfig {
-        private static String appid = AppKeyProperties.get("weixin.appid");
-        private static String scope = AppKeyProperties.get("weixin.scope");
-        private static String state = AppKeyProperties.get("weixin.state");
-        private static String appsercte = AppKeyProperties.get("weixin.secret");
-        private static String redictUrl = AppKeyProperties.get("weixin.redirect_uri");
-
-        private WeixinConfig() {
-        }
-
-    }
+//    @Component
+//    private static class WeixinConfig {
+//        private static String appid = AppKeyProperties.get("weixin.appid");
+//        private static String scope = AppKeyProperties.get("weixin.scope");
+//        private static String state = AppKeyProperties.get("weixin.state");
+//        private static String appsercte = AppKeyProperties.get("weixin.secret");
+//        private static String redictUrl = AppKeyProperties.get("weixin.redirect_uri");
+//
+//        private WeixinConfig() {
+//        }
+//
+//    }
 }

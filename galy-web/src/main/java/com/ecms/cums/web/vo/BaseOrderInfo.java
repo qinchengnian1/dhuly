@@ -1,6 +1,7 @@
 package com.ecms.cums.web.vo;
 
 import com.ecms.cums.utils.account.AppKeyProperties;
+import com.ecms.cums.utils.aliyun.AlipayConfig;
 
 import java.io.Serializable;
 
@@ -20,9 +21,9 @@ public class BaseOrderInfo implements Serializable{
             this.payAppKey = AppKeyProperties.get("weixin.pay.appkey");
             this.payMchId = AppKeyProperties.get("weixin.pay.mchid");
         } else {
-            this.payAppId = AppKeyProperties.get("ali.pay.appid");
-            this.payAppKey = AppKeyProperties.get("ali.pay.appkey");
-            this.payAppAliKey = AppKeyProperties.get("ali.pay.alikey");
+            this.payAppId = AlipayConfig.app_id;
+            this.payAppKey = AlipayConfig.merchant_private_key;
+            this.payAppAliKey = AlipayConfig.alipay_public_key;
         }
         this.goodsName = goodsName;
     }

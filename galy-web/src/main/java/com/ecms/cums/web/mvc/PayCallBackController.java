@@ -8,8 +8,10 @@ import com.ecms.cums.model.Tourist;
 import com.ecms.cums.services.PortService;
 import com.ecms.cums.utils.account.AppKeyProperties;
 import com.ecms.cums.utils.aliyun.AliPayService;
+import com.ecms.cums.utils.aliyun.AlipayConfig;
 import com.ecms.cums.utils.weixin.HttpProtocolUtils;
 import com.ecms.cums.utils.weixin.WXPayService;
+import com.ecms.cums.utils.weixin.WeixinConfig;
 import com.ecms.cums.utils.weixin.XmlUtils;
 import com.ecms.cums.web.vo.OrderStatus;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +47,7 @@ public class PayCallBackController {
         }
         try {
             String orderId = (String) requestMap.get("passback_params");
-            boolean flag = AlipaySignature.rsaCheckV1(requestMap, AppKeyProperties.get("ali.alikey"), "UTF-8", "RSA2");
+            boolean flag = AlipaySignature.rsaCheckV1(requestMap, AlipayConfig.alipay_public_key, "UTF-8", "RSA2");
             if (flag) {
                 OrderStatus status = "TRADE_SUCCESS".equals(requestMap.get("trade_status")) ? OrderStatus.PAY_SUCCESS : OrderStatus.PAY_FAILTURE;
                 OrderInfo orderInfo = portService.selectOrderInfoByPrimaryKey(orderId);
@@ -79,7 +81,7 @@ public class PayCallBackController {
                     return WXPayService.mapToXml(rtnParams);
                 } else {
                     String sign = params.getString("sign");
-                    String oldSign = WXPayService.getSign(params, AppKeyProperties.get("weixin.pay.appkey"));
+                    String oldSign = WXPayService.getSign(params, WeixinConfig.pay_app_key);
                     if (!StringUtils.isEmpty(sign) && !StringUtils.isEmpty(oldSign) && sign.equals(oldSign)) {
                         OrderStatus status = "SUCCESS".equals(params.getString("result_code")) ? OrderStatus.PAY_SUCCESS : OrderStatus.PAY_FAILTURE;
                         if (orderInfo == null) {

@@ -60,6 +60,9 @@ public class TouristController extends BaseController{
 		JSONObject jsonbody = param.getJSONObject("body");
 		List<Tourist> tourist;
 		try {
+			if (jsonbody.get("userId") == null){
+				this.getErrorResponse(response, "无效的用户");
+			}
 			tourist = this.touristService.checkTouristList(jsonbody.getInt("userId"));
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("tourist", tourist);

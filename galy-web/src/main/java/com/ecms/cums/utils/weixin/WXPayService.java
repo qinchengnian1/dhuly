@@ -61,7 +61,7 @@ public class WXPayService {
         keyValues.put("total_fee", order.getOnlinePrice());
         keyValues.put("spbill_create_ip", remoteIp);
         keyValues.put("notify_url", order.getCallBackUrl());
-        keyValues.put("trade_type", "APP");
+        keyValues.put("trade_type", "MWEB");
         keyValues.put("attach", order.getCallBackParam());
         keyValues.put("sign", getSign(keyValues, order.getPayAppKey()));
         return keyValues;

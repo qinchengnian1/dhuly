@@ -15,6 +15,7 @@ import com.ecms.cums.core.util.*;
 import com.ecms.cums.utils.ResultUtil;
 import com.ecms.cums.utils.account.AppKeyProperties;
 import com.ecms.cums.utils.aliyun.AliPayService;
+import com.ecms.cums.utils.aliyun.AlipayConfig;
 import com.ecms.cums.utils.weixin.HttpProtocolUtils;
 import com.ecms.cums.utils.weixin.WXPayService;
 import com.ecms.cums.web.vo.BaseOrderInfo;
@@ -310,20 +311,6 @@ public class OrderController extends BaseController {
             String orderId = param.getString("orderId");
             if (StringUtils.isBlank(orderId)) {
                 return new ResultUtil<>().setErrorMsg("无效订单id");
-                // 生成订单
-//                Gson gson = new Gson();
-//                CreateOrderVoLocal cOrder = gson.fromJson(body.toString(), CreateOrderVoLocal.class);
-//                FunOrderLog.logger.info("验证前台请求JSON 是否传值正确");
-//                Message mes = portService.CheckOrderIsBlack(cOrder);
-//                if (!"1".equals(mes.getHeader().get("resCode"))) {
-//                    FunOrderLog.logger.info("报案请求参数>>>" + mes.getHeader().get("resMsg").toString());
-//                    return new ResultUtil<String>().setErrorMsg("订单解析失败");
-//                }
-//                OrderInfo orderInfo = new OrderInfo();
-//                orderInfo.setOrderNoLocal(IdGenerator.INSTANCE.nextId());
-//                orderInfo.setStateLocal("1");
-//                Integer orderIdNew = portService.saveOrderInfoByParams(orderInfo, cOrder);
-//                oInfo = portService.selectOrderInfoByPrimaryKey(orderIdNew.toString());
             } else {
                 oInfo = portService.selectOrderInfoByPrimaryKey(orderId);
                 if (oInfo == null){
@@ -344,30 +331,29 @@ public class OrderController extends BaseController {
      * 阿里支付
      */
     @CrossOrigin
-    @ResponseBody
-    @RequestMapping(value = "/aliorderpay", method = RequestMethod.POST, consumes = "application/json")
-    public Result<Object> createOrderByAli(HttpServletRequest request) {
+    @RequestMapping(value = "/aliorderpay")
+    public void createOrderByAli(HttpServletRequest request, HttpServletResponse response, String orderId) {
         try {
             OrderInfo oInfo = null;
-            String reqJSON;
-            reqJSON = StringReaderUtils.readFromIO(request.getInputStream());
-            FunOrderLog.logger.info("报案请求参数>>>" + reqJSON);
-            JSONObject param = JSONObject.fromObject(reqJSON);
-            String orderId = param.getString("orderId");
+//            String reqJSON;
+//            reqJSON = StringReaderUtils.readFromIO(request.getInputStream());
+//            FunOrderLog.logger.info("报案请求参数>>>" + reqJSON);
+//            JSONObject param = JSONObject.fromObject(reqJSON);
+//            String orderId = param.getString("orderId");
             if (StringUtils.isBlank(orderId)) {
-                return new ResultUtil<>().setErrorMsg("无效订单id");
+                this.getErrorResponse(response, "无效订单");
                 // 生成订单
             } else {
                 oInfo = portService.selectOrderInfoByPrimaryKey(orderId);
                 if (oInfo == null){
-                    return new ResultUtil<>().setErrorMsg("无效订单");
+                    this.getErrorResponse(response, "无效订单");
                 }
             }
-            BaseOrderInfo baseOrderInfo = new BaseOrderInfo(AppKeyProperties.get("ali.pay.callbackurl"), oInfo.getOrderId() + "", oInfo.getOrderNoLocal(), oInfo.getOnlinePrice(), 2, oInfo.getGoodsName());
-            return AliPayService.alipay(baseOrderInfo);
+            BaseOrderInfo baseOrderInfo = new BaseOrderInfo(AlipayConfig.notify_url, oInfo.getOrderId() + "", oInfo.getOrderNoLocal(), oInfo.getOnlinePrice(), 2, oInfo.getGoodsName());
+            AliPayService.alipay(baseOrderInfo,response);
         } catch (Exception e) {
             FunOrderLog.logger.error("请求流解析异常", e);
-            return new ResultUtil<>().setErrorMsg("订单解析失败");
+            this.getErrorResponse(response, "请求流解析异常");
         }
 
     }
