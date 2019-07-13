@@ -66,7 +66,7 @@ public class AliPayService {
         // 设置异步通知地址
         alipayRequest.setNotifyUrl(order.getCallBackUrl());
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + order.getOrderNoLocal() + "\","
-                + "\"total_amount\":\"" + (Float.parseFloat(order.getOnlinePrice()) / 100.0F) + "\","
+                + "\"total_amount\":\"" + (Float.parseFloat(order.getOnlinePrice()) / 10.0F) + "\","
                 + "\"subject\":\"" + order.getGoodsName() + "\","
                 + "\"passback_params\":\"" + order.getCallBackParam() + "\","
                 + "\"product_code\":\"QUICK_WAP_PAY\"}");

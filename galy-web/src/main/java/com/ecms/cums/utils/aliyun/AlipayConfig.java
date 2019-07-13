@@ -19,7 +19,7 @@ public class AlipayConfig {
 
     // 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
     //public static String app_id = "2016091600527415";
-    // 正式
+    // 正式`
     public static String app_id = "2019062465629939";
 
     // 商户私钥，您的PKCS8格式RSA2私钥
@@ -33,11 +33,9 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiy9IAfL2jhpUSzQF0s8JrJcDUT7HHuxJCWbPLyAzspjXb74inTAFMP8LBrojPf/lr+RWJuHV122xPQxc682oXqjNNqeQeie+v7Ocl/UvEdjY5xYygtc5YUP01EaVow8+yQX1tsVfSMJC2ZfrlestLh5Nygqc+oEImKtN2Xt+VoLslWEbx2bgIT4WBWy6cRraVw8FuINjfCc/yQ4nF9NfpzhP6pducuUTybZkJJhhiJ9PVXnFze9OAhpunsOSZGTMTmPbvqe1rVJZhtaCVWunxlGd0olVsGP8di4TionZqezDiMEPNe2lncGnFCKPWmxAKDFSzC9xVjEQtHaEX2RvWwIDAQAB ";
 
     // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访
-   // public static String notify_url = "http://54sbgr.natappfree.cc/web/paycallback/alipay";
+    //public static String notify_url = "http://54sbgr.natappfree.cc/web/paycallback/alipay";
     public static String notify_url = "http://ly.5138fun.com/galy-web/paycallback/alipay";
 
-    // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-//    public static String return_url = "http://39.97.196.174/redlotus-api/alipay/returnCallback";
 
     // 签名方式
     public static String sign_type = "RSA2";

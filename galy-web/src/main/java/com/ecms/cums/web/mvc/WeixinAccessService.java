@@ -5,7 +5,6 @@ import com.ecms.cums.model.User;
 import com.ecms.cums.services.UserService;
 import com.ecms.cums.utils.*;
 import com.ecms.cums.utils.account.AccountUtils;
-import com.ecms.cums.utils.account.AppKeyProperties;
 import com.ecms.cums.utils.redis.RedisUtils;
 import com.ecms.cums.utils.weixin.WeixinConfig;
 import com.ecms.cums.web.vo.Result;
@@ -47,10 +46,14 @@ public class WeixinAccessService extends BaseController {
 
 
     @CrossOrigin
-    @RequestMapping("/weixin/getcode")
-    public Result<Object> gameServiceGuidleAuthUrl(String url, String phone) {
+    @RequestMapping("/weixin/getAuthUrl")
+    public Result<Object> returnAuthUrl(String url, String phone) {
         try {
-            url = URLEncoder.encode(WeixinConfig.login_redirect_uri + "?phone=" + phone, "utf-8");
+            if (org.apache.commons.lang3.StringUtils.isBlank(url)){
+                url = URLEncoder.encode(WeixinConfig.login_redirect_uri + "?phone=" + phone, "utf-8");
+            } else {
+                url = URLEncoder.encode(url+ "?phone=" + phone, "utf-8");
+            }
             Map<String, Object> codeMap = new HashMap();
             codeMap.put("appid", WeixinConfig.login_app_id);
             codeMap.put("scope", WeixinConfig.login_scope);
