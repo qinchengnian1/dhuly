@@ -488,12 +488,12 @@
                     if (tomorrow == tdId) d = '明天';
                     // 今天（开始日期）与设置的结束日期之间的日期
                     // 为可操作，且显示价格、库存
-                    // if (tdId >= startDay && tdId <= endDay) {
+                     if (tdId >= startDay && tdId <= endDay) {
                         html += '<td class="valid-hook" data-week="' + (k - 1) + '" data-id="' + tdId + '"><b><a href="' + baseUrl + '/productManage/deleteTreamDetail?tdId=' + tdId + '">' + d + '</a></b><div class="data-hook"></div></td>';
-                    // } else {
-                    //     html += '<td class="disabled"><b>' + d + '</b></td>';
-                    //     dayOptions.disabled = true
-                    // }
+                     } else {
+                         html += '<td class="disabled"><b>' + d + '</b></td>';
+                         dayOptions.disabled = true
+                     }
                     currentMonthData.data.push(dayOptions)
                 } else {
                     html += '<td>&nbsp;</td>';
@@ -718,12 +718,11 @@
 
 
         // 批量设置
-        // this.calendar.on('click', '.btn-batch', function () {
-        //
-        //   me.settingWindow.show();
-        //   verticalCenter(me.settingWindow.find('.cddsw-container'));
-        //   initSettingWindow();
-        // })
+        this.calendar.on('click', '.btn-batch', function () {
+          me.settingWindow.show();
+          verticalCenter(me.settingWindow.find('.cddsw-container'));
+          initSettingWindow();
+        })
 
         // 获取点击日期数据
         // 渲染设置框内容
@@ -858,7 +857,7 @@
                 var $dateSetWrapper = $(this).closest('.cddsw-container');
 
                 // 当前显示的设置日期
-                // var thisDate = $dateSetWrapper.find('.cddsw-title').text();
+                 var thisDate = $dateSetWrapper.find('.cddsw-title').text();
                 // 表单数据
                 var formData = {};
                 $dateSetWrapper.find('.cddsw-form-wrapper [name]').each(function () {
@@ -870,7 +869,6 @@
                     }
                     formData[key] = val;
                 })
-
                 // 批量设置$对象
                 var $batch = $('.cddsw-batch-settings');
                 // 日期范围
@@ -886,13 +884,24 @@
                 $batch.find('.bs-week-chekbox ._active').each(function () {
                     weeks.push($(this).data('value'));
                 });
-
+                // if (weeks.length <= 0) {
+                //     console.log("我没有选择周")
+                // } else {
+                //     console.log("我选择周啦")
+                // }
+                // console.log(weeks)
                 // 单日多选项
                 var daySelcetArr = [];
                 $dateSetWrapper.find('.bs-days-select ._active').each(function () {
                     daySelcetArr.push($(this).text())
                 })
-
+                // if (daySelcetArr.length <= 0) {
+                //     console.log("我没有选择单日多选")
+                // } else {
+                //     console.log("我选择单日多选")
+                // }
+                // console.log(daySelcetArr)
+                // console.log(startDay, endDay)
                 // 设置数据
                 var data = {
                     formData: formData,
@@ -922,10 +931,10 @@
             //不启用日期范围
             if (!IS_ENABLE) {
                 // 日期范围
-                var setDateRange = me.handleSetDateRangeData(data.startDay, data.endDay);
-                if (setDateRange) {
-                    setDateRangeArr = setDateRange;
-                }
+                // var setDateRange = me.handleSetDateRangeData(data.startDay, data.endDay);
+                // if (setDateRange) {
+                //     setDateRangeArr = setDateRange;
+                // }
                 // 周n未设置，直接处理当天数据
                 if (data.weeks.length > 0) {
                     // 处理与周n设置的交集
@@ -1034,12 +1043,8 @@
     fn._getInitDaysRange2 = function (endDay, startDay) {
         var arr = [];
         var sMsec = new Date(startDay).getTime();
-        console.log("endDay22121212", this.startDate);
         var eMsec = new Date(endDay).getTime();
-        console.log("sMsec", sMsec);
-        console.log("eMsec", eMsec);
         var days = (eMsec - sMsec) / ONE_DAY_MSEC + 1;
-        console.log("days", days);
         var date;
         for (var i = 0; i < days; i++) {
             date = new Date(sMsec + i * ONE_DAY_MSEC);
@@ -1068,7 +1073,6 @@
                 arr.push(val);
             }
         });
-        console.log("arr", arr);
         return arr;
     };
 
@@ -1137,14 +1141,13 @@
         // log(dateArr)
         var arr = dateArr || [];
         var len = arr.length;
-
         if (len === 0) {
             setData.date = currentDay;
             this._updateThisData(setData);
         } else {
             for (var i = 0; i < len; i++) {
                 // 更新this.data
-                this._updateThisData(setData, arr[i]);
+                this._updateThisData(setData,arr[i]);
             }
         }
 

@@ -142,7 +142,6 @@
 	<script src="${ctx }/static/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		$('.navBarLi').on('click',function(){
-			console.log($(this)[0].children[0].dataset.url)
 			var url = $(this)[0].children[0].dataset.url
 			$("#iframe_frames").attr('src',url);
 		});

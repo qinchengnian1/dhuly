@@ -421,7 +421,6 @@ var baseUrl = "${ctx }";
 				},
 				success : function(productList){
 					if(num==1){
-						console.log(productList);
 						var eId=productList.body.eId
 							$.post("${ctx}/productManage/updataProducInfo",{
 								'status':$("#status").val(),
@@ -557,14 +556,11 @@ var baseUrl = "${ctx }";
 					    url: baseUrl+"/productManage/deleteTreamDetailAll?delstartDay="+delstartDay+"&delendDay="+delendDay,
 					    type: 'POST',
 					    success: function(data){
-					    	console.log("data111",data);
 			        	$.ajax({
 					        url: baseUrl+"/productManage/updataTreamDetail",
 					        type: 'POST',
 					        success: function(data){
-					        	console.log("data",data);
 					        	$('.capricorncd-date-detailed-settings').remove();
-					        	console.log("data2222");
 					        	treamList=JSON.parse(data).body.treamDetail;
 					        	 var script = document.createElement("script"); 
 								 script.src = "${ctx}/static/calendar-price/calendar-price.js";
@@ -627,7 +623,6 @@ var baseUrl = "${ctx }";
 		if (reason === "unsupported-file-type") {
 			msg = "Unsupported format " + detail;
 		} else {
-			// console.log("error uploading file", reason, detail);
 		}
 		$("<div class='alert'> <button type='button' class='close' data-dismiss='alert'>&times;</button>" + "<strong>File upload error</strong> " + msg + " </div>").prependTo("#alerts");
 	}

@@ -123,8 +123,8 @@ var styleConfig = {
 // 初始化日历
 var zxCalendar = $.CalendarPrice({
   el: '.container',
-  // startDate: '2017-08-02',
-  endDate: '2018-12-31',
+  //startDate: '2017-08-02',
+  //endDate: '2018-12-31',
   data: MOCK_DATA,
   // 配置需要设置的字段名称
   config: calendarConfig,
@@ -132,6 +132,7 @@ var zxCalendar = $.CalendarPrice({
   show: showConfig,
   // 点击确定时的回调函数，返回当前设置数据
   callback: function (data){
+      console.log(data)
 	  $.ajax({
 		  	url:baseUrl+"/productManage/addTreamDetail/",
 			type: 'POST',
