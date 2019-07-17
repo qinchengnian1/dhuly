@@ -2,6 +2,7 @@ package com.ecms.cums.services;
 
 import java.util.List;
 
+import com.ecms.cums.core.util.StringUtil;
 import com.ecms.cums.model.EShop;
 import com.ecms.cums.model.OrderInfo;
 import com.ecms.cums.model.Product;
@@ -134,4 +135,8 @@ public interface PortService {
 
 	TreamDetail SelectTreamDetailByPrimaryId(Integer parseInt);
 
+	/**
+	 * 根据订单号查询
+	 */
+	OrderInfo getOrderInfoByOrderNo(String orderNo);
 }

@@ -50,7 +50,7 @@ public class AliPayService {
         AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
         model.setSubject(order.getGoodsName());
         model.setOutTradeNo(order.getOrderNoLocal());
-        model.setTotalAmount(String.valueOf(Float.parseFloat(order.getOnlinePrice()) / 100.0F));
+        model.setTotalAmount(String.valueOf(Float.parseFloat(order.getOnlinePrice())));
         model.setProductCode("QUICK_MSECURITY_PAY");
         model.setPassbackParams(String.valueOf(order.getCallBackParam()));
         request.setBizModel(model);
@@ -64,7 +64,8 @@ public class AliPayService {
         //设置请求参数
         AlipayTradeWapPayRequest alipayRequest = new AlipayTradeWapPayRequest();
         // 设置异步通知地址
-        alipayRequest.setNotifyUrl(order.getCallBackUrl());
+//        alipayRequest.setNotifyUrl(order.getCallBackUrl());
+        alipayRequest.setReturnUrl(order.getCallBackUrl());
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + order.getOrderNoLocal() + "\","
                 + "\"total_amount\":\"" + (Float.parseFloat(order.getOnlinePrice()) / 10.0F) + "\","
                 + "\"subject\":\"" + order.getGoodsName() + "\","

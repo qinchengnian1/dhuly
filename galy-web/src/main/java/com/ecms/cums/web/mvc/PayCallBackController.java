@@ -5,6 +5,7 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.ecms.cums.logutils.FunOrderLog;
 import com.ecms.cums.model.OrderInfo;
 import com.ecms.cums.model.Tourist;
+import com.ecms.cums.services.OrderService;
 import com.ecms.cums.services.PortService;
 import com.ecms.cums.utils.account.AppKeyProperties;
 import com.ecms.cums.utils.aliyun.AliPayService;
@@ -17,6 +18,7 @@ import com.ecms.cums.web.vo.OrderStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,21 @@ public class PayCallBackController {
 
     @Autowired
     private PortService portService;
+
+    @RequestMapping("/webAppNotice")
+    public void webAppNotice(@RequestParam Map<String, Object> map){
+        String outTradeNo = map.get("out_trade_no") == null?"":map.get("out_trade_no").toString();
+        if (StringUtils.isBlank(outTradeNo)){
+            return;
+        }
+        OrderInfo orderInfo = portService.getOrderInfoByOrderNo(outTradeNo);
+        if (orderInfo == null){
+            return;
+        }
+        paySuccess(orderInfo);
+    }
+
+
 
     @RequestMapping("/alipay")
     public String aliPayCallBack(HttpServletRequest request){

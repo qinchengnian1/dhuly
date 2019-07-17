@@ -349,7 +349,7 @@ public class OrderController extends BaseController {
                     this.getErrorResponse(response, "无效订单");
                 }
             }
-            BaseOrderInfo baseOrderInfo = new BaseOrderInfo(AlipayConfig.notify_url, oInfo.getOrderId() + "", oInfo.getOrderNoLocal(), oInfo.getOnlinePrice(), 2, oInfo.getGoodsName());
+            BaseOrderInfo baseOrderInfo = new BaseOrderInfo(AlipayConfig.return_url, oInfo.getOrderId() + "", oInfo.getOrderNoLocal(), oInfo.getOnlinePrice(), 2, oInfo.getGoodsName());
             AliPayService.alipay(baseOrderInfo,response);
         } catch (Exception e) {
             FunOrderLog.logger.error("请求流解析异常", e);

@@ -395,5 +395,17 @@ public class PortServiceImpl implements PortService{
 		return treamDetailMapper.selectByPrimaryKey(tId);
 	}
 
+	@Override
+	public OrderInfo getOrderInfoByOrderNo(String orderNo) {
+		OrderInfoCriteria criteria = new OrderInfoCriteria();
+		OrderInfoCriteria.Criteria c = criteria.createCriteria();
+		c.andOrderNoLocalEqualTo(orderNo);
+		List<OrderInfo> orderInfos =orderInfoMapper.selectByExample(criteria);
+		if (orderInfos == null || orderInfos.isEmpty()){
+			return null;
+		}
+		return orderInfos.get(0);
+	}
+
 
 }
