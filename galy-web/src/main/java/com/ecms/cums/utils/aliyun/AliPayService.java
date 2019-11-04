@@ -1,21 +1,14 @@
 package com.ecms.cums.utils.aliyun;
 
-import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.alipay.api.domain.AlipayTradeWapPayModel;
-import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
-import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeWapPayResponse;
-import com.ecms.cums.model.OrderInfo;
-import com.ecms.cums.utils.account.AppKeyProperties;
 import com.ecms.cums.utils.ResultUtil;
 import com.ecms.cums.web.vo.BaseOrderInfo;
 import com.ecms.cums.web.vo.Result;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
